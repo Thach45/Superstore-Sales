@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <title>Dashboard</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Dashboard</h1>
-                {%for i in users%}
-                <h2>{{i.name}}</h2>
-                <h2>{{i.email}}</h2>
-                {%endfor%}
-                
-                <a href="logout.php" class="btn btn-danger">Logout</a>
-            </div>
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<link href="{{ url_for('static', filename='style/dashboard.css') }}" rel="stylesheet">
+<div class="card mb-3">
+    <div class="card-header">Tổng Quan</div>
+    <div class="row mt-3">
+        <div class="col-9"></div>
+        <div class="col-3">
+            <a href="account/create" class="btn btn-outline-success">+ Thêm mới</a>
         </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    </div>
+    <div class="card-body">
+        <div class="quantity-Customer col-3">
+           <h4 class="titleCustomer">CUSTOMERS</h4>
+            <h4 class="quantityCustomer">100</h4>
+        </div> 
+    </div>
+</div>
+{% endblock %}

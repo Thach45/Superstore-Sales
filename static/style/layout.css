@@ -1,0 +1,30 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+aside {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+main {
+    padding: 20px;
+}
+
+.sider-Dashboard {
+    height: 100vh;
+}
+.main-Dashboard {
+    height: 100vh;
+}
