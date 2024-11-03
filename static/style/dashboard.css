@@ -1,5 +1,49 @@
+.info-summary{
+    display: flex;
+   
+    margin-top: 20px;
+}
 .quantity-Customer .titleCustomer{
     font-size: 20px;
     font-weight: 600;
     color: #000;
+}
+.quantity-Customer .quantityCustomer{
+    font-size: 15px;
+    font-weight: 600;
+    color: #07651e;
+}
+.quantity-Product .titleProduct{
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}
+.quantity-Product .quantityProduct{
+    font-size: 15px;
+    font-weight: 600;
+    color: #07651e;
+}
+.title-chart{
+    font-size: 20px;
+    color: #000;
+    padding: 15px 12px 0px 25px;
+    margin-left: 20px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+
+
+}
+.chart{
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.list-report a{
+    padding: 5px 40px;
+    color: #000;
+    font-size: 18px;
+    border-top: 1px solid #575656;
+    display: block;
 }
