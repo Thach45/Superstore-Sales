@@ -26,18 +26,24 @@
         Doanh thu bán hàng
     </div>
     <div class="card-body text-center">
-      <img src="{{ image_url }}" class="chart">
+      <img src="{{ image_url_plot }}" class="chart">
     </div>
 </div>
 <div class="card mb-3">
     <div class="card-body row title-chart">
         Báo cáo khác
     </div>
-    <div class="card-body list-report">
-        <a href="#">Xem báo cáo 1 - Báo cáo doanh thu theo tháng</a>
-        <a href="#">Xem báo cáo 2 - Báo cáo tổng doanh thu theo năm</a>
-        <a href="#">Xem báo cáo 3 - Báo cáo sản phẩm bán chạy</a>
+    <div class="chart-other">
+            <div class="chart-tranferpot">
+                <img src="{{image_url_pie}}">
+            </div>  
+            <div class="chart-tranferpot">
+                <img src="{{image_url_pie}}">
+            </div>  
+            <div class="chart-tranferpot">
+                <img src="{{image_url_pie}}">
+            </div>      
     </div>
-    </div>
+    
 </div>
 {% endblock %}

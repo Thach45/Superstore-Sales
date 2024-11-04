@@ -6,42 +6,63 @@
     <title>{% block title %}My App{% endblock %}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='style/layout.css') }}" rel="stylesheet">
+    
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">My App</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
     <div class="container-fluid">
         <div class="row">
-            <aside class="col-md-2 bg-light sider-Dashboard">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
-                    <a href="#" class="list-group-item list-group-item-action">Profile</a>
-                    <a href="#" class="list-group-item list-group-item-action">Settings</a>
-                    <a href="#" class="list-group-item list-group-item-action">Logout</a>
+            <div class="sidebar col-2">
+                <div class="sidebar-content">
+                  <ul class="lists">
+                    <li class="btn-create">
+                        <a href="/create" class="nav-create">
+                          <i class="bx bx-message-rounded icon"></i>
+                          <span class="title">Create</span>
+                        </a>
+                    </li>
+
+
+                    <li class="list">
+                      <a href="/home" class="nav-link">
+                        <i class="bx bx-home-alt icon"></i>
+                        <span class="link">Dashboard
+                        </span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="#" class="nav-link">
+                        <i class="bx bx-bar-chart-alt-2 icon"></i>
+                        <span class="link">Khách hàng</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="#" class="nav-link">
+                        <i class="bx bx-bell icon"></i>
+                        <span class="link">Khu vực</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="#" class="nav-link">
+                        <i class="bx bx-pie-chart-alt-2 icon"></i>
+                        <span class="link">Analytics</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="#" class="nav-link">
+                        <i class="bx bx-heart icon"></i>
+                        <span class="link">Likes</span>
+                      </a>
+                    </li>
+                    <li class="list">
+                      <a href="#" class="nav-link">
+                        <i class="bx bx-folder-open icon"></i>
+                        <span class="link">Files</span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-            </aside>
+              </div>
             <main class="col-md-10 main-Dashboard">
                 {% block content %}{% endblock %}
             </main>

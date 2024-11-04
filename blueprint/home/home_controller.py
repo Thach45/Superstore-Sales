@@ -16,5 +16,15 @@ def home():
     image_path = os.path.join(current_app.root_path, 'static', 'images', 'sales.png')
     plt.savefig(image_path)
     plt.close()
-    image_url = url_for('static', filename='images/sales.png')
-    return render_template('dashboard.html', image_url=image_url)
+    #tạo biểu đồ tròn
+    labels = ['A', 'B', 'C', 'D']
+    values = [20, 30, 40, 10]
+    plt.figure(figsize=(3, 3))
+    plt.pie(values, labels=labels, autopct='%1.1f%%')
+    plt.title('Các cách vận chuyển')
+    image_path = os.path.join(current_app.root_path, 'static', 'images', 'pie.png')
+    plt.savefig(image_path)
+    plt.close()
+    image_url_pie = url_for('static', filename='images/pie.png')
+    image_url_plot = url_for('static', filename='images/sales.png')
+    return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie)

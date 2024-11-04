@@ -1,3 +1,3 @@
 from flask import render_template
 def home():
-    return render_template('dashboard.html')
+    return render_template('search.html')

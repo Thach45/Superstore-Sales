@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Tìm Kiếm{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='style/search.css') }}" rel="stylesheet">
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="search">
+            <input type="text" class="searchTerm" placeholder="What are you looking for?">
+            <button type="submit" class="searchButton">
+              <i class="bx bx-search"></i>
+            </button>
+         </div>
+    </div>
+</div>
+{% endblock %}

@@ -47,3 +47,9 @@
     border-top: 1px solid #575656;
     display: block;
 }
+.chart-other{
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #fff;
+    display: flex;
+}
