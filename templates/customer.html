@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}Danh sách khách hàng{% endblock %}
+
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static', filename='style/customer.css')}}">
+<div class="container mt-5">
+    <div class="card mb-3">
+        <div class="card-body row title-chart">
+            Báo cáo khác
+        </div>
+        <div class="chart-other">
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static' ,filename="images/pie.png")}}">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename="images/pie.png")}}">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename="images/pie.png")}}">
+                </div>      
+        </div>
+        
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <form class="d-flex col-5" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+        </div>
+    </div>
+    <table class="table table-hover table-sm">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>ID Customer</th>
+                <th>Segment</th>
+                <th>Country</th>
+                <th>Quantity
+                    <span class="icon">
+                        <i class="fas fa-sort" name="desc"></i>
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nguyen Van a</td>
+                    <td>CG-12520</td>
+                    <td>Consumer</td>
+                    <td>United States</td>
+                    <td>100</td>
+                    <td>
+                        <a href="/admin/products/edit/1" class="btn btn-warning btn-sm">Sửa</a>
+                        <button class="btn btn-danger btn-sm ml-2" data-id="1" id="button-delete">Xoá</button>
+                    </td>
+                </tr>
+                <!-- End of product row -->
+            </tbody>
+        </table>
+    </div>
+{%endblock%}

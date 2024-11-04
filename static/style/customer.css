@@ -1,0 +1,29 @@
+.chart-other{
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #fff;
+    display: flex;
+}
+.chart{
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.list-report a{
+    padding: 5px 40px;
+    color: #000;
+    font-size: 18px;
+    border-top: 1px solid #575656;
+    display: block;
+}
+.title-chart{
+    font-size: 20px;
+    color: #000;
+    padding: 15px 12px 0px 25px;
+    margin-left: 20px;
+    font-weight: 600;
+    font-family: "Roboto", sans-serif;
+
+}
