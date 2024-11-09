@@ -1,136 +1,61 @@
-/* Reset CSS */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5a623;
+  --background-color: #f0f2f5;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --text-light: #666666;
+  --sidebar-width: 250px;
+}
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
 body {
-    font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  display: flex;
 }
-
-header {
-    margin-bottom: 20px;
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--card-background);
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
 }
-
-aside {
-    padding: 20px;
-    background-color: #f8f9fa;
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 30px;
 }
-
-main {
-    padding: 20px;
+.sidebar-menu {
+  list-style-type: none;
 }
-
-.sider-Dashboard {
-    height: 100vh;
+.sidebar-menu li {
+  margin-bottom: 15px;
 }
-.main-Dashboard {
-    height: 100vh;
-    padding-top: 0px;
+.sidebar-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
-
-
-/* ---*/
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 70px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background: #fff;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo .menu-icon {
-    color: #333;
-    font-size: 24px;
-    margin-right: 14px;
-    cursor: pointer;
-  }
-  .logo .logo-name {
-    color: #333;
-    font-size: 22px;
-    font-weight: 500;
-  }
-  nav .sidebar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    height: 100vh;
-    width: 260px;
-    padding: 20px 0;
-    background-color: #fff;
-    box-shadow: 0 5px 1px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s ease;
-  }
-  .sidebar .sidebar-content {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 16px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-  }
-  .sidebar-content .list {
-    list-style: none;
-  }
-  .list .nav-link {
-    display: flex;
-    align-items: center;
-    margin: 8px 0;
-    padding: 14px 12px;
-    border-radius: 8px;
-    text-decoration: none;
-  }
-  .lists .nav-link:hover {
-    background-color: #4070f4;
-  }
-  .nav-link .icon {
-    margin-right: 14px;
-    font-size: 20px;
-    color: #080000;
-  }
-  .nav-link .link {
-    font-size: 18px;
-    color: #0a0909;
-    font-weight: 400;
-  }
-  .lists .nav-link:hover .icon,
-  .lists .nav-link:hover .link {
-    color: #fff;
-  }
-
-.btn-create{
-    background-color: #f8f9fa;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 500;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    display: block;
-    text-align: center;
+.sidebar-menu a:hover {
+  color: var(--primary-color);
 }
-.btn-create .title{
-    font-size: 18px;
-    color: #0a0909; 
+.sidebar-menu i {
+  margin-right: 10px;
 }
-.btn-create:hover {
-    animation: fadeInCreate 0.5s forwards;
-    text-decoration: none;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.main-content {
+  flex-grow: 1;
+  margin-left: var(--sidebar-width);
+  padding: 20px;
 }
-@keyframes fadeInCreate {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.2);
-    }
-  }

@@ -9,64 +9,22 @@
     <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="sidebar col-2">
-                <div class="sidebar-content">
-                  <ul class="lists">
-                    <li class="btn-create">
-                        <a href="/create" class="nav-create">
-                          <i class="bx bx-message-rounded icon"></i>
-                          <span class="title">Create</span>
-                        </a>
-                    </li>
-
-
-                    <li class="list">
-                      <a href="/home" class="nav-link">
-                        <i class="bx bx-home-alt icon"></i>
-                        <span class="link">Dashboard
-                        </span>
-                      </a>
-                    </li>
-                    <li class="list">
-                      <a href="/customer" class="nav-link">
-                        <i class="bx bx-bar-chart-alt-2 icon"></i>
-                        <span class="link">Khách hàng</span>
-                      </a>
-                    </li>
-                    <li class="list">
-                      <a href="#" class="nav-link">
-                        <i class="bx bx-bell icon"></i>
-                        <span class="link">Khu vực</span>
-                      </a>
-                    </li>
-                    <li class="list">
-                      <a href="#" class="nav-link">
-                        <i class="bx bx-pie-chart-alt-2 icon"></i>
-                        <span class="link">Sản phẩm</span>
-                      </a>
-                    </li>
-                    <li class="list">
-                      <a href="#" class="nav-link">
-                        <i class="bx bx-heart icon"></i>
-                        <span class="link">Likes</span>
-                      </a>
-                    </li>
-                    <li class="list">
-                      <a href="#" class="nav-link">
-                        <i class="bx bx-folder-open icon"></i>
-                        <span class="link">Files</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            <main class="col-md-10 main-Dashboard">
-                {% block content %}{% endblock %}
-            </main>
-        </div>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+        Sales Analytics
     </div>
+    <ul class="sidebar-menu">
+      <li><a href="/home"><i>🏠</i> Trang chủ</a></li>
+      <li><a href="#"><i>🛒</i> Đơn hàng</a></li>
+      <li><a href="/customer"><i>👥</i> Khách hàng</a></li>
+      <li><a href="#"><i>📦</i> Sản phẩm</a></li>
+      <li><a href="/create"><i>➕</i> Create</a></li>
+    </ul>
+    
+  </aside>
+  <main class="main-content">
+      {% block content %}{% endblock %}
+  </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

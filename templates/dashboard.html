@@ -4,46 +4,93 @@
 
 {% block content %}
 <link href="{{ url_for('static', filename='style/dashboard.css') }}" rel="stylesheet">
-<div class="card mb-3">
-   
-    <div class="card-body">
-        <div class="info-summary">
-            <div class="quantity-Customer col-3 text-center">
-            <h4 class="titleCustomer">CUSTOMERS</h4>
-                <i><h4 class="quantityCustomer ">100</h4></i>
-            </div> 
-
-            <div class="quantity-Product col-3 text-center">
-                <h4 class="titleProduct">PRODUCTS</h4>
-                <i><h4 class="quantityProduct">100</h4></i>
+<div class="container">
+    <main class="dashboard">
+        <section class="card">
+            <h2>Tổng Quan</h2>
+            <div class="kpi-container">
+                <div class="kpi-item">
+                    <div class="kpi-value">5,234</div>
+                    <div class="kpi-label">Đơn Hàng</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value">₫123Tr</div>
+                    <div class="kpi-label">Doanh Thu</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value">1,234</div>
+                    <div class="kpi-label">Khách Hàng</div>
+                </div>
             </div>
-        </div>
-    </div>
-
-</div>
-<div class="card mb-3">
-    <div class="card-body row title-chart">
-        Doanh thu bán hàng
-    </div>
-    <div class="card-body text-center">
-      <img src="{{ image_url_plot }}" class="chart">
-    </div>
-</div>
-<div class="card mb-3">
-    <div class="card-body row title-chart">
-        Báo cáo khác
-    </div>
-    <div class="chart-other">
-            <div class="chart-tranferpot">
-                <img src="{{image_url_pie}}">
-            </div>  
-            <div class="chart-tranferpot">
-                <img src="{{image_url_pie}}">
-            </div>  
-            <div class="chart-tranferpot">
-                <img src="{{image_url_pie}}">
-            </div>      
-    </div>
-    
+            <img src="{{ url_for('static', filename='images/sales.png') }}" alt="Dashboard">
+        </section>
+        <section class="card">
+            <h2>Sản Phẩm Bán Chạy</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Doanh Thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Áo Thun Nam</td>
+                        <td>1,234</td>
+                        <td>₫123,400,000</td>
+                    </tr>
+                    <tr>
+                        <td>Quần Jean Nữ</td>
+                        <td>987</td>
+                        <td>₫98,700,000</td>
+                    </tr>
+                    <tr>
+                        <td>Giày Thể Thao</td>
+                        <td>765</td>
+                        <td>₫76,500,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="card">
+            <h2>Phân Bổ Doanh Thu</h2>
+            <img class="chartPie" src="{{ url_for('static', filename='images/pie.png') }}" alt="Dashboard">
+        </section>
+        <section class="card">
+            <h2>Xu Hướng Bán Hàng</h2>
+            <img src="{{ url_for('static', filename='images/sales.png') }}" alt="Dashboard">
+        </section>
+        <section class="card">
+            <h2>Đơn Hàng Gần Đây</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Đơn</th>
+                        <th>Khách Hàng</th>
+                        <th>Tổng Tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1234</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>₫1,230,000</td>
+                       
+                    </tr>
+                    <tr>
+                        <td>#1235</td>
+                        <td>Trần Thị B</td>
+                        <td>₫4,560,000</td>
+                    </tr>
+                    <tr>
+                        <td>#1236</td>
+                        <td>Lê Văn C</td>
+                        <td>₫7,890,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
 </div>
 {% endblock %}
