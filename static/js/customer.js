@@ -6,7 +6,7 @@ if (formSearch) {
         let search = document.querySelector('.search').value;
         
         if (search) {
-            if (search[0] =="C") {
+            if (search[2] =="-") {
                 window.location.href = '/search?IDCustomer=' + encodeURIComponent(search);
             }
             else
