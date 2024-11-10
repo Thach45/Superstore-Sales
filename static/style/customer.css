@@ -240,3 +240,8 @@ td:last-child, th:last-child {
         margin-bottom: 10px;
     }
 }
+.pagination{
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+}
