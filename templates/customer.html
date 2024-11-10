@@ -5,33 +5,47 @@
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{url_for('static', filename='style/customer.css')}}">
-<div class="container mt-5">
-    <div class="card mb-3">
-        <div class="card-body row title-chart">
-            {{data}}
-        </div>
-        <div class="chart-other">
-                <div class="chart-tranferpot">
-                    <img src="{{url_for('static' ,filename="images/pie.png")}}">
-                </div>  
-                <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename="images/pie.png")}}">
-                </div>  
-                <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename="images/pie.png")}}">
-                </div>      
-        </div>
-        
-    </div>
-    <div class="card mb-3">
+<div class="container">
+    <div class="card">
         <div class="card-body">
-            <form class="d-flex col-5 form-Search" role="search">
-                <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+            <div class="title-chart">Data Visualization</div>
+            <div class="chart-other">
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                </div>      
+            </div>   
         </div>
     </div>
-    <table class="table table-hover table-sm">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-Search" role="search">
+                <input class="search" type="search" placeholder="Tìm kiếm khách hàng..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+            <div class="filter">
+                <select class="segmentFilter form-select" >
+                    <option value="">Tất cả Segment</option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Home Office">Home Office</option>
+                </select>
+                <select class="countryFilter form-select" >
+                    <option value="">Tất cả Country</option>
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Mexico">Mexico</option>
+                </select>
+                <button id="applyFilters" class="custom-button">Áp dụng</button>
+            </div>
+        </div>    
+    </div>
+    <table>
         <thead>
             <tr>
                 <th>STT</th>
@@ -49,22 +63,21 @@
         </thead>
         <tbody>
             {% for customer in records %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ customer.Name }}</td>
-                <td>{{customer.IDCustomer}}</td>
-                <td>{{ customer.Segment }}</td>
-                <td>{{ customer.Country }}</td>
-                <td>{{ customer.Quantity }}</td>
-                <td>
-                    <a href="/admin/products/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
-                    <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
-                </td>
-            </tr>
-            {% endfor %}
-                <!-- End of product row -->
-            </tbody>
-        </table>
-    </div>
-    <script src="{{url_for('static', filename='js/customer.js')}}"></script>
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ customer.Name }}</td>
+                    <td>{{ customer.IDCustomer }}</td>
+                    <td>{{ customer.Segment }}</td>
+                    <td>{{ customer.Country }}</td>
+                    <td>{{ customer.Quantity }}</td>
+                    <td>
+                        <a href="/admin/products/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="{{url_for('static', filename='js/customer.js')}}"></script>
 {%endblock%}

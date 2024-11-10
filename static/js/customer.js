@@ -2,6 +2,10 @@ formSearch = document.querySelector('.form-Search');
 
 let sortElement = document.querySelector('.btn-sort'); // Giả sử phần tử sort có class là 'sort-element'
 let sortAscending = true; // Biến để theo dõi trạng thái hiện tại
+const filterCountry = document.querySelector('.countryFilter');
+const filterSegment = document.querySelector('.segmentFilter');
+const applyFilter = document.querySelector('#applyFilters');
+//chức năng tìm kiếm
 if (formSearch) {
     formSearch.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -18,6 +22,7 @@ if (formSearch) {
         }
     });
 }
+//chức năng sort
 if (sortElement) {
     sortElement.addEventListener('click', function () {
         if (sortElement) {
@@ -33,4 +38,12 @@ if (sortElement) {
         }
     });
 }
-
+//chức năng filter
+if (applyFilter) {
+    applyFilter.addEventListener('click', function () {
+        let country = filterCountry.value;
+        let segment = filterSegment.value;
+        window.location.href = '/filter?Country=' + country + '&Segment=' + segment;
+       
+    });
+}
