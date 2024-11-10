@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}{{data}}{% endblock %}
+{% block title %}Khách hàng{% endblock %}
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ customer.Name }}</td>
-                <td>{{ customer.IdCustomer }}</td>
+                <td>{{data}}</td>
                 <td>{{ customer.Segment }}</td>
                 <td>{{ customer.Country }}</td>
                 <td>{{ customer.Quantity }}</td>
