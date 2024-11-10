@@ -4,7 +4,7 @@ from flask_pymongo import PyMongo as mongo
 def Sort():
     mongo = current_app.config['MONGO']
     #sort_field = request.args.get('field', 'Quantity') 
-    sort_quantity = request.args.get('order') 
+    sort_quantity = request.args.get('sort') 
 
     if sort_quantity not in ['asc', 'desc']:
         return jsonify({"error": "Invalid sort order. Use 'asc' or 'desc'."}), 400

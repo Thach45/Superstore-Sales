@@ -28,6 +28,7 @@ if (sortElement) {
                 sortElement.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
+            console.log(sortElement.name);
             window.location.href = '/sort?sort=' + sortElement.name; // Chuyển hướng trang với tham số sort
         }
     });
