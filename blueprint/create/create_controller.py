@@ -20,6 +20,6 @@ def upload():
         mongo = current_app.config['MONGO']
         # Thêm dữ liệu vào MongoDB
         mongo.db.users.insert_many(data)
-        return render_template('home.html', message="1")
+        return render_template('dashboard.html', message="1")
     else:
         return render_template('create.html', message="0")

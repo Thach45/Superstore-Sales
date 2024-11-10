@@ -47,3 +47,43 @@ if (applyFilter) {
        
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    let paginationLinks = document.querySelectorAll('.pagination .page-link');
+    let urlParams = new URLSearchParams(window.location.search);
+
+    paginationLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            let page = this.getAttribute('data-page');
+            if (page) {
+                urlParams.set('page', page);
+                window.location.search = urlParams.toString();
+            }
+        });
+    });
+
+    let prevPage = document.getElementById('prevPage');
+    let nextPage = document.getElementById('nextPage');
+    let currentPage = parseInt(urlParams.get('page')) || 1;
+
+    if (prevPage) {
+        prevPage.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                urlParams.set('page', currentPage - 1);
+                window.location.search = urlParams.toString();
+            }
+        });
+    }
+
+    if (nextPage) {
+        nextPage.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                urlParams.set('page', currentPage + 1);
+                window.location.search = urlParams.toString();
+            }
+        });
+    }
+});

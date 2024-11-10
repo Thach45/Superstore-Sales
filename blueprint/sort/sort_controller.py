@@ -10,11 +10,14 @@ def Sort():
         return jsonify({"error": "Invalid sort order. Use 'asc' or 'desc'."}), 400
     
     mongo_quantity = 1 if sort_quantity == 'asc' else -1
-
+    page = int(request.args.get('page', 1))
+    limit = 20
+    skip = (page - 1) * limit 
     collection = mongo.db.users
+    total_records = collection.count_documents({})
+    total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
+    sorted_quantity = collection.find().sort("Quantity", mongo_quantity).skip(skip).limit(limit)
 
-    sorted_quantity = collection.find().sort("Quantity", mongo_quantity)
-
-    return render_template("customer.html",records=sorted_quantity)
+    return render_template("customer.html",records=sorted_quantity, page=page, total_pages=total_pages)
     
     

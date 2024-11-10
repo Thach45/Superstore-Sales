@@ -11,13 +11,13 @@
             <div class="title-chart">Data Visualization</div>
             <div class="chart-other">
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>  
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>  
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename='images/pie.png')}}",alt="Chart 1">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>      
             </div>   
         </div>
@@ -75,46 +75,38 @@
                         <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
                     </td>
                 </tr>
-                {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
-    <nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link">Previous</a>
-            </li>
-            {% if total_pages <= 7 %}
-                {% for i in range(page, total_pages + 1) %}
-                    <li class="page-item"><a class="page-link" href="/customer?page={{ i }}">{{ i }}</a></li>
-                {% endfor %}
-            {% else %}
-                {% if page <= 4 %}
-                    {% for i in range(1, 6) %}
-                        <li class="page-item"><a class="page-link" href="/customer?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="/customer?page={{ total_pages }}">{{ total_pages }}</a></li>
-                {% elif page >= total_pages - 3 %}
-                    <li class="page-item"><a class="page-link" href="/customer?page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    {% for i in range(total_pages - 4, total_pages + 1) %}
-                        <li class="page-item"><a class="page-link" href="/customer?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                {% else %}
-                    <li class="page-item"><a class="page-link" href="/customer?page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    {% for i in range(page - 1, page + 2) %}
-                        <li class="page-item"><a class="page-link" href="/customer?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="/customer?page={{ total_pages }}">{{ total_pages }}</a></li>
-                {% endif %}
-            {% endif %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
             <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+                <a class="page-link" href="#" id="prevPage">Previous</a>
+            </li>
+            {%if total_pages < 10:%}
+                {% for i in range(1, total_pages + 1) %}
+                <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+            {%else:%}
+                {% if page < 5:%}
+                    {% for i in range(1, 10) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%elif page > total_pages - 5:%}
+                    {% for i in range(total_pages - 9, total_pages + 1) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%else:%}
+                    {% for i in range(page - 4, page + 5) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%endif%}
+            {%endif%}
+            <li class="page-item">
+                <a class="page-link" href="#" id="nextPage">Next</a>
             </li>
         </ul>
     </nav>
-
+</div>
 <script src="{{url_for('static', filename='js/customer.js')}}"></script>
 {%endblock%}
