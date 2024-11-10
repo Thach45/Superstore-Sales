@@ -47,18 +47,20 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Nguyen Van a</td>
-                    <td>CG-12520</td>
-                    <td>Consumer</td>
-                    <td>United States</td>
-                    <td>100</td>
-                    <td>
-                        <a href="/admin/products/edit/1" class="btn btn-warning btn-sm">Sửa</a>
-                        <button class="btn btn-danger btn-sm ml-2" data-id="1" id="button-delete">Xoá</button>
-                    </td>
-                </tr>
+            {% for customer in records %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ customer.Name }}</td>
+                <td>{{ customer.IdCustomer }}</td>
+                <td>{{ customer.Segment }}</td>
+                <td>{{ customer.Country }}</td>
+                <td>{{ customer.Quantity }}</td>
+                <td>
+                    <a href="/admin/products/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                    <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
+                </td>
+            </tr>
+            {% endfor %}
                 <!-- End of product row -->
             </tbody>
         </table>
