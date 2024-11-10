@@ -27,3 +27,43 @@
     font-family: "Roboto", sans-serif;
 
 }
+.custom-select {
+    appearance: none;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    color: #495057;
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+
+.custom-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.custom-button:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
