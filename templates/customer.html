@@ -35,11 +35,23 @@
                     <option value="Corporate">Corporate</option>
                     <option value="Home Office">Home Office</option>
                 </select>
-                <select class="countryFilter form-select" >
-                    <option value="">Tất cả Country</option>
-                    <option value="United States">United States</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Mexico">Mexico</option>
+                <select class="cityFilter form-select" >
+                    <option value="">Tất cả City</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Fort Lauderdale">Fort Lauderdale</option>
+                    <option value="Henderson">Henderson</option>
+                </select>
+                <select class="cityFilter form-select" >
+                    <option value="">Tất cả State</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Fort Lauderdale">Fort Lauderdale</option>
+                    <option value="Henderson">Henderson</option>
+                </select>
+                <select class="cityFilter form-select" >
+                    <option value="">Tất cả Region</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Fort Lauderdale">Fort Lauderdale</option>
+                    <option value="Henderson">Henderson</option>
                 </select>
                 <button id="applyFilters" class="custom-button">Áp dụng</button>
             </div>
@@ -52,7 +64,9 @@
                 <th>Name</th>
                 <th>ID Customer</th>
                 <th>Segment</th>
-                <th>Country</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Region</th>
                 <th>Quantity
                     <span class="icon btn-sort">
                         <i class="fas fa-sort" name="desc"></i>
@@ -68,7 +82,11 @@
                     <td>{{ customer.Name }}</td>
                     <td>{{ customer.IDCustomer }}</td>
                     <td>{{ customer.Segment }}</td>
-                    <td>{{ customer.Country }}</td>
+                    <td>{{ customer.City }}</td>
+                    <td>{{ customer.State }}</td>
+                    <td>{{ customer.Region }}</td>
+
+
                     <td>{{ customer.Quantity }}</td>
                     <td>
                         <a href="/admin/products/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
