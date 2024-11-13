@@ -16,10 +16,10 @@ if (formSearch) {
         
         if (search) {
             if (search[2] =="-") {
-                window.location.href = '/search?IDCustomer=' + encodeURIComponent(search);
+                window.location.href = '/customer/search?IDCustomer=' + encodeURIComponent(search);
             }
             else
-                window.location.href = '/search?Name=' + encodeURIComponent(search);
+                window.location.href = '/customer/search?Name=' + encodeURIComponent(search);
         } else {
             window.location.href = '/';
         }
@@ -37,7 +37,7 @@ if (sortElement) {
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
             console.log(sortElement.name);
-            window.location.href = '/sort?sort=' + sortElement.name; // Chuyển hướng trang với tham số sort
+            window.location.href = '/customer/sort?sort=' + sortElement.name; // Chuyển hướng trang với tham số sort
         }
     });
 }
