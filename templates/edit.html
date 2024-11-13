@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-
 {% block title %}Chỉnh sửa{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='style/edit.css')}}">
@@ -13,7 +12,7 @@
 
         <div class="form-group">
             <b><label for="idcustomer">Customer ID:</label></b>
-            <input type="text" id="idcustomer" name="idcustomer" placeholder="Enter customer ID" value="{{customer.IDCustomer}}">
+            <input type="text" id="idcustomer" name="idcustomer" placeholder="Enter Customer ID" value="{{customer.IDCustomer}}">
         </div>
 
         <div class="form-group">
@@ -22,23 +21,42 @@
         </div>
 
         <div class="form-group">
-            <b><label for="segment">Phân khúc:</label></b>
+            <b><label for="segment">Segment:</label></b>
             <select id="segment" name="segment">
-                <option value="consumer" {% if customer.Segment == 'consumer' %}selected{% endif %}>Consumer</option>
-                <option value="corporate" {% if customer.Segment == 'corporate' %}selected{% endif %}>Corporate</option>
-                <option value="home office" {% if customer.Segment == 'home office' %}selected{% endif %}>Home Office</option>
+                <option value="Consumer" {% if customer.Segment == 'Consumer' %}selected{% endif %}>Consumer</option>
+                <option value="Corporate" {% if customer.Segment == 'Corporate' %}selected{% endif %}>Corporate</option>
+                <option value="Home Office" {% if customer.Segment == 'Home Office' %}selected{% endif %}>Home Office</option>
             </select>
         </div>
 
         <div class="form-group">
-            <b><label for="segment">Country:</label></b>
-            <select id="segment" name="Country">  
-                <option value="United States">United States</option>
-                <option value="Canada">Canada</option>
-                <option value="Mexico">Mexico</option>
+            <b><label for="city">City</label></b>
+            <select name="city" id="city">
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Fort Lauderdale">Fort Lauderdale</option>
+                <option value="Henderson">Henderson</option>
+            </select>
+            
+        </div>
+
+        <div class="form-group">
+            <b><label for="state">State</label></b>
+            <select name="state" id="state">
+                <option value="Kentucky">Kentucky</option>
+                <option value="California">California</option>
+                <option value="Florida">Florida</option>
             </select>
         </div>
 
+        <div class="form-group">
+            <b><label for="region">Region</label></b>
+            <select name="region" id="region">
+                <option value="South">South</option>
+                <option value="West">West</option>
+                <option value="East">East</option>
+                <option value="Central">Central</option>
+            </select>   
+        </div>
         <button type="submit" class="submit-btn">Save Changes</button>
     </form>
 </div>
