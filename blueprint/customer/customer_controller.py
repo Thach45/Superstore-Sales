@@ -16,7 +16,6 @@ def index():
     for item in data:
         item['_id'] = str(item['_id'])
 
-    total_purchases = countUserPurchases(collection)
 
-    return render_template('customer.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=total_purchases, user=userMax(collection))
+    return render_template('customer.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
 

@@ -110,7 +110,12 @@
                     text-align: center;">{{ customer.Quantity }}</td>
                     <td>
                         <a href="/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
-                        <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
+                        <form action="/customer/delete/{{ customer._id }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+
+                        
                     </td>
                 </tr>
             {% endfor %}
