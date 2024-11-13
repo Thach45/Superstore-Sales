@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     max-width: 1200px;
     margin: 0px auto;
 }
@@ -161,14 +161,14 @@ table {
     border-collapse: separate;
     border-spacing: 0 10px;
     background-color: var(--card-background);
-    padding: 15px;
+    padding: 12px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
     text-align: left;
-    padding: 16px;
+    padding: 10px;
 }
 
 th {

@@ -2,8 +2,11 @@ formSearch = document.querySelector('.form-Search');
 
 let sortElement = document.querySelector('.btn-sort'); // Giả sử phần tử sort có class là 'sort-element'
 let sortAscending = true; // Biến để theo dõi trạng thái hiện tại
-const filterCountry = document.querySelector('.countryFilter');
+const filterCity = document.querySelector('.cityFilter');
 const filterSegment = document.querySelector('.segmentFilter');
+const filterRegion = document.querySelector('.regionFilter');
+const filterState = document.querySelector('.stateFilter');
+
 const applyFilter = document.querySelector('#applyFilters');
 //chức năng tìm kiếm
 if (formSearch) {
@@ -41,9 +44,11 @@ if (sortElement) {
 //chức năng filter
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
-        let country = filterCountry.value;
+        let city = filterCity.value;
+        let region = filterRegion.value;
+        let state = filterState.value;
         let segment = filterSegment.value;
-        window.location.href = '/filter?Country=' + country + '&Segment=' + segment;
+        window.location.href = '/customer/filter?City=' + city + '&Segment=' + segment + '&Region=' + region + '&State=' + state;
        
     });
 }
