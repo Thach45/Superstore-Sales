@@ -17,3 +17,4 @@ def index():
     
     # Bước 3: Trả về dữ liệu dưới dạng JSON
     return render_template('customer.html', records=data, page=page, total_pages=total_pages)
+
