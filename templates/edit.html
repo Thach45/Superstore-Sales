@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Chỉnh sửa{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='style/edit.css')}}">
+<div class="container">
+    <b><h1>Edit Customer Data</h1></b>
+    <form class="edit-form" action="/edit/{{ customer._id }}" method="POST">
+        <div class="form-group">
+            <b><label for="name">Name:</label></b>
+            <input type="text" id="name" name="name" placeholder="Enter customer name" value="{{customer.Name}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="idcustomer">Customer ID:</label></b>
+            <input type="text" id="idcustomer" name="idcustomer" placeholder="Enter customer ID" value="{{customer.IDCustomer}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="quantity">Quantity:</label></b>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1" value="{{customer.Quantity}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="segment">Phân khúc:</label></b>
+            <select id="segment" name="segment">
+                <option value="consumer" {% if customer.Segment == 'consumer' %}selected{% endif %}>Consumer</option>
+                <option value="corporate" {% if customer.Segment == 'corporate' %}selected{% endif %}>Corporate</option>
+                <option value="home office" {% if customer.Segment == 'home office' %}selected{% endif %}>Home Office</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <b><label for="segment">Country:</label></b>
+            <select id="segment" name="Country">  
+                <option value="United States">United States</option>
+                <option value="Canada">Canada</option>
+                <option value="Mexico">Mexico</option>
+            </select>
+        </div>
+
+        <button type="submit" class="submit-btn">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
