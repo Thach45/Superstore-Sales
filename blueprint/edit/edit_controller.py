@@ -1,4 +1,4 @@
-from flask import render_template, request, current_app
+from flask import render_template, request, current_app, url_for, redirect
 import pandas as pd
 from bson.objectid import ObjectId
 
@@ -10,6 +10,20 @@ def index(id):
 
 def edit_P(ids):
 
-    #Viết code ở đây 
-    data = request.form # đã lấy dữ liệu của request chạy thử để xem dữ liệu đã truyền qua chưa
-    return data
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.users
+    data = {
+        "Name": request.form.get("name"), 
+        "IDCustomer": request.form.get("idcustomer"),
+        "Segment": request.form.get("segment"),
+        "City": request.form.get("city"),
+        "State": request.form.get("state"),
+        "Quantity": int(request.form.get("quantity")),
+        "Region" : request.form.get("region")
+    }
+    collection.update_one(
+        {'_id': ObjectId(ids)},
+        {'$set': data}  
+    )
+
+    return redirect(url_for('customer.home_route'))
