@@ -1,5 +1,6 @@
 from flask import render_template, request, current_app
 from pymongo import MongoClient
+from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 
 def home():
 
@@ -31,4 +32,4 @@ def home():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     data = list(collection.find(query).skip(skip).limit(limit))  
     
-    return render_template("customer.html", records=data, page=page, total_pages=total_pages)
+    return render_template("customer.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))

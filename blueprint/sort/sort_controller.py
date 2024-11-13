@@ -1,6 +1,6 @@
 from flask import request, jsonify, render_template, current_app
 from flask_pymongo import PyMongo as mongo
-
+from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 def Sort():
     mongo = current_app.config['MONGO']
     #sort_field = request.args.get('field', 'Quantity') 
@@ -18,6 +18,6 @@ def Sort():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     sorted_quantity = collection.find().sort("Quantity", mongo_quantity).skip(skip).limit(limit)
 
-    return render_template("customer.html",records=sorted_quantity, page=page, total_pages=total_pages)
+    return render_template("customer.html",records=sorted_quantity, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
     
     
