@@ -15,7 +15,7 @@ def home():
     skip = (page - 1) * limit 
     
     # Bước 1: Nếu có tham số tìm kiếm, thực hiện tìm kiếm không phân biệt chữ hoa, chữ thường trong trường 'Name'
-    if 'CG-' not in search_name:
+    if '-' not in search_name:
         if search_name:
             query = {"Name": {"$regex": search_name, "$options": "i"}}  # Tìm kiếm không phân biệt chữ hoa, chữ thường bằng biểu thức chính quy
             data = list(collection.find(query).skip(skip).limit(limit))  # Tìm những người dùng phù hợp với truy vấn tìm kiếm
