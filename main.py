@@ -22,7 +22,6 @@ app.register_blueprint(customer_bp)
 app.register_blueprint(sort_bp)
 app.register_blueprint(edit_bp)
 app.register_blueprint(delete_bp)
-
 app.register_blueprint(filter_bp)
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
