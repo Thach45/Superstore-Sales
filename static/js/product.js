@@ -59,22 +59,24 @@ sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay g
 //     });
 // }
 
-// Sắp xếp Revenue
-const sortRevenueProduct = document.querySelector(".btn-sort-revenueProduct");
-if (sortRevenueProduct) {
-    sortRevenueProduct.addEventListener('click', function () {
-        if (sortAscending) {
-            sortRevenueProduct.name = 'asc';
-            sortAscending = false;
-        } else {
-            sortRevenueProduct.name = 'desc';
-            sortAscending = true;
+//chức năng sort
+const sortSaleProduct = document.querySelector(".btn-sort-saleProduct")
+if (sortSaleProduct) {
+    sortSaleProduct.addEventListener('click', function () {
+        if (sortSaleProduct) {
+            if (sortAscending) {
+                sortSaleProduct.name = 'asc'; // Thay đổi giá trị của thuộc tính name thành tăng dần
+                sortAscending = false; // Chuyển trạng thái sang giảm dần
+            } else {
+                sortSaleProduct.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
+                sortAscending = true; // Chuyển trạng thái sang tăng dần
+            }
+            console.log(sortSaleProduct.name);
+            window.location.href = '/product/sort?field=Sales&sort=' + sortSaleProduct.name;
+            // window.location.href = '/product/sort?sort=' + sortElementProduct.name; // Chuyển hướng trang với tham số sort
         }
-        window.location.href = '/product/sort?field=Revenue&sort=' + sortRevenueProduct.name;
     });
 }
-
-
 
 //chức năng sort
 const sortQuantityProduct = document.querySelector(".btn-sort-quantityProduct")
