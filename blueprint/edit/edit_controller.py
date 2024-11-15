@@ -27,3 +27,6 @@ def edit_P(ids):
     )
 
     return redirect(url_for('customer.home_route'))
+
+def editHome(id):
+    return render_template('editProduct.html', product=id)
