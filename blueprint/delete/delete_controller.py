@@ -7,7 +7,7 @@ def index(id):
     page = int(request.args.get('page', 1))
     limit = 20
     skip = (page - 1) * limit 
-    collection = mongo.db.users  
+    collection = mongo.db.products  
 
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
@@ -17,4 +17,4 @@ def index(id):
         collection.delete_one({"_id": ObjectId(id)})
     #----------------------
 
-    return redirect(url_for('customer.home_route')) 
+    return redirect(url_for('product.home_route')) 
