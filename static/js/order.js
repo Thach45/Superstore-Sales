@@ -1,5 +1,6 @@
 formSearch = document.querySelector('.form-Search');
-let sortElement = document.querySelector('.btn-sortCost'); // Giả sử phần tử sort có class là 'sort-element'
+let sortTotalcost = document.querySelector('.btn-sortCost');
+let sortFre = document.querySelector('.btn-sortFre');// Giả sử phần tử sort có class là 'sort-element'
 let sortAscending = true; // Biến để theo dõi trạng thái hiện tại
 const filterShip = document.querySelector('.orderFilter');
 const filterOrder = document.querySelector('.shipFilter');
@@ -22,18 +23,32 @@ if (formSearch) {
     });
 }
 //chức năng sort
-if (sortElement) {
-    sortElement.addEventListener('click', function () {
-        if (sortElement) {
+if (sortTotalcost) {
+    sortTotalcost.addEventListener('click', function () {
+        if (sortTotalcost) {
             if (sortAscending) {
-                sortElement.name = 'asc'; // Thay đổi giá trị của thuộc tính name thành tăng dần
+                sortTotalcost.name = 'asc'; // Thay đổi giá trị của thuộc tính name thành tăng dần
                 sortAscending = false; // Chuyển trạng thái sang giảm dần
             } else {
-                sortElement.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
+                sortTotalcost.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
-            console.log(sortElement.name);
-            window.location.href = '/order/sort?sort=' + sortElement.name; // Chuyển hướng trang với tham số sort
+            window.location.href = '/order/sort?key=Totalcost&sort=' + sortTotalcost.name; // Chuyển hướng trang với tham số sort
+        }
+    });
+}
+if (sortFre) {
+    sortFre.addEventListener('click', function () {
+        if (sortFre) {
+            if (sortAscending) {
+                sortFre.name = 'asc'; // Thay đổi giá trị của thuộc tính name thành tăng dần
+                sortAscending = false; // Chuyển trạng thái sang giảm dần
+            } else {
+                sortFre.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
+                sortAscending = true; // Chuyển trạng thái sang tăng dần
+            }
+            console.log(sortFre.name);
+            window.location.href = '/order/sort?key=Fre&sort=' + sortFre.name; // Chuyển hướng trang với tham số sort
         }
     });
 }

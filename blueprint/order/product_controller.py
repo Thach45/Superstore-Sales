@@ -4,7 +4,7 @@ from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 
 def index():
     mongo = current_app.config['MONGO']
-    collection = mongo.db.products  # Sử dụng cú pháp dấu chấm để truy cập collection
+    collection = mongo.db.orders  # Sử dụng cú pháp dấu chấm để truy cập collection
     page = int(request.args.get('page', 1))
     limit = 20
     skip = (page - 1) * limit 
