@@ -124,8 +124,7 @@ if (sortQuantityProduct) {
                 sortQuantityProduct.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
-            window.location.href = '/product/sort?field=Quantity&sort=' + sortQuantityProduct.name;
-            // window.location.href = '/product/sort?sort=' + sortQuantityProduct.name; // Chuyển hướng trang với tham số sort
+            window.location.href = '/product/sort?field=Quantity&sort=' + sortQuantityProduct.name;  // Chuyển hướng trang với tham số sort
         }
     });
 }
