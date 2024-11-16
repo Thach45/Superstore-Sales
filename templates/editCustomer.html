@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% block title %}Chỉnh sửa{% endblock %}
+{% block title %}Edit{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='style/edit.css')}}">
 <div class="container">
     <b><h1>Edit Customer Data</h1></b>
-    <form class="edit-form" action="/edit/{{ customer._id }}" method="POST">
+    <form class="edit-form" action="/edit/customer{{ customer._id }}" method="POST">
         <div class="form-group">
             <b><label for="name">Name:</label></b>
             <input type="text" id="name" name="name" placeholder="Enter customer name" value="{{customer.Name}}">

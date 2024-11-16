@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     let paginationLinks = document.querySelectorAll('.pagination .page-link');
     let urlParams = new URLSearchParams(window.location.search);
@@ -38,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
 
 //chức năng sort
@@ -74,5 +74,16 @@ if (sortQuantityProduct) {
             window.location.href = '/product/sort?field=Quantity&sort=' + sortQuantityProduct.name;
             // window.location.href = '/product/sort?sort=' + sortQuantityProduct.name; // Chuyển hướng trang với tham số sort
         }
+    });
+}
+
+const filterCategory = document.querySelector('.categoryFilter');
+const filterSub = document.querySelector('.subFilter');
+
+if (applyFilter) {
+    applyFilter.addEventListener('click', function () {
+        let category = filterCategory.value;
+        let sub = filterSub.value;
+        window.location.href = '/product/filter?Category=' + category + '&Sub-Category=' + sub;
     });
 }
