@@ -17,7 +17,7 @@ def delCustomer(id):
         collection.delete_one({"_id": ObjectId(id)})
     #----------------------
     return redirect(url_for('customer.home_route', page=page))
-    # return render_template('customer.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    
 
 def delProduct(id):
     #Không được xoá đoạn duới này, đoạn dưới là code để chia thành các trang
