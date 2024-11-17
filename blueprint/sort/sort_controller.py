@@ -39,3 +39,23 @@ def SortProduct():
     Sorted_product = collection.find().sort(sort_field, mongo_product).skip(skip).limit(limit)
 
     return render_template("product.html",records=Sorted_product, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+
+def SortOrder():
+    mongo = current_app.config['MONGO']
+    sort_field = request.args.get('field', 'Frequency') #tham số mặc định truyền vào là Costs
+    sort_order = request.args.get('sort') 
+
+    if sort_order not in ['asc', 'desc']:
+        return jsonify({"error": "Invalid sort order. Use 'asc' or 'desc'."}), 400
+    
+    mongo_order = 1 if sort_order == 'asc' else -1
+    page = int(request.args.get('page', 1))
+    limit = 20
+    skip = (page - 1) * limit 
+    collection = mongo.db.orders
+    total_records = collection.count_documents({})
+    total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
+
+    Sorted_order = collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit)
+
+    return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
