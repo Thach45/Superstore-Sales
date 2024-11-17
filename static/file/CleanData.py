@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 # loc truong name_col theo tu khoa: key
 def CheckSales(dataframe :pd.DataFrame,name_field:str,name_category:str):
@@ -33,8 +34,14 @@ def SplitDate(date=''):
 
 if __name__ == "__main__":
 
-    
-    old_data = pd.read_csv("D:\VS Code\Python\Github\Superstore-Sales\static\\file\\train.csv",sep = ',', header=0, index_col='Row ID')
+    # Đường dẫn tới thư mục gốc của dự án
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Tạo đường dẫn tới file trong thư mục "data"
+    file_path = os.path.join(base_dir, 'train.csv')  
+    print("File path:", file_path) 
+    #old_data = pd.read_csv("D:\VS Code\Python\Github\Superstore-Sales\static\\file\\train.csv",sep = ',', header=0, index_col='Row ID')
+    old_data = pd.read_csv(file_path,sep = ',', header=0, index_col='Row ID')
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
     # remove 6 column unnecessary
@@ -85,4 +92,7 @@ if __name__ == "__main__":
         if new_data.loc[i,'Sales'] > max_price[sub_category]:
             new_data.drop(i,inplace= True)    # xoa dong i, inplace = True de ko tao ra ban 
     
-    
+    # xuất file đã làm sạch
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_file = os.path.join(base_dir,'datacleaned.csv')
+    new_data.to_csv(output_file)
