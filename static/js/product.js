@@ -77,13 +77,72 @@ if (sortQuantityProduct) {
     });
 }
 
+//filter product
+
+const categoryData = {
+    Furniture: ['Bookcases', 'Chairs', 'Furnishings', 'Tables'],
+    OfficeSupplies: ['Appliances', 'Envelopes', 'Fasteners', 'Labels', 'Art', 'Binders', 'Paper', 'Supplies', 'Storage'],
+    Technology: ['Machines', 'Accessories', 'Copiers', 'Phones']
+}
+
+function update() {
+    const categorySelect = document.getElementById('category');
+    const selectedCategory = categorySelect.value;
+
+    var subcategoryGroups = document.querySelectorAll(".subcategory-group");
+    
+    subcategoryGroups.forEach(function(group) {
+        if (group.id === selectedCategory) {
+            group.style.display = "block";
+            document.getElementById("category").classList.add("shrink");
+        } else {
+            group.style.display = "none";
+            document.getElementById("category").classList.remove("shrink");
+            return;
+        }
+    });
+    
+    updateSubcategoryOptions(selectedCategory);
+}
+
+function updateSubcategoryOptions(category) {
+    const subcategorySelect = document.querySelector(`#subcategory-${category.toLowerCase()}`);
+    const subCategories = categoryData[category] || [];
+    
+    subcategorySelect.innerHTML = '';
+
+    const allOption = document.createElement('option');
+    allOption.value = 'All Sub-Category';
+    allOption.textContent = 'All Sub-Category';
+    subcategorySelect.appendChild(allOption);
+
+    subCategories.forEach(subCategory => {
+        const option = document.createElement('option');
+        option.value = subCategory;
+        option.textContent = subCategory;
+        subcategorySelect.appendChild(option);
+    });
+}
+window.onload = update;
+
 const filterCategory = document.querySelector('.categoryFilter');
 const filterSub = document.querySelector('.subFilter');
 
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
-        let category = filterCategory.value;
-        let sub = filterSub.value;
-        window.location.href = '/product/filter?Category=' + category + '&Sub-Category=' + sub;
+        const category = filterCategory.value;
+
+        const newcategory= category === "All Category" ? "" : category;
+
+        const selectedSubCategories = Array.from(filterSub.selectedOptions).map(option => option.value);
+
+        if (selectedSubCategories.length === 0 || selectedSubCategories.includes("All Sub-Category")) {
+            selectedSubCategories.length = 0;
+            selectedSubCategories.push('');  
+        }
+
+        const sub = selectedSubCategories.join(',');
+
+        window.location.href = '/product/filter?Category=' + newcategory + '&Sub-Category=' + sub;
     });
 }

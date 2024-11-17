@@ -4,7 +4,7 @@
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{url_for('static', filename='style/customer.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='style/product.css')}}">
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -47,19 +47,47 @@
                 <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
             </form>
             <div class="filter">
-                <select class="categoryFilter form-select" >
-                    <option value="">All Category</option>
+                <select id="category" class="categoryFilter form-select" onchange="update()">
+                    <option value="All Category">All Category</option>
                     <option value="Furniture">Furniture</option>
-                    <option value="Office Supplies">Office Supplies</option>
+                    <option value="OfficeSupplies">Office Supplies</option>
                     <option value="Technology">Technology</option>
                 </select>
-                <select class="subFilter form-select" >
-                    <option value="All Sub-Category">All Sub-Category</option>
-                    <option value="Binders">Binders</option>
-                    <option value="Art">Art</option>
-                    <option value="Phones">Phones</option>
-                </select>
-                <button id="applyFilters" class="custom-button">Filter</button>
+                <div id="Furniture" class="subcategory-group" style="display: none;">
+                    <select class="subFilter form-select" id="subcategory-furniture">
+                        <option value="All Sub-Category">All Sub-Category</option>
+                        <option value="Bookcases">Bookcases</option>
+                        <option value="Chairs">Chairs</option>
+                        <option value="Furnishings">Furnishings</option>
+                        <option value="Tables">Tables</option>
+                    </select>
+                </div>
+                
+                <div id="OfficeSupplies" class="subcategory-group" style="display: none;">
+                    <select class="subFilter form-select" id="subcategory-officesupplies">
+                        <option value="All Sub-Category">All Sub-Category</option>
+                        <option value="Appliances">Appliances</option>
+                        <option value="Art">Art</option>
+                        <option value="Binders">Binders</option>
+                        <option value="Envelopes">Envelopes</option>
+                        <option value="Fasteners">Fasteners</option>
+                        <option value="Labels">Labels</option>
+                        <option value="Paper">Paper</option>
+                        <option value="Supplies">Supplies</option>
+                        <option value="Storage">Storage</option>
+                    </select>
+                </div>
+                
+                <div id="Technology" class="subcategory-group" style="display: none;">
+                    <select class="subFilter form-select" id="subcategory-technology">
+                        <option value="All Sub-Category">All Sub-Category</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Copiers">Copiers</option>
+                        <option value="Machines">Machines</option>
+                        <option value="Phones">Phones</option>
+                    </select>
+                </div>
+                <button id="applyFilter" class="custom-button">Filter</button>
             </div>
         </div>    
     </div>
