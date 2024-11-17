@@ -33,7 +33,7 @@ if (sortTotalcost) {
                 sortTotalcost.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
-            window.location.href = '/order/sort?field=Costs&sort=' + sortTotalcost.name; // Chuyển hướng trang với tham số sort
+            window.location.href = '/order/sort?field=TotalCost&sort=' + sortTotalcost.name; // Chuyển hướng trang với tham số sort
         }
     });
 }
