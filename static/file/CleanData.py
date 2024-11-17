@@ -22,17 +22,31 @@ def ScatterSales(dataframe :pd.DataFrame,name_field:str,name_category:str):
     plt.yticks(range(0,4500,500))
     plt.show()
 
+def SplitDate(date=''):
+    if(date.count('/')!=2):
+        return False
+    else:
+        date = date.split('/')
+        month = date[1]
+        year = date[2]
+    return month, year
 
 if __name__ == "__main__":
-    old_data = pd.read_csv("train.csv")
+
+    
+    old_data = pd.read_csv("D:\VS Code\Python\Github\Superstore-Sales\static\\file\\train.csv",sep = ',', header=0, index_col='Row ID')
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
-    # remove 3 column unnecessary
+    # remove 6 column unnecessary
     new_data = old_data .drop(columns= ['Order ID','Ship Date','Country','State','Postal Code','Region'])
 
-    # format date
-    #new_data['Order Date'] = pd.to_datetime(new_data['Order Date'])
-    # new_data["Ship Date"] = pd.to_datetime(new_data["Ship Date"])
+    # format date and splitdate
+    new_data['Order Date'] = new_data['Order Date'].astype(str)
+    new_data['Month'] = [SplitDate(new_data.loc[i,'Order Date'])[0] for i in new_data.index]
+    new_data['Month'] = new_data['Month'].astype(int)
+    new_data['Year'] = [SplitDate(new_data.loc[i,'Order Date'])[1] for i in new_data.index]
+    new_data['Year'] = new_data['Year'].astype(int)
+    new_data['Quarter'] = pd.cut(new_data['Month'], bins= [0,3,6,9,12], labels= ['Quarter1','Quarter2','Quarter3','Quarter4'])
 
     # 2. XOA DONG DU LIEU BI SAI (VALUE = NONE OR DUPLICATES)
     # remove row  have value = none
@@ -69,4 +83,6 @@ if __name__ == "__main__":
     for i in new_data.index:
         sub_category = new_data.loc[i,'Sub-Category']
         if new_data.loc[i,'Sales'] > max_price[sub_category]:
-            new_data.drop(i,inplace= True)    # xoa dong i, inplace = True de ko tao ra ban sao
+            new_data.drop(i,inplace= True)    # xoa dong i, inplace = True de ko tao ra ban 
+    
+    
