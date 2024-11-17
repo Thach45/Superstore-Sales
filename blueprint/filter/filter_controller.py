@@ -42,7 +42,9 @@ def home_Product():
     
     filter_category = request.args.get('Category', '')
     filter_sub = request.args.get('Sub-Category', '')
-    
+    if filter_category == "OfficeSupplies": # đổi tên category cho phù hợp với tên trong database
+        filter_category = "Office Supplies"
+    print(filter_category)
     query = {}
     if filter_category:
         category = filter_category.split(',')  

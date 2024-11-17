@@ -127,21 +127,22 @@ window.onload = update;
 
 const filterCategory = document.querySelector('.categoryFilter');
 const filterSub = document.querySelector('.subFilter');
-
+console.log(filterSub);
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
         const category = filterCategory.value;
-
+        console.log(category);
+        console.log(sub);
         const newcategory= category === "All Category" ? "" : category;
 
-        const selectedSubCategories = Array.from(filterSub.selectedOptions).map(option => option.value);
-
+        const selectedSubCategories = Array.from(filterSub.selectedOptions).map(option => console.log(option.value));
+        console.log(selectedSubCategories);
         if (selectedSubCategories.length === 0 || selectedSubCategories.includes("All Sub-Category")) {
             selectedSubCategories.length = 0;
             selectedSubCategories.push('');  
         }
-
         const sub = selectedSubCategories.join(',');
+        
 
         window.location.href = '/product/filter?Category=' + newcategory + '&Sub-Category=' + sub;
     });
