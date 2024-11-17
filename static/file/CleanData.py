@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
     # remove 3 column unnecessary
-    new_data = old_data .drop(columns= ['Postal Code','Region'])
+    new_data = old_data .drop(columns= ['Order ID','Ship Date','Country','State','Postal Code','Region'])
 
     # format date
     #new_data['Order Date'] = pd.to_datetime(new_data['Order Date'])
