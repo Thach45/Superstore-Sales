@@ -60,4 +60,4 @@ if __name__=='__main__':
 
     image_path = os.path.join(superstore_path, 'static', 'images', 'monthly_revenue_per_year.png')
     plt.savefig(image_path)
-    plt.show()
+    #plt.show()
