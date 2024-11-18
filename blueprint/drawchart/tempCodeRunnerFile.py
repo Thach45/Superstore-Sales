@@ -1,2 +1,4 @@
-data = pd.read_csv(file_path,sep = ',', header=0, index_col='Row ID')
-    # print(data.info())
+f'year{2015}' : chart_revenue[(2015)],
+        # 'year_2016' : chart_revenue[(2016)],
+        # 'year_2017' : chart_revenue[(2017)],
+        # 'year_2018' : chart_revenue[(2018)]
