@@ -53,14 +53,21 @@ if (sortFre) {
     });
 }
 //chức năng filter
+
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
-        let ship = filterShip.value;
-        let order = filterOrder.value;
-        window.location.href = '/order/filter?Shipper=' + ship + '&Order=' + order;
-       
+        let ship = document.querySelector('.shipFilter').value;
+        let order = document.querySelector('.orderFilter').value;
+        
+        // Kiểm tra nếu người dùng đã chọn tháng và năm
+        if (order && ship) {
+            console.log("Order Month: ", order);  // Xem giá trị OrderMonth
+            console.log("Ship Month: ", ship);  // Xem giá trị ShipMonth
+            window.location.href = '/order/filter?ShipMonth=' + ship + '&OrderMonth=' + order;
+        }
     });
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let paginationLinks = document.querySelectorAll('.pagination .page-link');
