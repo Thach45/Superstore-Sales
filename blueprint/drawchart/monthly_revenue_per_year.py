@@ -56,7 +56,7 @@ if __name__=='__main__':
     plt.xticks(np.arange(0,12,1),labels=months)
     plt.xlabel("Month")
     plt.ylabel("Revenue($)")
-    plt.title("Monthly revenue per year")
+    plt.title("Monthly revenue per year",fontsize = 16, fontweight = 'bold')
     plt.grid(True, linestyle="--", alpha=0.7)
 
     image_path = os.path.join(superstore_path, 'static', 'images', 'monthly_revenue_per_year.png')

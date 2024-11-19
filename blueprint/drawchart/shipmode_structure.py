@@ -25,10 +25,11 @@ if __name__=='__main__':
     shipmode_structure = df_shipmode.groupby(['Ship Mode'])['count'].sum()
 
     shipmode_structure.name = ''
-    colors = ['yellowgreen', 'lightcoral', 'lightskyblue','gold']
-    shipmode_structure.plot(kind='pie',colors=colors, autopct='%1.2f%%', startangle=90,radius = 0.9)
-    plt.title("Ship Mode sructure")
+    colors = ['#CE5C5B','#73B6E1','#EBCB78','#99C1A9','#A693C1','#A1D1E7']
+    explode = [0.015]*len(shipmode_structure.index)
+    shipmode_structure.plot(kind='pie',colors=colors, autopct='%1.2f%%', startangle=90,radius = 0.9,explode = explode)
+    plt.title("Ship Mode structure",fontsize = 16, fontweight = 'bold')
     
     image_path = os.path.join(superstore_path, 'static', 'images', 'shipmode_structure.png')
     plt.savefig(image_path)
-    #plt.show()
+    plt.show()

@@ -18,13 +18,12 @@ if __name__=='__main__':
     data = pd.read_csv(file_path,sep=',',index_col='Row ID',header=0)
 
     annual_revenue = data.groupby(['Year'])['Sales'].sum().sort_index()
-    print(annual_revenue)
 
-    annual_revenue.plot(kind='bar')
+    annual_revenue.plot(kind='bar',color='#C3B49C')
     plt.xticks(rotation=0)
     plt.ylabel('Revenue ($)')
     plt.xlabel('Year')
-    plt.title("Annual Revenue")
+    plt.title("Annual Revenue",fontsize = 16, fontweight = 'bold')
     plt.grid(linestyle='--',alpha = 0.7)
     plt.subplots_adjust(left= 0.15)
 

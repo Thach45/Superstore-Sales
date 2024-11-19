@@ -20,8 +20,9 @@ if __name__=='__main__':
     revenue_per_city = data.groupby(['City'])['Sales'].sum().sort_values(ascending=False)
     top10_highest_revenue_cities = revenue_per_city[:11]
     top10_highest_revenue_cities.plot(kind='bar',color = '#12c7d2')
-    plt.title("Top 10 highest revenue cities")
+    plt.title("Top 10 highest revenue cities",fontsize = 16, fontweight = 'bold')
     plt.subplots_adjust(left=0.15, bottom=0.25, right=0.9, top=0.9)
+    plt.grid(linestyle='--',alpha = 0.7)
     plt.xlabel("")
     plt.ylabel("revenue ($)")
     fig = plt.gcf()  # Lấy đối tượng Figure hiện tại
