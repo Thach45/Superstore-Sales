@@ -85,37 +85,43 @@ const categoryData = {
     Technology: ['Machines', 'Accessories', 'Copiers', 'Phones']
 }
 
-function update() {
-    const categorySelect = document.getElementById('category');
-    const selectedCategory = categorySelect.value;
-
-    var subcategoryGroups = document.querySelectorAll(".subcategory-group");
-    
-    subcategoryGroups.forEach(function(group) {
-        if (group.id === selectedCategory) {
-            group.style.display = "block";
-            document.getElementById("category").classList.add("shrink");
-        } else {
+// Thêm event listener cho category select
+const categorySelect = document.getElementById('category');
+if (categorySelect) {
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = this.value;
+        const subcategoryGroups = document.querySelectorAll(".subcategory-group");
+        
+        // Ẩn tất cả các subcategory groups
+        subcategoryGroups.forEach(group => {
             group.style.display = "none";
-            document.getElementById("category").classList.remove("shrink");
-            return;
+        });
+
+        // Nếu category được chọn không phải "All Category"
+        if (selectedCategory !== "All Category") {
+            const selectedGroup = document.getElementById(selectedCategory);
+            if (selectedGroup) {
+                selectedGroup.style.display = "block";
+            }
+            updateSubcategoryOptions(selectedCategory);
         }
     });
-    
-    updateSubcategoryOptions(selectedCategory);
 }
 
 function updateSubcategoryOptions(category) {
     const subcategorySelect = document.querySelector(`#subcategory-${category.toLowerCase()}`);
-    const subCategories = categoryData[category] || [];
+    if (!subcategorySelect) return;
     
+    const subCategories = categoryData[category] || [];
     subcategorySelect.innerHTML = '';
 
+    // Thêm option mặc định "All Sub-Category"
     const allOption = document.createElement('option');
     allOption.value = 'All Sub-Category';
     allOption.textContent = 'All Sub-Category';
     subcategorySelect.appendChild(allOption);
 
+    // Thêm các sub-categories
     subCategories.forEach(subCategory => {
         const option = document.createElement('option');
         option.value = subCategory;
@@ -123,27 +129,33 @@ function updateSubcategoryOptions(category) {
         subcategorySelect.appendChild(option);
     });
 }
-window.onload = update;
 
 const filterCategory = document.querySelector('.categoryFilter');
-const filterSub = document.querySelector('.subFilter');
-console.log(filterSub);
+const applyFilter = document.getElementById('applyFilter');
+
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
         const category = filterCategory.value;
-        console.log(category);
-        console.log(sub);
-        const newcategory= category === "All Category" ? "" : category;
-
-        const selectedSubCategories = Array.from(filterSub.selectedOptions).map(option => console.log(option.value));
-        console.log(selectedSubCategories);
-        if (selectedSubCategories.length === 0 || selectedSubCategories.includes("All Sub-Category")) {
-            selectedSubCategories.length = 0;
-            selectedSubCategories.push('');  
-        }
-        const sub = selectedSubCategories.join(',');
+        // Chuyển "All Category" thành chuỗi rỗng để filter
+        const newcategory = category === "All Category" ? "" : category;
         
+        // Lấy subcategory đang được hiển thị và được chọn
+        let selectedSubCategories = [];
+        if (category !== "All Category") {
+            const activeSubSelect = document.querySelector(`#subcategory-${category.toLowerCase()}`);
+            if (activeSubSelect) {
+                selectedSubCategories = Array.from(activeSubSelect.selectedOptions).map(option => option.value);
+            }
+        }
 
+        // Xử lý trường hợp "All Sub-Category" hoặc không có subcategory nào được chọn
+        if (selectedSubCategories.length === 0 || selectedSubCategories.includes("All Sub-Category")) {
+            selectedSubCategories = [''];
+        }
+
+        const sub = selectedSubCategories.join(',');
+
+        // Chuyển hướng với params
         window.location.href = '/product/filter?Category=' + newcategory + '&Sub-Category=' + sub;
     });
 }

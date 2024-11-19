@@ -44,14 +44,13 @@ def home_Product():
     filter_sub = request.args.get('Sub-Category', '')
     if filter_category == "OfficeSupplies": # đổi tên category cho phù hợp với tên trong database
         filter_category = "Office Supplies"
-    print(filter_category)
+
     query = {}
     if filter_category:
         category = filter_category.split(',')  
         query["Category"] = {"$in": category}  
     if filter_sub:
         query["SubCategory"] = {"$regex": filter_sub, "$options": "i"}
-
         
     page = int(request.args.get('page', 1))
     limit = 20
