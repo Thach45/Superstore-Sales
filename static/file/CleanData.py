@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
     # remove 6 column unnecessary
-    new_data = old_data .drop(columns= ['Order ID','Ship Date','Country','Postal Code','Row ID'])
+    new_data = old_data .drop(columns= ['Country','Postal Code','Row ID'])
 
     # format date and splitdate
     new_data['Order Date'] = new_data['Order Date'].astype(str)
