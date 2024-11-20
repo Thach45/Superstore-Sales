@@ -75,7 +75,63 @@
                 </select>
                 <button id="applyFilters" class="custom-button">Áp dụng</button>
             </div>
+            <div class="button-container d-flex mt-3 mb-3">
+                <div class="add-customer border-radius-12">
+                    <button class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i> Thêm khách hàng
+                    </button>
+                </div>
+                <div class="upload-customer border-radius-12">
+                    <a href="/create/customer" class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Upload File Csv
+                    </a>
+                </div>
+                <div class="download-customer border-radius-12">
+                    <a href="/create/customer" class="btn btn-primary">
+                        <i class="fas fa-file-download"></i> Download File Csv
+                    </a>
+                </div>
+            </div>
         </div>    
+    </div>
+    <div class="card add-customer-form d-none">
+        <form action="/add/customer" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID Customer</th>
+                        <th>Segment</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Region</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="Name" placeholder="Name"></td>
+                        <td><input type="text" name="IDCustomer" placeholder="ID Customer"></td>
+                        <td><input type="text" name="Segment" placeholder="Segment"></td>
+                        <td><input type="text" name="City" placeholder="City"></td>
+                        <td><input type="text" name="State" placeholder="State"></td>
+                        <td>
+                            <select name="Region">
+                                <option value="">Chọn Region</option>
+                                <option value="South">South</option>
+                                <option value="West">West</option>
+                                <option value="East">East</option>
+                                <option value="Central">Central</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="Quantity" placeholder="Quantity"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-add-customer">Thêm khách hàng</button>
+            </div>
+        </form>
     </div>
     <table>
         <thead>

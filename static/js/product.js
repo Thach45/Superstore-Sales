@@ -40,24 +40,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
 
-//chức năng sort
-// const sortSaleProduct = document.querySelector(".btn-sort-saleProduct")
-// if (sortSaleProduct) {
-//     sortSaleProduct.addEventListener('click', function () {
-//         if (sortSaleProduct) {
-//             if (sortAscending) {
-//                 sortSaleProduct.name = 'asc'; // Thay đổi giá trị của thuộc tính name thành tăng dần
-//                 sortAscending = false; // Chuyển trạng thái sang giảm dần
-//             } else {
-//                 sortSaleProduct.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
-//                 sortAscending = true; // Chuyển trạng thái sang tăng dần
-//             }
-//             console.log(sortSaleProduct.name);
-//             window.location.href = '/product/sort?field=Sales&sort=' + sortSaleProduct.name;
-//             // window.location.href = '/product/sort?sort=' + sortElementProduct.name; // Chuyển hướng trang với tham số sort
-//         }
-//     });
-// }
+//chức năng tìm kiếm
+// Kiểm tra nếu phần tử formSearch tồn tại
+const formSearch = document.querySelector('.form-Search');
+
+if (formSearch) {
+    // Thêm sự kiện khi người dùng submit form
+    formSearch.addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngừng hành động mặc định của form (không reload trang)
+
+        // Lấy giá trị tìm kiếm từ trường input trong form
+        let search = formSearch.querySelector('.search').value.trim(); // Tìm input bên trong form
+
+        // Nếu có giá trị tìm kiếm, chuyển hướng đến trang tìm kiếm sản phẩm
+        if (search) {
+            window.location.href = '/product/search?ProductName=' + encodeURIComponent(search);
+        } else {
+            // Nếu không có giá trị tìm kiếm, chuyển hướng về trang chủ
+            window.location.href = '/';
+        }
+    });
+}
+
+
+
+sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
+
 
 //chức năng sort
 const sortSaleProduct = document.querySelector(".btn-sort-saleProduct")
@@ -176,5 +184,13 @@ if (applyFilter) {
 
         // Chuyển hướng với params
         window.location.href = '/product/filter?Category=' + newcategory + '&Sub-Category=' + sub;
+    });
+}
+
+const addProduct = document.querySelector('.add-product');
+const addProductForm = document.querySelector('.add-product-form');
+if (addProduct) {
+    addProduct.addEventListener('click', function () {
+        addProductForm.classList.remove('d-none');
     });
 }

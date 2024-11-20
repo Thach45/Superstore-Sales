@@ -4,7 +4,7 @@
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{url_for('static', filename='style/customer.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='style/order.css')}}">
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -43,7 +43,7 @@
     <div class="card">
         <div class="card-body">
             <form class="form-Search" role="search">
-                <input class="search" type="search" placeholder="Tìm kiếm Customer ID, Order ID hoặc Customer Name" aria-label="Search">
+                <input class="search" type="search" placeholder="Tìm kiếm Order ID..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
             </form>
             <div class="filter">
@@ -68,8 +68,53 @@
             
                 <button id="applyFilters" class="custom-button">Áp dụng</button>
             </div>
+            <div class="button-container d-flex mt-3 mb-3">
+                <div class="add-order border-radius-12">
+                    <btn class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i> Thêm đơn hàng
+                    </btn>
+                </div>
+                <div class="upload-order border-radius-12">
+                    <a href="/create/order" class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Upload File Csv
+                    </a>
+                </div>
+                <div class="download-order border-radius-12">
+                    <a href="/create/order" class="btn btn-primary">
+                        <i class="fas fa-file-download"></i> Download File Csv
+                    </a>
+                </div>
+                
+            </div>
             
         </div>    
+    </div>
+    <div class="card d-none add-order-form">
+        <form action="/add/order" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Ship Date</th>
+                        <th>Customer Name</th>
+                        <th>Customer ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="OrderID" placeholder="Order ID"></td>
+                        <td><input type="date" name="OrderDate"></td>
+                        <td><input type="date" name="ShipDate"></td>
+                        <td><input type="text" name="CustomerName" placeholder="Customer Name"></td>
+                        <td><input type="text" name="CustomerID" placeholder="Customer ID"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-add-order">Thêm đơn hàng</button>
+            </div>
+        </form>
     </div>
     <table>
         <thead>
