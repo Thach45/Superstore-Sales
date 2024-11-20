@@ -35,7 +35,6 @@ def home_Customer():
     
     return render_template("customer.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
 
-<<<<<<< HEAD
 def filter_orders():
     filter_orderMonth = request.args.get('OrderMonth', '')
     filter_shipMonth = request.args.get('ShipMonth', '')
@@ -90,7 +89,6 @@ def filter_orders():
     data = list(collection.find(query).skip(skip).limit(limit))
 
     return render_template("order.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
-=======
 
 def home_Product():
     
@@ -117,4 +115,3 @@ def home_Product():
     data = list(collection.find(query).skip(skip).limit(limit))  
     
     return render_template("product.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
->>>>>>> fixedit

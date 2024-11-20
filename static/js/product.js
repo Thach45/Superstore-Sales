@@ -72,7 +72,7 @@ if (sortSaleProduct) {
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
             console.log(sortSaleProduct.name);
-            window.location.href = '/product/sort?field=Sales&sort=' + sortSaleProduct.name;
+            window.location.href = '/product/sort?field=Revenue&sort=' + sortSaleProduct.name;
             // window.location.href = '/product/sort?sort=' + sortElementProduct.name; // Chuyển hướng trang với tham số sort
         }
     });
