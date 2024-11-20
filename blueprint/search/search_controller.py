@@ -51,3 +51,23 @@ def SearchProduct():
     total_records = collection.count_documents(query if search_ProductName else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     return render_template("product.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+
+def SearchOrder():
+    search_OrderID = request.args.get('OrderID', '').lower()
+
+    # Truy cập collection MongoDB sử dụng cấu hình của ứng dụng Flask
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.orders  # Truy cập collection 'users' trong MongoDB
+    page = int(request.args.get('page', 1))
+    limit = 20
+    skip = (page - 1) * limit 
+    if search_OrderID:
+            query = {"OrderID": {"$regex": search_OrderID, "$options": "i"}}  # Tìm kiếm không phân biệt chữ hoa, chữ thường bằng biểu thức chính quy
+            data = list(collection.find(query).skip(skip).limit(limit))  # Tìm những người dùng phù hợp với truy vấn tìm kiếm
+    else:
+            data = list(collection.find().skip(skip).limit(limit))  # Trả về tất cả người dùng nếu không có tham số tìm kiếm
+    
+    # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
+    total_records = collection.count_documents(query if search_OrderID else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
+    total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
+    return render_template("order.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))

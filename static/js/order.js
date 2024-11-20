@@ -1,4 +1,4 @@
-formSearch = document.querySelector('.form-Search');
+
 let sortTotalcost = document.querySelector('.btn-sortCost');
 let sortFre = document.querySelector('.btn-sortFre');// Giả sử phần tử sort có class là 'sort-element'
 let sortAscending = true; // Biến để theo dõi trạng thái hiện tại
@@ -6,22 +6,29 @@ const filterShip = document.querySelector('.orderFilter');
 const filterOrder = document.querySelector('.shipFilter');
 const applyFilter = document.querySelector('#applyFilters');
 
+//chức năng tìm kiếm
+const formSearch = document.querySelector('.form-Search');
+
 if (formSearch) {
+    // Thêm sự kiện khi người dùng submit form
     formSearch.addEventListener('submit', function (e) {
-        e.preventDefault();
-        let search = document.querySelector('.search').value;
-        
+        e.preventDefault(); // Ngừng hành động mặc định của form (không reload trang)
+
+        // Lấy giá trị tìm kiếm từ trường input trong form
+        let search = formSearch.querySelector('.search').value.trim(); // Tìm input bên trong form và loại bỏ khoảng trắng
+
+        // Nếu có giá trị tìm kiếm, chuyển hướng đến trang tìm kiếm đơn hàng
         if (search) {
-            if (search[2] =="-") {
-                window.location.href = '/order/search?IDCustomer=' + encodeURIComponent(search);
-            }
-            else
-                window.location.href = '/order/search?Name=' + encodeURIComponent(search);
+            // Chuyển hướng đến trang kết quả tìm kiếm với tham số OrderID
+            window.location.href = '/order/search?OrderID=' + encodeURIComponent(search);
         } else {
+            // Nếu không có giá trị tìm kiếm, chuyển hướng về trang chủ
             window.location.href = '/';
         }
     });
 }
+
+
 //chức năng sort
 if (sortTotalcost) {
     sortTotalcost.addEventListener('click', function () {
@@ -52,6 +59,10 @@ if (sortFre) {
         }
     });
 }
+
+
+
+
 //chức năng filter
 if (applyFilter) {
     applyFilter.addEventListener('click', function () {
