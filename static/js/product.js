@@ -38,8 +38,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
 
+//chức năng tìm kiếm
+// Kiểm tra nếu phần tử formSearch tồn tại
+const formSearch = document.querySelector('.form-Search');
+
+if (formSearch) {
+    // Thêm sự kiện khi người dùng submit form
+    formSearch.addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngừng hành động mặc định của form (không reload trang)
+
+        // Lấy giá trị tìm kiếm từ trường input trong form
+        let search = formSearch.querySelector('.search').value.trim(); // Tìm input bên trong form
+
+        // Nếu có giá trị tìm kiếm, chuyển hướng đến trang tìm kiếm sản phẩm
+        if (search) {
+            window.location.href = '/product/search?ProductName=' + encodeURIComponent(search);
+        } else {
+            // Nếu không có giá trị tìm kiếm, chuyển hướng về trang chủ
+            window.location.href = '/';
+        }
+    });
+}
+
+
+
+sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
 //chức năng sort
 // const sortSaleProduct = document.querySelector(".btn-sort-saleProduct")
 // if (sortSaleProduct) {
