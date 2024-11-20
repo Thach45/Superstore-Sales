@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     let paginationLinks = document.querySelectorAll('.pagination .page-link');
     let urlParams = new URLSearchParams(window.location.search);
@@ -38,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
 sortAscending = true; // Biến lưu trạng thái sắp xếp tăng dần hay giảm dần  
 
 //chức năng sort
@@ -93,5 +93,88 @@ if (sortQuantityProduct) {
             window.location.href = '/product/sort?field=Quantity&sort=' + sortQuantityProduct.name;
             // window.location.href = '/product/sort?sort=' + sortQuantityProduct.name; // Chuyển hướng trang với tham số sort
         }
+    });
+}
+
+//filter product
+
+const categoryData = {
+    Furniture: ['Bookcases', 'Chairs', 'Furnishings', 'Tables'],
+    OfficeSupplies: ['Appliances', 'Envelopes', 'Fasteners', 'Labels', 'Art', 'Binders', 'Paper', 'Supplies', 'Storage'],
+    Technology: ['Machines', 'Accessories', 'Copiers', 'Phones']
+}
+
+// Thêm event listener cho category select
+const categorySelect = document.getElementById('category');
+if (categorySelect) {
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = this.value;
+        const subcategoryGroups = document.querySelectorAll(".subcategory-group");
+        
+        // Ẩn tất cả các subcategory groups
+        subcategoryGroups.forEach(group => {
+            group.style.display = "none";
+        });
+
+        // Nếu category được chọn không phải "All Category"
+        if (selectedCategory !== "All Category") {
+            const selectedGroup = document.getElementById(selectedCategory);
+            if (selectedGroup) {
+                selectedGroup.style.display = "block";
+            }
+            updateSubcategoryOptions(selectedCategory);
+        }
+    });
+}
+
+function updateSubcategoryOptions(category) {
+    const subcategorySelect = document.querySelector(`#subcategory-${category.toLowerCase()}`);
+    if (!subcategorySelect) return;
+    
+    const subCategories = categoryData[category] || [];
+    subcategorySelect.innerHTML = '';
+
+    // Thêm option mặc định "All Sub-Category"
+    const allOption = document.createElement('option');
+    allOption.value = 'All Sub-Category';
+    allOption.textContent = 'All Sub-Category';
+    subcategorySelect.appendChild(allOption);
+
+    // Thêm các sub-categories
+    subCategories.forEach(subCategory => {
+        const option = document.createElement('option');
+        option.value = subCategory;
+        option.textContent = subCategory;
+        subcategorySelect.appendChild(option);
+    });
+}
+
+const filterCategory = document.querySelector('.categoryFilter');
+const applyFilter = document.getElementById('applyFilter');
+
+if (applyFilter) {
+    applyFilter.addEventListener('click', function () {
+        const category = filterCategory.value;
+        // Chuyển "All Category" thành chuỗi rỗng để filter
+        const newcategory = category === "All Category" ? "" : category;
+        
+        // Lấy subcategory đang được hiển thị và được chọn
+        let selectedSubCategories = [];
+        if (category !== "All Category") {
+            const activeSubSelect = document.querySelector(`#subcategory-${category.toLowerCase()}`);
+            if (activeSubSelect) {
+                selectedSubCategories = Array.from(activeSubSelect.selectedOptions).map(option => option.value);
+            }
+        }
+
+        // Xử lý trường hợp "All Sub-Category" hoặc không có subcategory nào được chọn
+        if (selectedSubCategories.length === 0 || selectedSubCategories.includes("All Sub-Category")) {
+            selectedSubCategories = [''];
+        }
+
+        const sub = selectedSubCategories.join(',');
+
+        // Chuyển hướng với params
+        window.location.href = '/product/filter?Category=' + newcategory + '&Sub-Category=' + sub;
     });
 }

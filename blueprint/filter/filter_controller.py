@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 from datetime import datetime
 
-def home():
+def home_Customer():
 
     filter_city = request.args.get('City', '')
     filter_segment = request.args.get('Segment', '')
@@ -35,6 +35,7 @@ def home():
     
     return render_template("customer.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
 
+<<<<<<< HEAD
 def filter_orders():
     filter_orderMonth = request.args.get('OrderMonth', '')
     filter_shipMonth = request.args.get('ShipMonth', '')
@@ -89,3 +90,31 @@ def filter_orders():
     data = list(collection.find(query).skip(skip).limit(limit))
 
     return render_template("order.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+=======
+
+def home_Product():
+    
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.products
+    
+    filter_category = request.args.get('Category', '')
+    filter_sub = request.args.get('Sub-Category', '')
+    if filter_category == "OfficeSupplies": # đổi tên category cho phù hợp với tên trong database
+        filter_category = "Office Supplies"
+
+    query = {}
+    if filter_category:
+        category = filter_category.split(',')  
+        query["Category"] = {"$in": category}  
+    if filter_sub:
+        query["SubCategory"] = {"$regex": filter_sub, "$options": "i"}
+        
+    page = int(request.args.get('page', 1))
+    limit = 20
+    skip = (page - 1) * limit 
+    total_records = collection.count_documents(query)
+    total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
+    data = list(collection.find(query).skip(skip).limit(limit))  
+    
+    return render_template("product.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+>>>>>>> fixedit
