@@ -47,33 +47,28 @@
                 <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
             </form>
             <div class="filter">
-                <select class="orderFilter form-select" >
+                <select class="orderFilter form-select">
                     <option value="">Tất cả Order Date</option>
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2016</option>
-                    {%endfor%}
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2017</option>
-                    {%endfor%}
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2018</option>
-                    {%endfor%}
+                    {% for year in range(2016, 2019) %}
+                        {% for month in range(1, 13) %}
+                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                        {% endfor %}
+                    {% endfor %}
                 </select>
-                <select class="shipFilter form-select" >
+                
+                <select class="shipFilter form-select">
                     <option value="">Tất cả Ship Date</option>
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2016</option>
-                    {%endfor%}
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2017</option>
-                    {%endfor%}
-                    {%for i in range(1,13)%}
-                        <option value="{{i}}/2016">{{i}}/2018</option>
-                    {%endfor%}
-
+                    {% for year in range(2016, 2019) %}
+                        {% for month in range(1, 13) %}
+                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                        {% endfor %}
+                    {% endfor %}
                 </select>
+                
+            
                 <button id="applyFilters" class="custom-button">Áp dụng</button>
             </div>
+            
         </div>    
     </div>
     <table>
