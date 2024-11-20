@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request , current_app
 from pymongo import MongoClient
-from helper.infoTopCustomer import countUser, countUserPurchases, userMax
+from helper.infoTopCustomer import countUser,countUserPurchases,userMax
+from helper.infoTopProduct import countProduct, countProductPurchases,productMax
+from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
 def SearchCustomer():
     search_IDCustomer= request.args.get('IDCustomer','').lower()
     # Lấy tham số 'Name' từ URL và chuyển về chữ thường
@@ -30,7 +32,9 @@ def SearchCustomer():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_name else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("customer.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("customer.html", records=data, page=page, total_pages=total_pages,
+                           totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), 
+                           user=userMax(collection))
 
 def SearchProduct():
     search_ProductName = request.args.get('ProductName', '').lower()
@@ -50,7 +54,7 @@ def SearchProduct():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_ProductName else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("product.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("product.html", records=data, page=page, total_pages=total_pages,totalProduct=countProduct(collection), totalPurchases=countProductPurchases(collection), product=productMax(collection))
 
 def SearchOrder():
     search_OrderID = request.args.get('OrderID', '').lower()
@@ -70,4 +74,4 @@ def SearchOrder():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_OrderID else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("order.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("order.html", records=data, page=page, total_pages=total_pages,totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
