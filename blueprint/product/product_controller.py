@@ -19,3 +19,5 @@ def index():
 
     return render_template('product.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
 
+    
+    
