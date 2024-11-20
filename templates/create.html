@@ -15,14 +15,18 @@
     </div>
 {% endif %}
 <div class="container mt-5">
-    
     <h2 class="text-center">Upload CSV File</h2>
     <form action="create/upload" method="post" enctype="multipart/form-data" class="mt-4">
         <div class="form-group">
+            <select name="collection" class="form-control mb-3" >
+                <option value="">Chọn loại dữ liệu</option>
+                <option value="products">Sản phẩm</option>
+                <option value="customers">Khách hàng</option>
+                <option value="orders">Đơn hàng</option>
+            </select>
             <input type="file" name="file" class="form-control-file" required>
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
-    
 </div>
 {% endblock %}

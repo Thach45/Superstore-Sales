@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+
+{% block title %}Đơn Hàng{% endblock %}
+
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static', filename='style/order.css')}}">
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="title-chart">Data Visualization</div>
+            <div class="chart-other">
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
+                </div>  
+                <div class="chart-tranferpot">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
+                </div>      
+            </div>   
+        </div>
+        
+    </div>
+    <div class="card">
+        <div class="kpi-container">
+            <div class="kpi-item">
+                <div class="kpi-value">{{totalUser}}</div>
+                <div class="kpi-label">Orders</div>
+            </div> 
+            <div class="kpi-item">
+                <div class="kpi-value">{{user}}</div>
+                <div class="kpi-label">Orders with the highest value</div>
+            </div> 
+            <div class="kpi-item">
+                <div class="kpi-value">{{totalPurchases}}</div>
+                <div class="kpi-label">Highest number of orders</div>
+            </div> 
+        </div>
+        
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form class="form-Search" role="search">
+                <input class="search" type="search" placeholder="Tìm kiếm Order ID..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+            <div class="filter">
+                <select class="orderFilter form-select">
+                    <option value="">Tất cả Order Date</option>
+                    {% for year in range(2016, 2019) %}
+                        {% for month in range(1, 13) %}
+                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+                
+                <select class="shipFilter form-select">
+                    <option value="">Tất cả Ship Date</option>
+                    {% for year in range(2016, 2019) %}
+                        {% for month in range(1, 13) %}
+                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+                
+            
+                <button id="applyFilters" class="custom-button">Áp dụng</button>
+            </div>
+            <div class="button-container d-flex mt-3 mb-3">
+                <div class="add-order border-radius-12">
+                    <btn class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i> Thêm đơn hàng
+                    </btn>
+                </div>
+                <div class="upload-order border-radius-12">
+                    <a href="/create/order" class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Upload File Csv
+                    </a>
+                </div>
+                <div class="download-order border-radius-12">
+                    <a href="/create/order" class="btn btn-primary">
+                        <i class="fas fa-file-download"></i> Download File Csv
+                    </a>
+                </div>
+                
+            </div>
+            
+        </div>    
+    </div>
+    <div class="card d-none add-order-form">
+        <form action="/add/order" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Ship Date</th>
+                        <th>Customer Name</th>
+                        <th>Customer ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="OrderID" placeholder="Order ID"></td>
+                        <td><input type="date" name="OrderDate"></td>
+                        <td><input type="date" name="ShipDate"></td>
+                        <td><input type="text" name="CustomerName" placeholder="Customer Name"></td>
+                        <td><input type="text" name="CustomerID" placeholder="Customer ID"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-add-order">Thêm đơn hàng</button>
+            </div>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Ship Date</th>
+                <th>Customer Name</th>
+                <th>Customer ID</th>
+                <th>Costs
+                    <span class="icon btn-sortCost" onclick="sortColumn('TotalCost')">
+                        <i class="fas fa-sort" name="desc"></i>
+                    </span>
+                </th>
+                <th>Frequency
+                    <span class="icon btn-sortFre" onclick="sortColumn('Frequency')">
+                        <i class="fas fa-sort" name="desc"></i>
+                    </span>
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in records %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ order.OrderID }}</td>
+                    <td>{{ order.OrderDate }}</td>
+                    <td>{{ order.ShipDate }}</td>
+                    <td>{{ order.CustomerName }}</td>
+                    <td>{{ order.CustomerID }}</td>
+                    <td >{{ order.TotalCost }}</td>
+                    <td style="
+                  
+                    text-align: center;">{{ order.Frequency }}</td>
+                    <td>
+                        <a href="/edit/order/{{ order._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <form action="/order/delete/{{ order._id }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" id="prevPage">Previous</a>
+            </li>
+            {%if total_pages < 10:%}
+                {% for i in range(1, total_pages + 1) %}
+                <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+            {%else:%}
+                {% if page < 5:%}
+                    {% for i in range(1, 10) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%elif page > total_pages - 5:%}
+                    {% for i in range(total_pages - 9, total_pages + 1) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%else:%}
+                    {% for i in range(page - 4, page + 5) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%endif%}
+            {%endif%}
+            <li class="page-item">
+                <a class="page-link" href="#" id="nextPage">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="{{url_for('static', filename='js/order.js')}}"></script>
+{%endblock%}

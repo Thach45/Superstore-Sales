@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Edit{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='style/edit.css')}}">
+<div class="container">
+    <b><h1>Edit Customer Data</h1></b>
+    <form class="edit-form" action="/edit/customer/{{ customer._id }}" method="POST">
+        <div class="form-group">
+            <b><label for="name">Name:</label></b>
+            <input type="text" id="name" name="name" placeholder="Enter customer name" value="{{customer.Name}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="idcustomer">Customer ID:</label></b>
+            <input type="text" id="idcustomer" name="idcustomer" placeholder="Enter Customer ID" value="{{customer.IDCustomer}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="quantity">Quantity:</label></b>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="1" value="{{customer.Quantity}}">
+        </div>
+
+        <div class="form-group">
+            <b><label for="segment">Segment:</label></b>
+            <select id="segment" name="segment">
+                <option value="Consumer" {% if customer.Segment == 'Consumer' %}selected{% endif %}>Consumer</option>
+                <option value="Corporate" {% if customer.Segment == 'Corporate' %}selected{% endif %}>Corporate</option>
+                <option value="Home Office" {% if customer.Segment == 'Home Office' %}selected{% endif %}>Home Office</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <b><label for="city">City</label></b>
+            <select name="city" id="city">
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Fort Lauderdale">Fort Lauderdale</option>
+                <option value="Henderson">Henderson</option>
+            </select>
+            
+        </div>
+
+        <div class="form-group">
+            <b><label for="state">State</label></b>
+            <select name="state" id="state">
+                <option value="Kentucky">Kentucky</option>
+                <option value="California">California</option>
+                <option value="Florida">Florida</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <b><label for="region">Region</label></b>
+            <select name="region" id="region">
+                <option value="South">South</option>
+                <option value="West">West</option>
+                <option value="East">East</option>
+                <option value="Central">Central</option>
+            </select>   
+        </div>
+        <button type="submit" class="submit-btn">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

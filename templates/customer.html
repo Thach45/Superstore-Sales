@@ -1,68 +1,211 @@
 {% extends "layout.html" %}
 
-{% block title %}Danh sách khách hàng{% endblock %}
+{% block title %}Khách hàng{% endblock %}
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{url_for('static', filename='style/customer.css')}}">
-<div class="container mt-5">
-    <div class="card mb-3">
-        <div class="card-body row title-chart">
-            Báo cáo khác
-        </div>
-        <div class="chart-other">
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="title-chart">Data Visualization</div>
+            <div class="chart-other">
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static' ,filename="images/pie.png")}}">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>  
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename="images/pie.png")}}">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>  
                 <div class="chart-tranferpot">
-                    <img src="{{url_for('static', filename="images/pie.png")}}">
+                    <img src="{{url_for('static', filename='images/pie.png')}}" alt="Chart 1">
                 </div>      
+            </div>   
         </div>
         
     </div>
-    <div class="card mb-3">
-        <div class="card-body">
-            <form class="d-flex col-5" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
+    <div class="card">
+        <div class="kpi-container">
+            <div class="kpi-item">
+                <div class="kpi-value">{{totalUser}}</div>
+                <div class="kpi-label">Khách Hàng</div>
+            </div> 
+            <div class="kpi-item">
+                <div class="kpi-value">{{user}}</div>
+                <div class="kpi-label">Khách Hàng Mua Nhiều Nhất</div>
+            </div> 
+            <div class="kpi-item">
+                <div class="kpi-value">{{totalPurchases}}</div>
+                <div class="kpi-label">Số Lần Mua Cao Nhất</div>
+            </div> 
         </div>
+        
     </div>
-    <table class="table table-hover table-sm">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-Search" role="search">
+                <input class="search" type="search" placeholder="Tìm kiếm khách hàng hoặc ID..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+            <div class="filter">
+                <select class="segmentFilter form-select" >
+                    <option value="">Tất cả Segment</option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Home Office">Home Office</option>
+                </select>
+                <select class="cityFilter form-select" >
+                    <option value="">Tất cả City</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Fort Lauderdale">Fort Lauderdale</option>
+                    <option value="Henderson">Henderson</option>
+                </select>
+                <select class="stateFilter form-select" >
+                    <option value="">Tất cả State</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="California">California</option>
+                    <option value="Florida">Florida</option>
+                </select>
+                <select class="regionFilter form-select" >
+                    <option value="">Tất cả Region</option>
+                    <option value="South">South</option>
+                    <option value="West">West</option>
+                    <option value="East">East</option>
+
+                    <option value="Central">Central</option>
+                </select>
+                <button id="applyFilters" class="custom-button">Áp dụng</button>
+            </div>
+            <div class="button-container d-flex mt-3 mb-3">
+                <div class="add-customer border-radius-12">
+                    <button class="btn btn-primary btn-add">
+                        <i class="fas fa-user-plus"></i> Thêm khách hàng
+                    </button>
+                </div>
+                <div class="upload-customer border-radius-12">
+                    <a href="/create/customer" class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Upload File Csv
+                    </a>
+                </div>
+                <div class="download-customer border-radius-12">
+                    <a href="/create/customer" class="btn btn-primary">
+                        <i class="fas fa-file-download"></i> Download File Csv
+                    </a>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="card add-customer-form d-none">
+        <form action="/add/customer" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID Customer</th>
+                        <th>Segment</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Region</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="Name" placeholder="Name"></td>
+                        <td><input type="text" name="IDCustomer" placeholder="ID Customer"></td>
+                        <td><input type="text" name="Segment" placeholder="Segment"></td>
+                        <td><input type="text" name="City" placeholder="City"></td>
+                        <td><input type="text" name="State" placeholder="State"></td>
+                        <td>
+                            <select name="Region">
+                                <option value="">Chọn Region</option>
+                                <option value="South">South</option>
+                                <option value="West">West</option>
+                                <option value="East">East</option>
+                                <option value="Central">Central</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="Quantity" placeholder="Quantity"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button-container d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn-add-customer">Thêm khách hàng</button>
+            </div>
+        </form>
+    </div>
+    <table>
         <thead>
             <tr>
                 <th>STT</th>
                 <th>Name</th>
                 <th>ID Customer</th>
                 <th>Segment</th>
-                <th>Country</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Region</th>
                 <th>Quantity
-                    <span class="icon">
+                    <span class="icon btn-sort">
                         <i class="fas fa-sort" name="desc"></i>
+                    </span>
                 </th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             {% for customer in records %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ customer.Name }}</td>
-                <td>{{ customer.IdCustomer }}</td>
-                <td>{{ customer.Segment }}</td>
-                <td>{{ customer.Country }}</td>
-                <td>{{ customer.Quantity }}</td>
-                <td>
-                    <a href="/admin/products/edit/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
-                    <button class="btn btn-danger btn-sm ml-2" data-id="{{ customer._id }}" id="button-delete">Xoá</button>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ customer.Name }}</td>
+                    <td>{{ customer.IDCustomer }}</td>
+                    <td>{{ customer.Segment }}</td>
+                    <td>{{ customer.City }}</td>
+                    <td>{{ customer.State }}</td>
+                    <td>{{ customer.Region }}</td>
+                    <td style="
+                  
+                    text-align: center;">{{ customer.Quantity }}</td>
+                    <td>
+                        <a href="/edit/customer/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <form action="/customer/delete/{{ customer._id }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        </form>
+
+                        
+                    </td>
+                </tr>
             {% endfor %}
-                <!-- End of product row -->
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" id="prevPage">Previous</a>
+            </li>
+            {%if total_pages < 10:%}
+                {% for i in range(1, total_pages + 1) %}
+                <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+            {%else:%}
+                {% if page < 5:%}
+                    {% for i in range(1, 10) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%elif page > total_pages - 5:%}
+                    {% for i in range(total_pages - 9, total_pages + 1) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%else:%}
+                    {% for i in range(page - 4, page + 5) %}
+                    <li class="page-item"><a class="page-link" href="#" data-page="{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {%endif%}
+            {%endif%}
+            <li class="page-item">
+                <a class="page-link" href="#" id="nextPage">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="{{url_for('static', filename='js/customer.js')}}"></script>
 {%endblock%}

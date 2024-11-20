@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block title %}Dashboard{% endblock %}
+</body>
+</html>
 
 {% block content %}
 <link href="{{ url_for('static', filename='style/dashboard.css') }}" rel="stylesheet">
@@ -10,15 +12,15 @@
             <h2>Tổng Quan</h2>
             <div class="kpi-container">
                 <div class="kpi-item">
-                    <div class="kpi-value">5,234</div>
+                    <div class="kpi-value">{{oderscount}}</div>
                     <div class="kpi-label">Đơn Hàng</div>
                 </div>
                 <div class="kpi-item">
-                    <div class="kpi-value">₫123Tr</div>
+                    <div class="kpi-value">{{totalsale}} USD</div>
                     <div class="kpi-label">Doanh Thu</div>
                 </div>
                 <div class="kpi-item">
-                    <div class="kpi-value">1,234</div>
+                    <div class="kpi-value">{{countcustomer}}</div>
                     <div class="kpi-label">Khách Hàng</div>
                 </div>
             </div>
@@ -36,19 +38,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Áo Thun Nam</td>
-                        <td>1,234</td>
-                        <td>₫123,400,000</td>
+                        <td>{{listproducts[0][0]}}</td>
+                        <td>{{listproducts[0][1]}}</td>
+                        <td>${{listproducts[0][2]}}</td>
                     </tr>
                     <tr>
-                        <td>Quần Jean Nữ</td>
-                        <td>987</td>
-                        <td>₫98,700,000</td>
+                        <td>{{listproducts[1][0]}}</td>
+                        <td>{{listproducts[1][1]}}</td>
+                        <td>${{listproducts[1][2]}}</td>
                     </tr>
                     <tr>
-                        <td>Giày Thể Thao</td>
-                        <td>765</td>
-                        <td>₫76,500,000</td>
+                        <td>{{listproducts[2][0]}}</td>
+                        <td>{{listproducts[2][1]}}</td>
+                        <td>${{listproducts[2][2]}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -68,25 +70,29 @@
                     <tr>
                         <th>Mã Đơn</th>
                         <th>Khách Hàng</th>
+                        <th>Sản Phẩm</th>
                         <th>Tổng Tiền</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>#1234</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>₫1,230,000</td>
+                        <td>{{listrecent[0][0]}}</td>
+                        <td>{{listrecent[0][1]}}</td>
+                        <td>{{listrecent[0][2]}}</td>
+                        <td>${{listrecent[0][3]}}</td>
                        
                     </tr>
                     <tr>
-                        <td>#1235</td>
-                        <td>Trần Thị B</td>
-                        <td>₫4,560,000</td>
+                        <td>{{listrecent[1][0]}}</td>
+                        <td>{{listrecent[1][1]}}</td>
+                        <td>{{listrecent[1][2]}}</td>
+                        <td>${{listrecent[1][3]}}</td>
                     </tr>
                     <tr>
-                        <td>#1236</td>
-                        <td>Lê Văn C</td>
-                        <td>₫7,890,000</td>
+                        <td>{{listrecent[2][0]}}</td>
+                        <td>{{listrecent[2][1]}}</td>
+                        <td>{{listrecent[2][2]}}</td>
+                        <td>${{listrecent[2][3]}}</td>
                     </tr>
                 </tbody>
             </table>
