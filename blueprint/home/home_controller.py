@@ -146,7 +146,7 @@ def home():
         '$project': {
             'Quantity': 1,
             'ProductName': 1,
-            'Sales': 1,
+            'Revenue': 1,
         }
     }
     
@@ -154,7 +154,7 @@ def home():
     top_products = collection.aggregate(pipeline)
     list_products = []
     for i in top_products:
-        product_sales = float(i['Sales']) * int(i['Quantity'])
+        product_sales = float(i['Revenue']) * int(i['Quantity'])
         list_products.append([i['ProductName'],format_number1(i['Quantity']),product_sales])
 
     
