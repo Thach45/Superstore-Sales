@@ -28,7 +28,7 @@ if __name__=='__main__':
     colors = ['#CE5C5B','#73B6E1','#EBCB78','#99C1A9','#A693C1','#A1D1E7']
     explode = [0.015]*len(shipmode_structure.index)
     shipmode_structure.plot(kind='pie',colors=colors, autopct='%1.2f%%', startangle=90,radius = 0.9,explode = explode)
-    plt.title("Ship Mode structure",fontsize = 16, fontweight = 'bold')
+    plt.title("Ship Mode structure",fontsize = 18, fontweight = 'bold')
     
     image_path = os.path.join(superstore_path, 'static', 'images', 'shipmode_structure.png')
     plt.savefig(image_path)

@@ -27,9 +27,11 @@ if __name__=='__main__':
     segment_structure.name = ''
     colors = ['#73B6E1','#99C1A9','#CE5C5B','#A693C1','#A1D1E7','#EBCB78']
     explode = [0.015]*len(segment_structure.index)
-    segment_structure.plot(kind='pie',colors=colors, autopct='%1.2f%%', startangle=90,radius = 1,explode = explode)
-    plt.title("Segment Structure",fontsize = 16, fontweight = 'bold')
-    
+    segment_structure.plot(kind='pie',colors=colors, autopct='%1.2f%%', startangle=90,radius = 1,explode = explode, textprops={'fontsize': 14})
+    plt.title("Segment Structure",fontsize = 18, fontweight = 'bold')
+
+    fig = plt.gcf()
+    fig.set_size_inches(6,6)
     image_path = os.path.join(superstore_path, 'static', 'images', 'segment_structure.png')
-    plt.savefig(image_path)
+    plt.savefig(image_path,dpi = 150)
     plt.show()
