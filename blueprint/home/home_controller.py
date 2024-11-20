@@ -33,8 +33,8 @@ def home():
     plt.savefig(image_path)
     plt.close()
     
-    image_url_pie = url_for('static', filename='images/pie.png')
-    image_url_plot = url_for('static', filename='images/sales.png')
+    image_url_pie = url_for('static', filename='images/revenue_structure_by_category.png')
+    image_url_plot = url_for('static', filename='images/monthly_revenue_per_year.png')
     
     collection = mongo.db.datastore
     
