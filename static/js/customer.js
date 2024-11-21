@@ -128,3 +128,11 @@ if (sortQuantityProduct) {
         }
     });
 }
+
+const addCustomer = document.querySelector('.btn-add');
+const addCustomerForm = document.querySelector('.add-customer-form');
+if (addCustomer) {
+    addCustomer.addEventListener('click', function () {
+        addCustomerForm.classList.remove('d-none');
+    });
+}

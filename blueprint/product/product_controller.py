@@ -1,6 +1,6 @@
 from flask import render_template, request, current_app
 import pandas as pd
-from helper.infoTopCustomer import countUser, countUserPurchases, userMax
+from helper.infoTopProduct import countProduct,countProductPurchases,productMax
 
 def index():
     mongo = current_app.config['MONGO']
@@ -17,7 +17,7 @@ def index():
         item['_id'] = str(item['_id'])
 
 
-    return render_template('product.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
-
+    return render_template('product.html', records=data, page=page, total_pages=total_pages, totalProduct=countProduct(collection), 
+                           totalPurchases=countProductPurchases(collection), product=productMax(collection))
     
     

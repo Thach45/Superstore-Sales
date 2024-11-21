@@ -51,9 +51,7 @@ def home():
     total_sales_value = total_sales_result[0]['total_sales']
     total_sales_value = format_number(total_sales_value)
     
-    #đếm số đơn hàng
-    oders = collection.distinct("OrderID")
-    oders_count = format_number1(len(oders))
+   
     
     #sản phẩm gần nhất
     pipeline = [
@@ -119,7 +117,7 @@ def home():
         '$project': {
             'Quantity': 1,
             'ProductName': 1,
-            'Sales': 1,
+            'Revenue': 1,
         }
     }
     
@@ -127,9 +125,13 @@ def home():
     top_products = collection.aggregate(pipeline)
     list_products = []
     for i in top_products:
-        product_sales = float(i['Sales']) * int(i['Quantity'])
+        product_sales = float(i['Revenue']) * int(i['Quantity'])
         list_products.append([i['ProductName'],format_number1(i['Quantity']),product_sales])
 
+    collection = mongo.db.orders
+    #đếm số đơn hàng
+    oders = collection.distinct("OrderID")
+    oders_count = format_number1(len(oders))
     
     
     

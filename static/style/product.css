@@ -134,25 +134,39 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    gap: 15px;
 }
 
 .form-select {
     padding: 12px;
     border: 2px solid var(--border-color);
     border-radius: 6px;
-    margin-right: 15px;
     font-size: 1em;
-    flex-grow: 1;
     transition: border-color 0.3s ease;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
+    background-position: right 12px center; 
+    width: 100%; 
+    min-width: 400px; 
 }
 
 .form-select:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+.categoryFilter.shrink {
+    width: 50%;  
+}
+
+.subcategory-group {
+    display: none; 
+    width: 50%; 
+}
+
+.subcategory-group.active {
+    display: block; 
 }
 
 .custom-button {
@@ -286,17 +300,17 @@ td:last-child, th:last-child {
 }
 
 /* Màu sắc riêng cho từng button */
-.add-customer .btn {
+.add-product .btn {
     background-color: #28a745;
     border-color: #28a745;
 }
 
-.upload-customer .btn {
+.upload-product .btn {
     background-color: #007bff;
     border-color: #007bff;
 }
 
-.download-customer .btn {
+.download-product .btn {
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
@@ -305,19 +319,25 @@ td:last-child, th:last-child {
     border-radius: 12px;
 }
 
-/* Styles cho form thêm khách hàng */
-.add-customer-form {
+.add-product-form input[type="text"]{
+    outline: none;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+}
+
+/* Styles cho form thêm sản phẩm */
+.add-product-form {
     padding: 20px;
 }
 
-.add-customer-form table {
+.add-product-form table {
     width: 100%;
     margin-bottom: 0;
     box-shadow: none;
 }
 
-.add-customer-form table input,
-.add-customer-form table select {
+.add-product-form table input,
+.add-product-form table select {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid var(--border-color);
@@ -325,30 +345,30 @@ td:last-child, th:last-child {
     font-size: 14px;
 }
 
-.add-customer-form table input:focus,
-.add-customer-form table select:focus {
+.add-product-form table input:focus,
+.add-product-form table select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-.add-customer-form table th,
-.add-customer-form table td {
+.add-product-form table th,
+.add-product-form table td {
     padding: 10px;
     vertical-align: middle;
 }
 
-.add-customer-form table tr:hover {
+.add-product-form table tr:hover {
     transform: none;
     box-shadow: none;
 }
 
-.add-customer-form .button-container {
+.add-product-form .button-container {
     margin-top: 20px;
     padding: 0;
 }
 
-.add-customer-form .btn-add-customer {
+.add-product-form .btn-add-product {
     padding: 8px 20px;
     font-size: 14px;
 }
