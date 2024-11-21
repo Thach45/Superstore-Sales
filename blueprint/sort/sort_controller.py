@@ -1,6 +1,8 @@
 from flask import request, jsonify, render_template, current_app
 from flask_pymongo import PyMongo as mongo
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
+from helper.infoTopProduct import countProduct, countProductPurchases,productMax
+from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
 def SortCustomer():
     mongo = current_app.config['MONGO']
     sort_quantity = request.args.get('sort') 
@@ -38,7 +40,10 @@ def SortProduct():
 
     Sorted_product = collection.find().sort(sort_field, mongo_product).skip(skip).limit(limit)
 
-    return render_template("product.html",records=Sorted_product, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("product.html",records=Sorted_product, page=page, total_pages=total_pages,
+                           totalProduct=countProduct(collection), 
+                           totalPurchases=countProductPurchases(collection), 
+                           product=productMax(collection))
 
 def SortOrder():
     mongo = current_app.config['MONGO']
@@ -58,4 +63,6 @@ def SortOrder():
 
     Sorted_order = collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit)
 
-    return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages,
+                           totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), 
+                           order=orderMax(collection))

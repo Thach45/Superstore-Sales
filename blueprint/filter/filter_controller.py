@@ -1,6 +1,8 @@
 from flask import render_template, request, current_app
 from pymongo import MongoClient
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
+from helper.infoTopProduct import countProduct, countProductPurchases,productMax
+from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
 from datetime import datetime
 
 def home_Customer():
@@ -88,7 +90,12 @@ def filter_orders():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     data = list(collection.find(query).skip(skip).limit(limit))
 
-    return render_template("order.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("order.html", records=data, page=page, total_pages=total_pages, 
+                            totalOrder=countOrder(collection), 
+                            totalPurchases=countOrderPurchases(collection), 
+                            order=orderMax(collection))
+                           
+
 
 def home_Product():
     
@@ -114,4 +121,7 @@ def home_Product():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     data = list(collection.find(query).skip(skip).limit(limit))  
     
-    return render_template("product.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("product.html", records=data, page=page, total_pages=total_pages, 
+                                           totalProduct=countProduct(collection), 
+                                           totalPurchases=countProductPurchases(collection), 
+                                           product=productMax(collection))
