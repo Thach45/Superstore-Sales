@@ -24,5 +24,5 @@ def format_number1(number, decimal_places=2):
     number = int(number_str)
 
     # Trả về chuỗi đã được định dạng
-    return f"{number}"
+    return f"{number:,}"
 

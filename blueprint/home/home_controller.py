@@ -1,6 +1,8 @@
 from flask import render_template, current_app, url_for
 from flask import jsonify
-from helper.FormatNumber import format_number,format_number1
+from helper.infoTopOrder import countOrder
+from helper.infoTopCustomer import countUser
+from helper.infoTopDashboard import TopProduct,TopRecent,TotalSales
 import os
 from datetime import datetime
 from matplotlib import pyplot as plt
@@ -36,108 +38,27 @@ def home():
     image_url_pie = url_for('static', filename='images/pie.png')
     image_url_plot = url_for('static', filename='images/sales.png')
     
-    collection = mongo.db.datastore
-    
+    collection = mongo.db.datastore 
     #tổng doanh thu
-    total_sales = collection.aggregate([
-        {
-            '$group': {
-                '_id': None,  # Không phân nhóm, tính tổng cho tất cả các phần tử
-                'total_sales': {'$sum': '$Sales'}  # Tính tổng trường 'sale'
-            }
-        }
-    ])
-    total_sales_result = list(total_sales)  # Chuyển CommandCursor thành danh sách
-    total_sales_value = total_sales_result[0]['total_sales']
-    total_sales_value = format_number(total_sales_value)
+    total_sales_value = TotalSales(collection)
+    #top 3 sản phẩm gần đây
+    list_recent = TopRecent(collection)
     
-   
-    
-    #sản phẩm gần nhất
-    pipeline = [
-    # Chuyển đổi trường "OrderDate" từ chuỗi thành datetime (nếu cần thiết)
-    {
-        '$addFields': {
-            'OrderDate': {
-                '$dateFromString': {
-                    'dateString': '$OrderDate',
-                    'format': '%d/%m/%Y'
-                }
-            }
-        }
-    },
-    # Sắp xếp các bản ghi theo "OrderDate"
-    {
-        '$sort': {
-            'OrderDate': -1  # Sắp xếp theo thứ tự tăng dần (1) hoặc giảm dần (-1)
-        }
-    },
-    # Giới hạn số lượng bản ghi trả về là 3
-    {
-        '$limit': 3
-    },
-    # Chọn các trường bạn muốn (nếu cần thiết)
-    {
-        '$project': {
-            'OrderID': 1,
-            'CustomerName': 1,
-            'Sales': 1,
-            'OrderDate': 1,
-            'ProductName': 1
-        }
-    }
-]
-    # Thực thi aggregate pipeline
-    recent_products = collection.aggregate(pipeline)
-    list_recent = []
-    for i in recent_products:
-        list_recent.append([i['OrderID'],i['CustomerName'],i['ProductName'],i['Sales']])
-    
-     
-    # đếm số người mua
-
     collection = mongo.db.users
-    customer = collection.distinct("IDCustomer")
-    Count_customer = format_number1(len(customer))
+    #đếm số customer
+    count_customer = countUser(collection)
     
-    #top bán chạy
     collection = mongo.db.products
-    pipeline = [
-    {
-        '$sort': {
-            'Quantity': -1 
-        }
-    },
-    # Giới hạn số lượng bản ghi trả về là 3
-    {
-        '$limit': 3
-    },
-    # Chọn các trường bạn muốn (nếu cần thiết)  
-    {
-        '$project': {
-            'Quantity': 1,
-            'ProductName': 1,
-            'Revenue': 1,
-        }
-    }
-    
-]
-    top_products = collection.aggregate(pipeline)
-    list_products = []
-    for i in top_products:
-        product_sales = float(i['Revenue']) * int(i['Quantity'])
-        list_products.append([i['ProductName'],format_number1(i['Quantity']),product_sales])
+    #top 3 sản phẩm bán chạy
+    list_products = TopProduct(collection)
 
     collection = mongo.db.orders
     #đếm số đơn hàng
-    oders = collection.distinct("OrderID")
-    oders_count = format_number1(len(oders))
-    
-    
+    orders_count = countOrder(collection) 
     
     return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie , 
-                                            totalsale = total_sales_value, oderscount = oders_count
-                                            ,countcustomer = Count_customer,listrecent = list_recent
+                                            totalsale = total_sales_value, orderscount = orders_count
+                                            ,countcustomer = count_customer,listrecent = list_recent
                                             ,listproducts = list_products)
     
     
