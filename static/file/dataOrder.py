@@ -36,4 +36,4 @@ if __name__ == '__main__':
     df_dataCustomer = pd.DataFrame(dataCustomer)
     output_file = os.path.join(base_dir,'dataOrder.csv')
     df_dataCustomer.to_csv(output_file)
-    print(df_dataCustomer.head())
+    print(df_dataCustomer.tail())
