@@ -51,3 +51,30 @@ def edit_Product(ids):
     )
 
     return redirect(url_for('product.home_route'))
+
+def index_Order(id):
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.orders
+    data = (collection.find_one({'_id': ObjectId(id)}))
+    return render_template('editOrder.html', order=data)
+
+def edit_Order(ids):
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.orders
+    
+    data = {
+        "OrderID" : request.form.get("OrderID"),
+        "OrderDate" : request.form.get("OrderDate"),
+        "ShipDate" : request.form.get("ShipDate"),
+        "CustomerName" : request.form.get("CustomerName"),
+        "CustomerID" : request.form.get("CustomerID"),
+        "TotalCost" : request.form.get("TotalCost"),
+        "Frequency" : int(request.form.get("Frequency"))
+    }
+
+    collection.update_one(
+    {'_id': ObjectId(ids)},
+    {'$set': data}  
+    )
+
+    return redirect(url_for('order.home_route'))
