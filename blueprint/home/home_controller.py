@@ -4,6 +4,7 @@ from helper.infoTopOrder import countOrder
 from helper.infoTopCustomer import countUser
 from helper.infoTopDashboard import TopProduct,TopRecent,TotalSales
 import os
+import pandas as pd
 from datetime import datetime
 from matplotlib import pyplot as plt
 import matplotlib
@@ -13,17 +14,38 @@ matplotlib.use('Agg')
 def home():
     
     mongo = current_app.config['MONGO'] ####
-    
+    collection = mongo.db.orders
     # Dữ liệu mẫu
-    month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    sales = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1700]
-
-    # Tạo biểu đồ
+    orderDate = list(collection.find({},{"OrderDate":1,"TotalCost":1,"_id":0}))
+    orderDate = pd.DataFrame(orderDate)
+    orderDate['OrderDate'] = pd.to_datetime(orderDate['OrderDate'], format='%d/%m/%Y')
+    orderDate['Year'] = orderDate['OrderDate'].dt.year
+    orderDate['Month'] = orderDate['OrderDate'].dt.month
+    orderDate['TotalCost'] = pd.to_numeric(orderDate['TotalCost'], errors='coerce')
+    order_frequency = orderDate.groupby(['Year', 'Month'])['TotalCost'].sum().reset_index()
+    yearTotalCost = orderDate.groupby('Year')['TotalCost'].sum().reset_index()
+    print(yearTotalCost['Year'])
+    if not yearTotalCost.empty:
+        plt.figure(figsize=(10, 5))
+        plt.bar(yearTotalCost['Year'], yearTotalCost['TotalCost'],color='blue',width=0.5,alpha=0.5,edgecolor='black',linewidth=1,)
+        plt.xlabel('Year')
+        plt.xticks(yearTotalCost['Year'].astype(int))
+        plt.ylabel('Total Cost')
+        plt.title('Total Cost by Year')
+        plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'sales_year.png'))
+        plt.close()
     plt.figure(figsize=(10, 5))
-    plt.fill_between(month, sales, color="skyblue", alpha=0.4)
-    plt.plot(month, sales, color="Slateblue", alpha=0.6)
-    image_path = os.path.join(current_app.root_path, 'static', 'images', 'sales.png')
-    plt.savefig(image_path)
+    for year in order_frequency['Year'].unique():
+        yearly_data = order_frequency[order_frequency['Year'] == year]
+        plt.plot(yearly_data['Month'], yearly_data['TotalCost'], marker='o', linestyle='-',linewidth=3, label=str(year))
+
+    plt.xticks(range(1, 13))
+    plt.xlabel('Month')
+    plt.ylabel('Total Cost')
+    plt.title('Total Cost by Year')
+    plt.legend(title='Year')
+    plt.tight_layout()
+    plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'sales.png'))
     plt.close()
     #tạo biểu đồ tròn
     labels = ['A', 'B', 'C', 'D']

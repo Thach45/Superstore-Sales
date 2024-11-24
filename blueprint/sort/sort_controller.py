@@ -17,7 +17,7 @@ def SortCustomer():
     collection = mongo.db.users
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    sorted_quantity = collection.find().sort("Quantity", mongo_quantity).skip(skip).limit(limit)
+    sorted_quantity = list(collection.find().sort("Quantity", mongo_quantity).skip(skip).limit(limit))
     return render_template("customer.html",records=sorted_quantity, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
 
     
@@ -37,8 +37,7 @@ def SortProduct():
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
 
-    Sorted_product = collection.find().sort(sort_field, mongo_product).skip(skip).limit(limit)
-    print(list(Sorted_product))
+    Sorted_product = list(collection.find().sort(sort_field, mongo_product).skip(skip).limit(limit))
     return render_template("product.html",records=Sorted_product, page=page, total_pages=total_pages,
                            totalProduct=countProduct(collection), 
                            totalPurchases=countProductPurchases(collection), 
@@ -60,7 +59,7 @@ def SortOrder():
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
 
-    Sorted_order = collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit)
+    Sorted_order = list(collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit))
 
     return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages,
                            totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), 

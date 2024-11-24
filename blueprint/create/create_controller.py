@@ -22,7 +22,7 @@ def upload():
         # Lấy đối tượng MongoDB từ config của Flask
         mongo = current_app.config['MONGO']
         # Thêm dữ liệu vào MongoDB
-        mongo.db.datastore.insert_many(data)
+        mongo.db.products.insert_many(data)
         return redirect(url_for('home.home_route'))
     else:
         return render_template('create.html', message="0")

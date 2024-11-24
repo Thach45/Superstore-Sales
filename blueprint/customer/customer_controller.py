@@ -1,5 +1,7 @@
 from flask import render_template, request, current_app
 import pandas as pd
+import os
+import matplotlib.pyplot as plt
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 
 def index():
@@ -17,5 +19,63 @@ def index():
         item['_id'] = str(item['_id'])
 
 
-    return render_template('customer.html', records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+
+    # tạo biểu đồ
+    states = list(collection.find({}, {"State": 1, "_id": 0}))
+    states = [item['State'] for item in states]
+    region = list(collection.find({}, {"Region": 1, "_id": 0}))
+    region = [item['Region'] for item in region]
+    segment = list(collection.find({}, {"Segment": 1, "_id": 0}))
+    segment = [item['Segment'] for item in segment]
+    if states:
+        # Tạo biểu đồ tròn cho trường 'state'
+        state_counts = pd.Series(states).value_counts()
+        state_counts = state_counts.sort_values(ascending=False)
+        # Get the top 3 states
+        top_states = state_counts.head(5)
+        
+        # Sum the rest as 'Others'
+        others = state_counts.iloc[5:].sum()
+
+        others_series = pd.Series({'Others': others})
+        
+        # Concatenate the top states with 'Others'
+        state_counts = pd.concat([top_states, others_series])
+        plt.figure(figsize=(6, 6))
+        plt.pie(state_counts, labels=state_counts.index, autopct='%1.1f%%')
+        plt.title('Distribution of States')
+
+        # Lưu biểu đồ vào một tệp
+        image_path = os.path.join(current_app.root_path, 'static', 'images', 'state_distribution.png')
+        plt.savefig(image_path)
+        plt.close()
+    if region:
+        region_counts = pd.Series(region).value_counts()
+        plt.figure(figsize=(6, 6))
+        plt.pie(region_counts, labels=region_counts.index, autopct='%1.1f%%')
+        plt.title('Distribution of Regions')
+        # Lưu biểu đồ vào một tệp
+        image_path = os.path.join(current_app.root_path, 'static', 'images', 'region_distribution.png')
+        plt.savefig(image_path)
+        plt.close()
+    if segment:
+        segment_counts = pd.Series(segment).value_counts()
+        plt.figure(figsize=(6, 6))
+        plt.pie(segment_counts, labels=segment_counts.index, autopct='%1.1f%%')
+        plt.title('Distribution of Segments')
+
+        # Lưu biểu đồ vào một tệp
+        image_path = os.path.join(current_app.root_path, 'static', 'images', 'segment_distribution.png')
+        plt.savefig(image_path)
+        plt.close()
+
+    return render_template('customer.html',
+                        records=data,
+                        page=page, 
+                        total_pages=total_pages, 
+                        totalUser=countUser(collection), 
+                        totalPurchases=countUserPurchases(collection), 
+                        user=userMax(collection), 
+                        states=set(states)
+                        )
 
