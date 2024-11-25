@@ -2,7 +2,7 @@ from flask import render_template, current_app, url_for
 from flask import jsonify
 from helper.infoTopOrder import countOrder,totalRevenue,topRecent
 from helper.infoTopCustomer import countUser
-from helper.infoTopDashboard import TopProduct
+from helper.infoTopProduct import TopProduct
 import os
 import pandas as pd
 from datetime import datetime
@@ -80,7 +80,7 @@ def home():
     
     return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie , 
                                             totalsale = total_revenue, orderscount = orders_count
-                                            ,countcustomer = count_customer,listrecent = list_recent
+                                            ,countcustomer = count_customer, listrecent = list_recent
                                             ,listproducts = list_products)
     
     
