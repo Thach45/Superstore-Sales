@@ -1,7 +1,8 @@
+from helper.FormatNumber import format_number
 
 def countUser(collection):  
     unique_names = collection.distinct("Name")  # Dùng hàm có sẵn distinct để tối ưu
-    return (len(unique_names))
+    return format_number(len(unique_names),0)
 
 def countUserPurchases(collection):  
     pipeline = [
@@ -15,7 +16,7 @@ def countUserPurchases(collection):
     result = list(collection.aggregate(pipeline))
     total_purchases = {item['_id']: item['totalQuantity'] for item in result}
     max_purchases = max(total_purchases.values())
-    return (max_purchases)
+    return format_number(max_purchases,0)
 
 def userMax(collection):  
     pipeline = [

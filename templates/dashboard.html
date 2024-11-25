@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                     {% for i in listproducts %}
-                    <tr>
+                    <tr> 
                         <td>{{i["ProductName"]}}</td>
                         <td>{{i["Quantity"]}}</td>
                         <td>${{i["Revenue"]}}</td>
@@ -52,6 +52,28 @@
             <h2>Sales Trend</h2>
             <img src="{{ url_for('static', filename='images/sales.png') }}" alt="Dashboard">
         </section>
+    </section>
+    <section class="card">
+        <h2>Recent Orders</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Customer Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for i in listrecent %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>{{i[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
     </main>
 </div>
 {% endblock %}
