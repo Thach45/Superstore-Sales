@@ -42,7 +42,7 @@ def edit_Product(ids):
         "ProductName": request.form.get("ProductName"), 
         "Category": request.form.get("Category"),
         "SubCategory": request.form.get("SubCategory"),
-        "Revenue": request.form.get("Revenue"),
+        "Revenue": float(request.form.get("Revenue")),
         "Quantity": int(request.form.get("Quantity"))
     }
     collection.update_one(

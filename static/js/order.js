@@ -40,7 +40,7 @@ if (sortTotalcost) {
                 sortTotalcost.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
-            window.location.href = '/order/sort?field=TotalCost&sort=' + sortTotalcost.name; // Chuyển hướng trang với tham số sort
+            window.location.href = "/order/sort?field=TotalCost&sort="+sortTotalcost.name;
         }
     });
 }
@@ -54,8 +54,7 @@ if (sortFre) {
                 sortFre.name = 'desc'; // Thay đổi giá trị của thuộc tính name thành giảm dần
                 sortAscending = true; // Chuyển trạng thái sang tăng dần
             }
-            console.log(sortFre.name);
-            window.location.href = '/order/sort?field=Frequency&sort=' + sortFre.name; // Chuyển hướng trang với tham số sort
+            window.location.href = "/order/sort?field=Frequency&sort="+sortFre.name;
         }
     });
 }
@@ -69,12 +68,11 @@ if (applyFilter) {
     applyFilter.addEventListener('click', function () {
         let ship = document.querySelector('.shipFilter').value;
         let order = document.querySelector('.orderFilter').value;
-        
-        // Kiểm tra nếu người dùng đã chọn tháng và năm
+        let urlParams = new URLSearchParams();
         if (order || ship) {
-            console.log("Order Month: ", order);  // Xem giá trị OrderMonth
-            console.log("Ship Month: ", ship);  // Xem giá trị ShipMonth
-            window.location.href = '/order/filter?ShipMonth=' + ship + '&OrderMonth=' + order;
+            urlParams.set('ShipMonth', ship);
+            urlParams.set('OrderMonth', order);
+            window.location.href = "/order/filter?"+urlParams.toString();
         }
     });
 }

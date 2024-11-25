@@ -23,15 +23,15 @@
         <div class="kpi-container">
             <div class="kpi-item">
                 <div class="kpi-value">{{totalProduct}}</div>
-                <div class="kpi-label">Sản Phẩm</div>
+                <div class="kpi-label">Product</div>
             </div> 
             <div class="kpi-item">
                 <div class="kpi-value">{{product}}</div>
-                <div class="kpi-label">Sản Phẩm bán chạy nhất</div>
+                <div class="kpi-label">Best Selling Product</div>
             </div> 
             <div class="kpi-item">
                 <div class="kpi-value">{{totalPurchases}}</div>
-                <div class="kpi-label">Số Lần Mua Cao Nhất</div>
+                <div class="kpi-label">Most Purchases</div>
             </div> 
         </div>
         
@@ -39,8 +39,8 @@
     <div class="card">
         <div class="card-body">
             <form class="form-Search" role="search">
-                <input class="search" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+                <input class="search" type="search" placeholder="Search product..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="filter">
                 <select id="category" class="categoryFilter form-select" onchange="update()">
@@ -88,7 +88,7 @@
             <div class="button-container d-flex mt-3 mb-3">
                 <div class="add-product border-radius-12">
                     <button class="btn btn-primary btn-add-product">
-                        <i class="fas fa-user-plus"></i> Thêm sản phẩm
+                        <i class="fas fa-user-plus"></i> Add Product
                     </button>
                 </div>
                 <div class="upload-product border-radius-12">
@@ -128,7 +128,7 @@
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-add-product">Thêm sản phẩm</button>
+                <button type="submit" class="btn btn-primary btn-add-product">Add Product</button>
             </div>
         </form>
     </div>
@@ -166,10 +166,10 @@
                   
                     text-align: center;">{{ product.Quantity }}</td>
                     <td>
-                        <a href="/edit/product/{{ product._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="/edit/product/{{ product._id }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="/product/delete/{{ product._id }}" method="POST" style="display:inline;">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
 
                         

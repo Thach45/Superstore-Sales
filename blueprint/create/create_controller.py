@@ -2,11 +2,12 @@ from flask import render_template, request, current_app, url_for, redirect
 from flask import jsonify
 import pandas  as pd
 from datetime import datetime
-
+from validation.checkAddOrder import checkAddOrder
+from validation.checkAddProduct import checkAddProduct
+from validation.checkAddCustomer import checkAddCustomer
 def create():
     return render_template('create.html')
 def upload():
-
     if 'file' not in request.files:
         return "No file part", 400
     
@@ -21,41 +22,61 @@ def upload():
         data = df.to_dict(orient='records')
         # Lấy đối tượng MongoDB từ config của Flask
         mongo = current_app.config['MONGO']
-        # Thêm dữ liệu vào MongoDB
-        mongo.db.products.insert_many(data)
-        return redirect(url_for('home.home_route'))
+        if request.form['collection'] == 'products':
+            mongo.db.products.insert_many(data)
+            return redirect(url_for('product.home_route'))
+        elif request.form['collection'] == 'customers':
+            mongo.db.users.insert_many(data)
+            return redirect(url_for('customer.home_route'))
+        elif request.form['collection'] == 'orders':
+            mongo.db.orders.insert_many(data)
+            return redirect(url_for('order.home_route'))
+        else:
+            mongo.db.datastore.insert_many(data)
+            return redirect(url_for('home.home_route'))
     else:
-        return render_template('create.html', message="0")
+     return render_template('create.html', message="0")
+    
+
+
+
 def add_product():
     try:
         mongo = current_app.config['MONGO']
-        mongo.db.products.insert_one(dict(request.form))
+        data = dict(request.form)
+        data = checkAddProduct(data)
+        mongo.db.products.update_one(
+            {'ProductName': data['ProductName'], 'Category': data['Category'], 'SubCategory': data['SubCategory']},  
+            {'$set': data},  # Cập nhật với dữ liệu mới
+            upsert=True  # Chèn nếu không tồn tại
+        )
         return redirect(url_for('product.home_route'))
     except :
         return render_template('404.html')
+    
+
 def add_customer():
     try:
-        print(request.form)
         mongo = current_app.config['MONGO']
-        mongo.db.users.insert_one(dict(request.form))
+        data = dict(request.form)
+        data = checkAddCustomer(data)
+        if data == "CustomerID already exists":
+            return render_template('404.html', message="CustomerID already exists")
+        mongo.db.users.insert_one(data)
         return redirect(url_for('customer.home_route'))
     except :
         return render_template('404.html')
+    
+
+
 def add_order():
     try:
         data = dict(request.form)
-        
-        # Chuyển đổi định dạng ngày tháng và đảm bảo tất cả giá trị là string
-        if 'OrderDate' in data:
-            date_obj = datetime.strptime(data['OrderDate'], '%Y-%m-%d')
-            data['OrderDate'] = str(date_obj.strftime('%d/%m/%Y'))
-        if 'ShipDate' in data:
-            date_obj = datetime.strptime(data['ShipDate'], '%Y-%m-%d')
-            data['ShipDate'] = str(date_obj.strftime('%d/%m/%Y'))
-            
-        # Chuyển tất cả giá trị trong data thành string
-        data = {key: str(value) for key, value in data.items()}
-            
+        data = checkAddOrder(data) # Đã Validate
+        if data == "OrderID already exists":
+            return render_template('404.html', message="OrderID already exists")
+        if data == "CustomerID already exists":
+            return render_template('404.html', message="CustomerID already exists")
         mongo = current_app.config['MONGO']
         mongo.db.orders.insert_one(data)
         return redirect(url_for('order.home_route'))

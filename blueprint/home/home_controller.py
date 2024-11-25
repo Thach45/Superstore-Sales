@@ -1,8 +1,8 @@
 from flask import render_template, current_app, url_for
 from flask import jsonify
-from helper.infoTopOrder import countOrder
+from helper.infoTopOrder import countOrder,totalRevenue,topRecent
 from helper.infoTopCustomer import countUser
-from helper.infoTopDashboard import TopProduct,TopRecent,TotalSales
+from helper.infoTopDashboard import TopProduct
 import os
 import pandas as pd
 from datetime import datetime
@@ -60,11 +60,7 @@ def home():
     image_url_pie = url_for('static', filename='images/pie.png')
     image_url_plot = url_for('static', filename='images/sales.png')
     
-    collection = mongo.db.datastore 
-    #tổng doanh thu
-    total_sales_value = TotalSales(collection)
-    #top 3 sản phẩm gần đây
-    list_recent = TopRecent(collection)
+    
     
     collection = mongo.db.users
     #đếm số customer
@@ -73,13 +69,17 @@ def home():
     collection = mongo.db.products
     #top 3 sản phẩm bán chạy
     list_products = TopProduct(collection)
-
+    print((list_products))
     collection = mongo.db.orders
     #đếm số đơn hàng
     orders_count = countOrder(collection) 
+    #tổng doanh thu
+    total_revenue = totalRevenue(collection)
+    #top 3 sản phẩm gần đây
+    list_recent = topRecent(collection)
     
     return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie , 
-                                            totalsale = total_sales_value, orderscount = orders_count
+                                            totalsale = total_revenue, orderscount = orders_count
                                             ,countcustomer = count_customer,listrecent = list_recent
                                             ,listproducts = list_products)
     
