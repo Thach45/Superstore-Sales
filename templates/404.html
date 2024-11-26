@@ -42,10 +42,16 @@
     </style>
 </head>
 <body>
+    {% if message %}
+        <div class="container">
+            <h1>{{ message }}</h1>
+        </div>
+    {% else %}
     <div class="container">
         <h1>Đang bảo trì</h1>
         <p>Chúng tôi đang thực hiện một số bảo trì. Vui lòng quay lại sau.</p>
-        <div class="spinner"></div>
-    </div>
+            <div class="spinner"></div>
+        </div>
+    {% endif %}
 </body>
 </html>

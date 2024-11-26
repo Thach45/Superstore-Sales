@@ -1,4 +1,4 @@
-from helper.FormatNumber import format_number,format_number1
+
 
 def TopRecent(collection):
     #sản phẩm gần nhất
@@ -54,34 +54,11 @@ def TotalSales(collection):
     ])
     total_sales_result = list(total_sales)  # Chuyển CommandCursor thành danh sách
     total_sales_value = total_sales_result[0]['total_sales']
-    total_sales_value = format_number(total_sales_value)
+    total_sales_value = (total_sales_value)
     return total_sales_value
     
 def TopProduct(collection):
-    #top bán chạy
-    pipeline = [
-    {
-        '$sort': {
-            'Quantity': -1 
-        }
-    },
-    # Giới hạn số lượng bản ghi trả về là 3
-    {
-        '$limit': 3
-    },
-    # Chọn các trường bạn muốn (nếu cần thiết)  
-    {
-        '$project': {
-            'Quantity': 1,
-            'ProductName': 1,
-            'Revenue': 1,
-        }
-    }
+    orderDate = list(collection.find({}, {"ProductName": 1, "Revenue": 1, "Quantity": 1}).sort("Revenue", -1).limit(3))
+    return orderDate
+
     
-]
-    top_products = collection.aggregate(pipeline)
-    list_products = []
-    for i in top_products:
-        product_sales = float(i['Revenue']) * int(i['Quantity'])
-        list_products.append([i['ProductName'],format_number1(i['Quantity']),product_sales])
-    return list_products

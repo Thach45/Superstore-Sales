@@ -37,35 +37,35 @@
     <div class="card">
         <div class="card-body">
             <form class="form-Search" role="search">
-                <input class="search" type="search" placeholder="Tìm kiếm Order ID..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+                <input class="search" type="search" placeholder="Search Order ID..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="filter">
                 <select class="orderFilter form-select">
-                    <option value="">Tất cả Order Date</option>
+                    <option value="">All Order Date</option>
                     {% for year in range(2016, 2019) %}
                         {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
                         {% endfor %}
                     {% endfor %}
                 </select>
                 
                 <select class="shipFilter form-select">
-                    <option value="">Tất cả Ship Date</option>
+                    <option value="">All Ship Date</option>
                     {% for year in range(2016, 2019) %}
                         {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Tháng {{month}}/{{year}}</option>
+                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
                         {% endfor %}
                     {% endfor %}
                 </select>
                 
             
-                <button id="applyFilters" class="custom-button">Áp dụng</button>
+                <button id="applyFilters" class="custom-button">Apply</button>
             </div>
             <div class="button-container d-flex mt-3 mb-3">
                 <div class="add-order border-radius-12">
                     <btn class="btn btn-primary btn-add">
-                        <i class="fas fa-user-plus"></i> Thêm đơn hàng
+                        <i class="fas fa-user-plus"></i> Add Order
                     </btn>
                 </div>
                 <div class="upload-order border-radius-12">
@@ -93,6 +93,8 @@
                         <th>Ship Date</th>
                         <th>Customer Name</th>
                         <th>Customer ID</th>
+                        <th>Costs</th>
+                        <th>Frequency</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,11 +104,13 @@
                         <td><input type="date" name="ShipDate"></td>
                         <td><input type="text" name="CustomerName" placeholder="Customer Name"></td>
                         <td><input type="text" name="CustomerID" placeholder="Customer ID"></td>
+                        <td><input type="text" name="TotalCost" placeholder="Costs"></td>
+                        <td><input type="number" name="Frequency" placeholder="Frequency"></td>
                     </tr>
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-add-order">Thêm đơn hàng</button>
+                <button type="submit" class="btn btn-primary btn-add-order">Add Order</button>
             </div>
         </form>
     </div>
@@ -141,15 +145,15 @@
                     <td>{{ order.ShipDate }}</td>
                     <td>{{ order.CustomerName }}</td>
                     <td>{{ order.CustomerID }}</td>
-                    <td >{{ order.TotalCost }}</td>
+                    <td >{{ order.TotalCost}}</td>
                     <td style="
                   
                     text-align: center;">{{ order.Frequency }}</td>
                     <td>
-                        <a href="/edit/order/{{ order._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="/edit/order/{{ order._id }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="/order/delete/{{ order._id }}" method="POST" style="display:inline;">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
 
                         

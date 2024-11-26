@@ -9,89 +9,48 @@
 <div class="container">
     <main class="dashboard">
         <section class="card">
-            <h2>Tổng Quan</h2>
+            <h2>Overview</h2>
             <div class="kpi-container">
                 <div class="kpi-item">
                     <div class="kpi-value">{{orderscount}}</div>
-                    <div class="kpi-label">Đơn Hàng</div>
+                    <div class="kpi-label">Orders</div>
                 </div>
                 <div class="kpi-item">
                     <div class="kpi-value">{{totalsale}} USD</div>
-                    <div class="kpi-label">Doanh Thu</div>
+                    <div class="kpi-label">Total Revenue</div>
                 </div>
                 <div class="kpi-item">
                     <div class="kpi-value">{{countcustomer}}</div>
-                    <div class="kpi-label">Khách Hàng</div>
+                    <div class="kpi-label">Customers</div>
                 </div>
             </div>
             <img src="{{ url_for('static', filename='images/sales_year.png') }}" alt="Dashboard">
         </section>
         <section class="card">
-            <h2>Sản Phẩm Bán Chạy</h2>
+            <h2>Top Products</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Sản Phẩm</th>
-                        <th>Số Lượng</th>
-                        <th>Doanh Thu</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Revenue</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for i in listproducts %}
                     <tr>
-                        <td>{{listproducts[0][0]}}</td>
-                        <td>{{listproducts[0][1]}}</td>
-                        <td>${{listproducts[0][2]}}</td>
+                        <td>{{i["ProductName"]}}</td>
+                        <td>{{i["Quantity"]}}</td>
+                        <td>${{i["Revenue"]}}</td>
                     </tr>
-                    <tr>
-                        <td>{{listproducts[1][0]}}</td>
-                        <td>{{listproducts[1][1]}}</td>
-                        <td>${{listproducts[1][2]}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{listproducts[2][0]}}</td>
-                        <td>{{listproducts[2][1]}}</td>
-                        <td>${{listproducts[2][2]}}</td>
-                    </tr>
+                    {% endfor %}
+                   
                 </tbody>
             </table>
         </section>
         <section class="card">
-            <h2>Xu Hướng Bán Hàng</h2>
+            <h2>Sales Trend</h2>
             <img src="{{ url_for('static', filename='images/sales.png') }}" alt="Dashboard">
-        </section>
-        <section class="card">
-            <h2>Đơn Hàng Gần Đây</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã Đơn</th>
-                        <th>Khách Hàng</th>
-                        <th>Sản Phẩm</th>
-                        <th>Tổng Tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{listrecent[0][0]}}</td>
-                        <td>{{listrecent[0][1]}}</td>
-                        <td>{{listrecent[0][2]}}</td>
-                        <td>${{listrecent[0][3]}}</td>
-                       
-                    </tr>
-                    <tr>
-                        <td>{{listrecent[1][0]}}</td>
-                        <td>{{listrecent[1][1]}}</td>
-                        <td>{{listrecent[1][2]}}</td>
-                        <td>${{listrecent[1][3]}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{listrecent[2][0]}}</td>
-                        <td>{{listrecent[2][1]}}</td>
-                        <td>{{listrecent[2][2]}}</td>
-                        <td>${{listrecent[2][3]}}</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </main>
 </div>

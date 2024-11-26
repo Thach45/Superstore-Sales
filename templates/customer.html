@@ -27,15 +27,15 @@
         <div class="kpi-container">
             <div class="kpi-item">
                 <div class="kpi-value">{{totalUser}}</div>
-                <div class="kpi-label">Khách Hàng</div>
+                <div class="kpi-label">Customer</div>
             </div> 
             <div class="kpi-item">
                 <div class="kpi-value">{{user}}</div>
-                <div class="kpi-label">Khách Hàng Mua Nhiều Nhất</div>
+                <div class="kpi-label">Customer Buy Most</div>
             </div> 
             <div class="kpi-item">
                 <div class="kpi-value">{{totalPurchases}}</div>
-                <div class="kpi-label">Số Lần Mua Cao Nhất</div>
+                <div class="kpi-label">Most Purchases</div>
             </div> 
         </div>
         
@@ -43,42 +43,42 @@
     <div class="card">
         <div class="card-body">
             <form class="form-Search" role="search">
-                <input class="search" type="search" placeholder="Tìm kiếm khách hàng hoặc ID..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+                <input class="search" type="search" placeholder="Search customer or ID..." aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="filter">
                 <select class="segmentFilter form-select" >
-                    <option value="">Tất cả Segment</option>
+                    <option value="">All Segment</option>
                     <option value="Consumer">Consumer</option>
                     <option value="Corporate">Corporate</option>
                     <option value="Home Office">Home Office</option>
                 </select>
                 <select class="cityFilter form-select" >
-                    <option value="">Tất cả City</option>
+                    <option value="">All City</option>
                     <option value="Los Angeles">Los Angeles</option>
                     <option value="Fort Lauderdale">Fort Lauderdale</option>
                     <option value="Henderson">Henderson</option>
                 </select>
                 <select class="stateFilter form-select" >
-                    <option value="">Tất cả State</option>
+                    <option value="">All State</option>
                     {% for state in states %}
                         <option value="{{ state }}">{{ state }}</option>
                     {% endfor %}
                 </select>
                 <select class="regionFilter form-select" >
-                    <option value="">Tất cả Region</option>
+                    <option value="">All Region</option>
                     <option value="South">South</option>
                     <option value="West">West</option>
                     <option value="East">East</option>
 
                     <option value="Central">Central</option>
                 </select>
-                <button id="applyFilters" class="custom-button">Áp dụng</button>
+                <button id="applyFilters" class="custom-button">Apply</button>
             </div>
             <div class="button-container d-flex mt-3 mb-3">
                 <div class="add-customer border-radius-12">
                     <button class="btn btn-primary btn-add">
-                        <i class="fas fa-user-plus"></i> Thêm khách hàng
+                        <i class="fas fa-user-plus"></i> Add Customer
                     </button>
                 </div>
                 <div class="upload-customer border-radius-12">
@@ -117,7 +117,7 @@
                         <td><input type="text" name="State" placeholder="State"></td>
                         <td>
                             <select name="Region">
-                                <option value="">Chọn Region</option>
+                                <option value="">Select Region</option>
                                 <option value="South">South</option>
                                 <option value="West">West</option>
                                 <option value="East">East</option>
@@ -129,7 +129,7 @@
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-add-customer">Thêm khách hàng</button>
+                <button type="submit" class="btn btn-primary btn-add-customer">Add Customer</button>
             </div>
         </form>
     </div>
@@ -155,7 +155,7 @@
             {% for customer in records %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td>{{ customer.Name }}</td>
+                    <td>{{ customer.Name }}</td>   
                     <td>{{ customer.IDCustomer }}</td>
                     <td>{{ customer.Segment }}</td>
                     <td>{{ customer.City }}</td>
@@ -165,10 +165,10 @@
                   
                     text-align: center;">{{ customer.Quantity }}</td>
                     <td>
-                        <a href="/edit/customer/{{ customer._id }}" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="/edit/customer/{{ customer._id }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="/customer/delete/{{ customer._id }}" method="POST" style="display:inline;">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
 
                         
