@@ -33,12 +33,9 @@ def index():
         state_counts = state_counts.sort_values(ascending=False)
         # Get the top 3 states
         top_states = state_counts.head(5)
-        
         # Sum the rest as 'Others'
         others = state_counts.iloc[5:].sum()
-
         others_series = pd.Series({'Others': others})
-        
         # Concatenate the top states with 'Others'
         state_counts = pd.concat([top_states, others_series])
         plt.figure(figsize=(6, 6))
@@ -46,7 +43,6 @@ def index():
         explode_state = [0.02]*len(state_counts)
         plt.pie(state_counts, labels=state_counts.index, autopct='%1.1f%%',colors=color1,explode=explode_state)
         plt.title('Distribution of States')
-
         # Lưu biểu đồ vào một tệp
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'state_distribution.png')
         plt.savefig(image_path)
@@ -65,11 +61,10 @@ def index():
     if segment:
         segment_counts = pd.Series(segment).value_counts()
         plt.figure(figsize=(6, 6))
-        color3 = ['#99C1A9','#73B6E1','#A693C1','#EBCB78','#73B6E1','#CE5C5B','#6757D5','#EE7245','#D45834','#99C1A9','#CE5C5B','#EBCB78','#A1D1E7']
+        color3 = ['#99C1A9','#73B6E1','#A693C1','#EBCB78','#73B6E1','#CE5C5B','#6757D5','#EE7245']
         explode_segment = [0.02]*len(segment_counts)
         plt.pie(segment_counts, labels=segment_counts.index, autopct='%1.1f%%',colors=color3,explode=explode_segment)
         plt.title('Distribution of Segments')
-
         # Lưu biểu đồ vào một tệp
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'segment_distribution.png')
         plt.savefig(image_path)

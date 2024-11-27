@@ -29,9 +29,7 @@ def index():
     plt.title('Order Frequency by Year')
     plt.legend(title='Year')
     plt.tight_layout()
-
     plt.grid(linestyle='--',alpha = 0.7)
-
     plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'order_frequency.png')) 
     plt.close()
 
