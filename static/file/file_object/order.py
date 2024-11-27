@@ -29,7 +29,7 @@ class Order:
         return self.__cost
 
     def addcost(self,value):
-        self.__cost+=value
+        self.__cost=round(value+self.__cost,2)
 
     @property
     def frequency(self):

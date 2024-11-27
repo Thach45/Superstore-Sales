@@ -18,7 +18,7 @@ class Customer:
         return self.__id
     @property
     def segment(self):
-        return self.__name
+        return self.__segment
     @property
     def city(self):
         return self.__city
@@ -41,5 +41,5 @@ class Customer:
         return self.__revenue
 
     def addrevenue(self,value):
-        self.__revenue+=value
+        self.__revenue=round(value+self.__revenue,2)
         

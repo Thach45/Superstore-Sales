@@ -27,5 +27,5 @@ class Product:
         return self.__revenue
 
     def addrevenue(self,value):
-        self.__revenue+=value
+        self.__revenue =  round(value+self.__revenue,2)
         

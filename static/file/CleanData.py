@@ -3,25 +3,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# loc truong name_col theo tu khoa: key
-def CheckSales(dataframe :pd.DataFrame,name_field:str,name_category:str):
-    list_result = []
-    for i in dataframe.index:
-        if dataframe.at[i,name_field] == name_category:
-            list_result.append(dataframe.loc[i,"Sales"])
-    return list_result
+def CheckDate(date = ''):
+    if len(date) > 10:
+        return False
+    if date.count('-') == 2:
+        date = date.replace('-','/')
+    if date.count('/') != 2:
+        return False
+    date = date.split('/')
+    for x in date:
+        if(int(x)) < 0:
+            return False
+    return True
 
-# VE BIEU DO THE HIEN SU TAP TRUNG GIA TRI CUA TUNG LOAI SP
-def ScatterSales(dataframe :pd.DataFrame,name_field:str,name_category:str):
-    """Sub-Category: ['Bookcases' 'Chairs' 'Labels' 'Tables' 'Storage' 'Furnishings' 'Art'
- 'Phones' 'Binders' 'Appliances' 'Paper' 'Accessories' 'Envelopes'
- 'Fasteners' 'Supplies' 'Machines' 'Copiers']"""
-    Y = CheckSales(dataframe,name_field,name_category)
-    X = [1]*len(Y)
-    plt.scatter(X,Y,color = 'red', s=0.1)
-    plt.xticks([1])
-    plt.yticks(range(0,4500,500))
-    plt.show()
 
 def SplitDate(date=''):
     if(date.count('/')!=2):
@@ -39,27 +33,50 @@ if __name__ == "__main__":
 
     # Tạo đường dẫn tới file trong thư mục "data"
     file_path = os.path.join(base_dir, 'train.csv')  
-    
     old_data = pd.read_csv(file_path,sep = ',', header=0)
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
-    # remove 6 column unnecessary
-    new_data = old_data .drop(columns= ['Country','Postal Code','Row ID'])
 
+    new_data={
+        'RowID':[i for i in range(1,len(old_data['Row ID']))],
+        'OrderID':[old_data['Order ID'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'OrderDate':[old_data['Order Date'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'ShipDate':[old_data['Ship Date'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'ShipMode':[old_data['Ship Mode'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'CustomerID':[old_data['Customer ID'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'CustomerName':[old_data['Customer Name'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'Segment':[old_data['Segment'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'City':[old_data['City'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'State':[old_data['State'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'Region':[old_data['Region'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'ProductID':[old_data['Product ID'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'Category':[old_data['Category'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'SubCategory':[old_data['Sub-Category'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'ProductName':[old_data['Product Name'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        'Sales':[old_data['Sales'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        # 'Month':[old_data['Order ID'].loc[i] for i in range(1,len(old_data['Row ID']))],
+        # 'Year':[old_data['Order ID'].loc[i] for i in range(1,len(old_data['Row ID']))]
+    }
+
+    df_newdata = pd.DataFrame(new_data)
+    df_newdata.set_index('RowID',inplace=True)
     # format date and splitdate
-    new_data['Order Date'] = new_data['Order Date'].astype(str)
-    new_data['Month'] = [SplitDate(new_data.loc[i,'Order Date'])[0] for i in new_data.index]
-    new_data['Month'] = new_data['Month'].astype(int)
-    new_data['Year'] = [SplitDate(new_data.loc[i,'Order Date'])[1] for i in new_data.index]
-    new_data['Year'] = new_data['Year'].astype(int)
-    new_data['Quarter'] = pd.cut(new_data['Month'], bins= [0,3,6,9,12], labels= ['Quarter1','Quarter2','Quarter3','Quarter4'])
+    df_newdata['OrderDate'] = df_newdata['OrderDate'].astype(str)
+    for i in range(1,len(df_newdata.index.values)):
+        if(CheckDate(df_newdata['OrderDate'].loc[i])==False or CheckDate(df_newdata['ShipDate'].loc[i])==False):
+            df_newdata.drop(index=i)
+    df_newdata['Month'] = [SplitDate(df_newdata.loc[i,'OrderDate'])[0] for i in df_newdata.index]
+    df_newdata['Month'] = df_newdata['Month'].astype(int)
+    df_newdata['Year'] = [SplitDate(df_newdata.loc[i,'OrderDate'])[1] for i in df_newdata.index]
+    df_newdata['Year'] = df_newdata['Year'].astype(int)
 
     # 2. XOA DONG DU LIEU BI SAI (VALUE = NONE OR DUPLICATES)
     # remove row  have value = none
-    new_data.dropna(inplace=True)
-    new_data.drop_duplicates(inplace=True)
+    df_newdata.dropna(inplace=True)
 
+    df_newdata.drop_duplicates(inplace=True)
+  
     # xuất file đã làm sạch
     base_dir = os.path.dirname(os.path.abspath(__file__))
     output_file = os.path.join(base_dir,'datacleaned.csv')
-    new_data.to_csv(output_file)
+    df_newdata.to_csv(output_file)
