@@ -24,7 +24,9 @@ def index():
         # Concatenate the top states with 'Others'
         subcategory_counts = pd.concat([topSubCategory, others_series])
         plt.figure(figsize=(6, 6))
-        plt.pie(subcategory_counts, labels=subcategory_counts.index, autopct='%1.1f%%')
+        color1 = ['#99C1A9','#CE5C5B','#EBCB78','#73B6E1','#A693C1','#6757D5','#EE7245','#D45834','#A1D1E7']
+        explode_subcategory = [0.02]*len(subcategory_counts)
+        plt.pie(subcategory_counts, labels=subcategory_counts.index, autopct='%1.1f%%',colors=color1,explode=explode_subcategory)
         plt.title('Distribution of SubCategories')
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'subcategory_distribution.png')
         plt.savefig(image_path)
@@ -34,7 +36,9 @@ def index():
     if Category:
         category_counts = pd.Series(Category).value_counts()
         plt.figure(figsize=(6, 6))
-        plt.pie(category_counts, labels=category_counts.index, autopct='%1.1f%%')
+        color2 = ['#CE5C5B','#EBCB78','#99C1A9','#73B6E1','#A693C1','#6757D5','#EE7245','#D45834','#A1D1E7']
+        explode_category = [0.02]*len(category_counts)
+        plt.pie(category_counts, labels=category_counts.index, autopct='%1.1f%%',colors=color1,explode=explode_category)
         plt.title('Distribution of Categories')
         # Lưu biểu đồ vào một tệp
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'category_distribution.png')

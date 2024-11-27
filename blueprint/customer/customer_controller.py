@@ -42,7 +42,9 @@ def index():
         # Concatenate the top states with 'Others'
         state_counts = pd.concat([top_states, others_series])
         plt.figure(figsize=(6, 6))
-        plt.pie(state_counts, labels=state_counts.index, autopct='%1.1f%%')
+        color1 = ['#99C1A9','#CE5C5B','#EBCB78','#73B6E1','#A693C1','#6757D5','#EE7245','#D45834','#A1D1E7']
+        explode_state = [0.02]*len(state_counts)
+        plt.pie(state_counts, labels=state_counts.index, autopct='%1.1f%%',colors=color1,explode=explode_state)
         plt.title('Distribution of States')
 
         # Lưu biểu đồ vào một tệp
@@ -52,7 +54,9 @@ def index():
     if region:
         region_counts = pd.Series(region).value_counts()
         plt.figure(figsize=(6, 6))
-        plt.pie(region_counts, labels=region_counts.index, autopct='%1.1f%%')
+        color2 = ['#6757D5','#CE5C5B','#EBCB78','#EE7245','#D45834','#99C1A9','#73B6E1','#A693C1','#A1D1E7']
+        explode_region = [0.02]*len(region_counts)
+        plt.pie(region_counts, labels=region_counts.index, autopct='%1.1f%%',colors=color2,explode=explode_region)
         plt.title('Distribution of Regions')
         # Lưu biểu đồ vào một tệp
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'region_distribution.png')
@@ -61,7 +65,9 @@ def index():
     if segment:
         segment_counts = pd.Series(segment).value_counts()
         plt.figure(figsize=(6, 6))
-        plt.pie(segment_counts, labels=segment_counts.index, autopct='%1.1f%%')
+        color3 = ['#99C1A9','#73B6E1','#A693C1','#EBCB78','#73B6E1','#CE5C5B','#6757D5','#EE7245','#D45834','#99C1A9','#CE5C5B','#EBCB78','#A1D1E7']
+        explode_segment = [0.02]*len(segment_counts)
+        plt.pie(segment_counts, labels=segment_counts.index, autopct='%1.1f%%',colors=color3,explode=explode_segment)
         plt.title('Distribution of Segments')
 
         # Lưu biểu đồ vào một tệp

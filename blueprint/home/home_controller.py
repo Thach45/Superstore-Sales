@@ -24,10 +24,11 @@ def home():
     orderDate['TotalCost'] = pd.to_numeric(orderDate['TotalCost'], errors='coerce')
     order_frequency = orderDate.groupby(['Year', 'Month'])['TotalCost'].sum().reset_index()
     yearTotalCost = orderDate.groupby('Year')['TotalCost'].sum().reset_index()
-    print(yearTotalCost['Year'])
+
     if not yearTotalCost.empty:
         plt.figure(figsize=(10, 5))
-        plt.bar(yearTotalCost['Year'], yearTotalCost['TotalCost'],color='blue',width=0.5,alpha=0.5,edgecolor='black',linewidth=1,)
+        plt.bar(yearTotalCost['Year'], yearTotalCost['TotalCost'],color='#99C1A9',width=0.5,alpha=0.5,edgecolor='black',linewidth=1,)
+        plt.grid(linestyle ='--',alpha = 0.7)
         plt.xlabel('Year')
         plt.xticks(yearTotalCost['Year'].astype(int))
         plt.ylabel('Total Cost')
@@ -37,8 +38,8 @@ def home():
     plt.figure(figsize=(10, 5))
     for year in order_frequency['Year'].unique():
         yearly_data = order_frequency[order_frequency['Year'] == year]
-        plt.plot(yearly_data['Month'], yearly_data['TotalCost'], marker='o', linestyle='-',linewidth=3, label=str(year))
-
+        plt.plot(yearly_data['Month'], yearly_data['TotalCost'], marker='o', linestyle='-',linewidth=2, label=str(year))
+    plt.grid(linestyle ='--',alpha = 0.7)
     plt.xticks(range(1, 13))
     plt.xlabel('Month')
     plt.ylabel('Total Cost')
@@ -46,21 +47,7 @@ def home():
     plt.legend(title='Year')
     plt.tight_layout()
     plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'sales.png'))
-    plt.close()
-    #tạo biểu đồ tròn
-    labels = ['A', 'B', 'C', 'D']
-    values = [20, 30, 40, 10]
-    plt.figure(figsize=(3, 3))
-    plt.pie(values, labels=labels, autopct='%1.1f%%')
-    plt.title('Các cách vận chuyển')
-    image_path = os.path.join(current_app.root_path, 'static', 'images', 'pie.png')
-    plt.savefig(image_path)
-    plt.close()
-    
-    image_url_pie = url_for('static', filename='images/pie.png')
-    image_url_plot = url_for('static', filename='images/sales.png')
-    
-    
+    plt.close()  
     
     collection = mongo.db.users
     #đếm số customer
@@ -69,7 +56,7 @@ def home():
     collection = mongo.db.products
     #top 3 sản phẩm bán chạy
     list_products = TopProduct(collection)
-    print((list_products))
+
     collection = mongo.db.orders
     #đếm số đơn hàng
     orders_count = countOrder(collection) 
@@ -78,8 +65,7 @@ def home():
     #top 3 sản phẩm gần đây
     list_recent = topRecent(collection)
     
-    return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie , 
-                                            totalsale = total_revenue, orderscount = orders_count
+    return render_template('dashboard.html',totalsale = total_revenue, orderscount = orders_count
                                             ,countcustomer = count_customer,listrecent = list_recent
                                             ,listproducts = list_products)
     
