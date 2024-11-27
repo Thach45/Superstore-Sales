@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     # Tạo đường dẫn tới file trong thư mục "data"
     file_path = os.path.join(base_dir, 'train.csv')  
-    #old_data = pd.read_csv("D:\VS Code\Python\Github\Superstore-Sales\static\\file\\train.csv",sep = ',', header=0, index_col='Row ID')
+    
     old_data = pd.read_csv(file_path,sep = ',', header=0)
 
     # 1. XOA TRUONG DU LIEU KO CAN THIET
@@ -57,40 +57,8 @@ if __name__ == "__main__":
     # 2. XOA DONG DU LIEU BI SAI (VALUE = NONE OR DUPLICATES)
     # remove row  have value = none
     new_data.dropna(inplace=True)
-
-    # Kiem tra du lieu bi trung
-    # series_duplicated = new_data.duplicated()
-    # for i in range(0,series_duplicated.size):
-    #     if(series_duplicated[i] == True):     // True: du lieu da bi trung lap
-    #         print(i)
     new_data.drop_duplicates(inplace=True)
 
-    # 3. XOA DONG DU LIEU CO GIA TRI RAT KHAC MIEN GIA TRI TAP TRUNG
-    # max_price of sub-category
-    # max_price = {
-    #     'Bookcases': 2000,
-    #     'Chairs' : 2000,
-    #     'Labels' : 400,
-    #     'Tables' : 2000,
-    #     'Storage' :1700,
-    #     'Furnishings' : 800,
-    #     'Art'  : 500,
-    #     'Phones' : 2000,
-    #     'Binders' : 2000,
-    #     'Appliances' : 1000,
-    #     'Paper'  : 500,
-    #     'Accessories' : 1200,
-    #     'Envelopes' : 500,
-    #     'Fasteners' :100,
-    #     'Supplies' : 1000,
-    #     'Machines' : 4000,
-    #     'Copiers' :3000
-    # }
-    # for i in new_data.index:
-    #     sub_category = new_data.loc[i,'Sub-Category']
-    #     if new_data.loc[i,'Sales'] > max_price[sub_category]:
-    #         new_data.drop(i,inplace= True)    # xoa dong i, inplace = True de ko tao ra ban 
-    
     # xuất file đã làm sạch
     base_dir = os.path.dirname(os.path.abspath(__file__))
     output_file = os.path.join(base_dir,'datacleaned.csv')
