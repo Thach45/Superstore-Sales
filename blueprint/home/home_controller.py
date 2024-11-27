@@ -47,20 +47,6 @@ def home():
     plt.tight_layout()
     plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'sales.png'))
     plt.close()
-    #tạo biểu đồ tròn
-    labels = ['A', 'B', 'C', 'D']
-    values = [20, 30, 40, 10]
-    plt.figure(figsize=(3, 3))
-    plt.pie(values, labels=labels, autopct='%1.1f%%')
-    plt.title('Các cách vận chuyển')
-    image_path = os.path.join(current_app.root_path, 'static', 'images', 'pie.png')
-    plt.savefig(image_path)
-    plt.close()
-    
-    image_url_pie = url_for('static', filename='images/pie.png')
-    image_url_plot = url_for('static', filename='images/sales.png')
-    
-    
     
     collection = mongo.db.users
     #đếm số customer
@@ -78,9 +64,11 @@ def home():
     #top 3 sản phẩm gần đây
     list_recent = topRecent(collection)
     
-    return render_template('dashboard.html', image_url_plot=image_url_plot, image_url_pie=image_url_pie , 
-                                            totalsale = total_revenue, orderscount = orders_count
-                                            ,countcustomer = count_customer, listrecent = list_recent
-                                            ,listproducts = list_products)
+    return render_template('dashboard.html' , 
+                        totalsale = total_revenue,
+                        orderscount = orders_count,
+                        countcustomer = count_customer, 
+                        listrecent = list_recent,
+                        listproducts = list_products)
     
     

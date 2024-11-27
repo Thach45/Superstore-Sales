@@ -32,9 +32,9 @@
         <div class="form-group">
             <b><label for="city">City</label></b>
             <select name="city" id="city">
-                <option value="Los Angeles">Los Angeles</option>
-                <option value="Fort Lauderdale">Fort Lauderdale</option>
-                <option value="Henderson">Henderson</option>
+                {% for city in cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
             </select>
             
         </div>
@@ -42,9 +42,9 @@
         <div class="form-group">
             <b><label for="state">State</label></b>
             <select name="state" id="state">
-                <option value="Kentucky">Kentucky</option>
-                <option value="California">California</option>
-                <option value="Florida">Florida</option>
+                {% for state in states %}
+                    <option value="{{ state }}">{{ state }}</option>
+                {% endfor %}
             </select>
         </div>
 

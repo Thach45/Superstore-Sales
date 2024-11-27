@@ -1,12 +1,14 @@
 from flask import render_template, request, current_app, url_for, redirect
 import pandas as pd
 from bson.objectid import ObjectId
-
+from helper.Customer import CustomerState, CustomerCity
 def index_Customer(id):
     mongo = current_app.config['MONGO']
     collection = mongo.db.users
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
     data = (collection.find_one({'_id': ObjectId(id)}))
-    return render_template('editCustomer.html', customer=data)
+    return render_template('editCustomer.html', customer=data, states=states, cities=cities)
 
 def edit_Customer(ids):
 

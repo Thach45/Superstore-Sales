@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from helper.infoTopCustomer import countUser,countUserPurchases,userMax
 from helper.infoTopProduct import countProduct, countProductPurchases,productMax
 from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
+from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.Customer import CustomerState, CustomerCity
 def SearchCustomer():
     search_IDCustomer= request.args.get('IDCustomer','').lower()
     # Lấy tham số 'Name' từ URL và chuyển về chữ thường
@@ -11,6 +13,8 @@ def SearchCustomer():
     # Truy cập collection MongoDB sử dụng cấu hình của ứng dụng Flask
     mongo = current_app.config['MONGO']
     collection = mongo.db.users  # Truy cập collection 'users' trong MongoDB
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
     page = int(request.args.get('page', 1))
     limit = 20
     skip = (page - 1) * limit 
@@ -32,9 +36,15 @@ def SearchCustomer():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_name else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("customer.html", records=data, page=page, total_pages=total_pages,
-                           totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), 
-                           user=userMax(collection))
+    return render_template("customer.html", 
+                           records=data, 
+                           page=page, 
+                           total_pages=total_pages,
+                           totalUser=countUser(collection), 
+                           totalPurchases=countUserPurchases(collection), 
+                           user=userMax(collection),
+                           states=states,
+                           cities=cities)
 
 def SearchProduct():
     search_ProductName = request.args.get('ProductName', '').lower()
@@ -58,11 +68,12 @@ def SearchProduct():
 
 def SearchOrder():
     search_OrderID = request.args.get('OrderID', '').lower()
-
     # Truy cập collection MongoDB sử dụng cấu hình của ứng dụng Flask
     mongo = current_app.config['MONGO']
     collection = mongo.db.orders  # Truy cập collection 'users' trong MongoDB
     page = int(request.args.get('page', 1))
+    monthYearOrder = MonthYearOrder(collection)
+    monthYearShip = MonthYearShip(collection)
     limit = 20
     skip = (page - 1) * limit 
     if search_OrderID:
@@ -74,4 +85,8 @@ def SearchOrder():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_OrderID else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("order.html", records=data, page=page, total_pages=total_pages,totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
+    return render_template("order.html", records=data, page=page, 
+                           total_pages=total_pages,totalOrder=countOrder(collection),
+                           totalPurchases=countOrderPurchases(collection), order=orderMax(collection),
+                           MonthYearOrder=monthYearOrder,
+                           MonthYearShip=monthYearShip)

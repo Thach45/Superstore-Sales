@@ -2,13 +2,17 @@ from flask import render_template, request, current_app
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+from collections import OrderedDict
 from helper.infoTopOrder import countOrder, countOrderPurchases, orderMax
-
+from helper.DateOrder import MonthYearOrder, MonthYearShip
 def index():
     mongo = current_app.config['MONGO']
-    collection = mongo.db.orders  # Sử dụng cú pháp dấu chấm để truy cập collection
+    collection = mongo.db.orders
+
     page = int(request.args.get('page', 1))
     limit = 20
+    monthYearOrder = MonthYearOrder(collection)
+    monthYearShip = MonthYearShip(collection)
     skip = (page - 1) * limit 
     orderDate = list(collection.find({},{"OrderDate":1,"Frequency":1,"_id":0}))
     orderDate = pd.DataFrame(orderDate)
@@ -41,5 +45,13 @@ def index():
         item['_id'] = str(item['_id'])
 
 
-    return render_template('order.html', records=data, page=page, total_pages=total_pages, totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
+    return render_template('order.html',
+                            records=data, 
+                            page=page, 
+                            total_pages=total_pages, 
+                            totalOrder=countOrder(collection), 
+                            totalPurchases=countOrderPurchases(collection), 
+                            order=orderMax(collection),
+                            MonthYearOrder=monthYearOrder,
+                            MonthYearShip=monthYearShip)
 

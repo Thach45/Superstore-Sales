@@ -55,9 +55,9 @@
                 </select>
                 <select class="cityFilter form-select" >
                     <option value="">All City</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Fort Lauderdale">Fort Lauderdale</option>
-                    <option value="Henderson">Henderson</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
                 </select>
                 <select class="stateFilter form-select" >
                     <option value="">All State</option>
@@ -136,7 +136,7 @@
     <table>
         <thead>
             <tr>
-                <th>STT</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>ID Customer</th>
                 <th>Segment</th>

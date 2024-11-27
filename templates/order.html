@@ -43,19 +43,15 @@
             <div class="filter">
                 <select class="orderFilter form-select">
                     <option value="">All Order Date</option>
-                    {% for year in range(2016, 2019) %}
-                        {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
-                        {% endfor %}
+                    {% for monthYear in MonthYearOrder %}
+                        <option value="{{monthYear}}">{{monthYear}}</option>
                     {% endfor %}
                 </select>
                 
                 <select class="shipFilter form-select">
                     <option value="">All Ship Date</option>
-                    {% for year in range(2016, 2019) %}
-                        {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
-                        {% endfor %}
+                    {% for monthYear in MonthYearShip %}
+                        <option value="{{monthYear}}">{{monthYear}}</option>
                     {% endfor %}
                 </select>
                 
@@ -117,7 +113,7 @@
     <table>
         <thead>
             <tr>
-                <th>STT</th>
+                <th>#</th>
                 <th>Order ID</th>
                 <th>Order Date</th>
                 <th>Ship Date</th>

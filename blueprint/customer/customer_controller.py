@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
-
+from helper.Customer import CustomerState, CustomerCity
 def index():
     mongo = current_app.config['MONGO']
     collection = mongo.db.users  # Sử dụng cú pháp dấu chấm để truy cập collection
@@ -68,7 +68,7 @@ def index():
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'segment_distribution.png')
         plt.savefig(image_path)
         plt.close()
-
+    cities = CustomerCity(collection)
     return render_template('customer.html',
                         records=data,
                         page=page, 
@@ -76,6 +76,7 @@ def index():
                         totalUser=countUser(collection), 
                         totalPurchases=countUserPurchases(collection), 
                         user=userMax(collection), 
-                        states=set(states)
+                        states=set(states),
+                        cities=set(cities)
                         )
 
