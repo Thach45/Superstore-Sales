@@ -1,14 +1,16 @@
 from helper.FormatNumber import format_number
 
-def countUser(collection):  
-    unique_names = collection.distinct("Name")  # Dùng hàm có sẵn distinct để tối ưu
+def countUser(collection):
+    """Đếm số lượng khách hàng"""  
+    unique_names = collection.distinct("IDCustomer")  # Dùng hàm có sẵn distinct để tối ưu
     return format_number(len(unique_names),0)
 
-def countUserPurchases(collection):  
+def countUserPurchases(collection):
+    """Lấy ra số lượng đơn hàng cao nhất của khách hàng"""  
     pipeline = [
         {
             "$group": {
-                "_id": "$Name",
+                "_id": "$IDCustomer",
                 "totalQuantity": {"$sum": "$Quantity"}
             }
         }
@@ -18,11 +20,12 @@ def countUserPurchases(collection):
     max_purchases = max(total_purchases.values())
     return format_number(max_purchases,0)
 
-def userMax(collection):  
+def userMax(collection):
+    """Lấy ra khách hàng mua nhiều nhất"""  
     pipeline = [
         {
             "$group": {
-                "_id": "$Name",
+                "_id": "$IDCustomer",
                 "totalQuantity": {"$sum": "$Quantity"}
             }
         }

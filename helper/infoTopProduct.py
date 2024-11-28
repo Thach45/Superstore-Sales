@@ -1,10 +1,12 @@
 from helper.FormatNumber import format_number
 
-def countProduct(collection):  
+def countProduct(collection):
+    """Đếm số lượng sản phẩm"""  
     unique_names = collection.distinct("ProductName")  # Dùng hàm có sẵn distinct để tối ưu
     return format_number(len(unique_names),0)
 
-def countProductPurchases(collection):  
+def countProductPurchases(collection):
+    """Lấy ra số lượng của sản phẩm được đặt nhiều nhất"""  
     pipeline = [
         {
             "$group": {
@@ -18,7 +20,8 @@ def countProductPurchases(collection):
     max_purchases = max(total_purchases.values())
     return format_number(max_purchases,0)
 
-def productMax(collection):  
+def productMax(collection):
+    """Lấy ra tên sản phẩm được đặt nhiều nhất"""
     pipeline = [
         {
             "$group": {
@@ -34,6 +37,7 @@ def productMax(collection):
     return product
 
 def TopProduct(collection):
+    """Lấy ra thông tin của 3 sản phẩm bán chạy nhất"""
     orderDate = list(collection.find({}, {"ProductName": 1, "Revenue": 1, "Quantity": 1}).sort("Revenue", -1).limit(3))
     return orderDate
 
