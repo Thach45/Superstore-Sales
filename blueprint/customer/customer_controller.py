@@ -18,8 +18,6 @@ def index():
     for item in data:
         item['_id'] = str(item['_id'])
 
-
-
     # tạo biểu đồ
     states = list(collection.find({}, {"State": 1, "_id": 0}))
     states = [item['State'] for item in states]
@@ -28,10 +26,8 @@ def index():
     segment = list(collection.find({}, {"Segment": 1, "_id": 0}))
     segment = [item['Segment'] for item in segment]
     if states:
-        # Tạo biểu đồ tròn cho trường 'state'
         state_counts = pd.Series(states).value_counts()
         state_counts = state_counts.sort_values(ascending=False)
-        # Get the top 3 states
         top_states = state_counts.head(5)
         # Sum the rest as 'Others'
         others = state_counts.iloc[5:].sum()

@@ -1,5 +1,5 @@
 class Customer:
-    """STT	Name	ID Customer	Segment	City	State	Region	Quantity"""
+    """Name, IDCustomer, Segment, CityState, Region, Quantity"""
     def __init__(self,name, id,segment, city, state,region,revenue):
         self.__name = name
         self.__id = id

@@ -31,10 +31,9 @@ if __name__ == '__main__':
         'State': [customers[id].state for id in customers.keys()],
         'Region' : [customers[id].region for id in customers.keys()],
         'Quantity' : [customers[id].quantity_purchase for id in customers.keys()],
-        # 'Revenue' : [customers[id].revenue for id in customers.keys()]
     }
+    
     df_dataCustomer = pd.DataFrame(dataCustomer)
     df_dataCustomer.set_index('RowID',inplace=True)
     output_file = os.path.join(base_dir,'dataCustomer.csv')
     df_dataCustomer.to_csv(output_file)
-    #print(df_dataCustomer.head())

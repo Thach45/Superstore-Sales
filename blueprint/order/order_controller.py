@@ -22,7 +22,6 @@ def index():
     for year in order_frequency['Year'].unique():
         yearly_data = order_frequency[order_frequency['Year'] == year]
         plt.plot(yearly_data['Month'], yearly_data['Frequency'], marker='o', linestyle='-',linewidth=2, label=str(year))
-
     plt.xticks(range(1, 13))
     plt.xlabel('Month')
     plt.ylabel('Frequency')
@@ -41,5 +40,5 @@ def index():
     for item in data:
         item['_id'] = str(item['_id'])
 
-
-    return render_template('order.html', records=data, page=page, total_pages=total_pages, totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
+    return render_template('order.html', records=data, page=page, total_pages=total_pages, totalOrder=countOrder(collection), 
+                           totalPurchases=countOrderPurchases(collection), order=orderMax(collection))

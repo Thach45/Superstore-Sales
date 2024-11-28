@@ -1,5 +1,5 @@
 class Product:
-    """STT,Product Name,	Category,	Sub-Category,	Revenue,  Quantity"""
+    """ProductName, Category, Sub-Category, Revenue, Quantity"""
     def __init__(self,name,category,sub_category,revenue):
         self.__name = name
         self.__category = category

@@ -14,13 +14,13 @@ def index():
     Category = [item['Category'] for item in categoryFull]
     subcategoryFull = list(collection.find({},{"SubCategory":1,"_id":0}))
     SubCategory = [item['SubCategory'] for item in subcategoryFull]
-    if SubCategory:
 
+    # Biểu đồ phân phối theo Sub-Category
+    if SubCategory:
         subcategory_counts = pd.Series(SubCategory).value_counts().sort_values(ascending=False)
         topSubCategory = subcategory_counts.head(6)
         others = subcategory_counts[6:].sum()
         others_series = pd.Series({'Others': others})
-        
         # Concatenate the top states with 'Others'
         subcategory_counts = pd.concat([topSubCategory, others_series])
         plt.figure(figsize=(6, 6))
@@ -44,6 +44,7 @@ def index():
         image_path = os.path.join(current_app.root_path, 'static', 'images', 'category_distribution.png')
         plt.savefig(image_path)
         plt.close()
+        
     # Bước 1: Lấy dữ liệu từ MongoDB
     data = list(collection.find().skip(skip).limit(limit))  # Trả về tất cả dữ liệu từ collection
     total_records = collection.count_documents({})

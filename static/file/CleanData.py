@@ -54,8 +54,6 @@ if __name__ == "__main__":
         'SubCategory':[old_data['Sub-Category'].loc[i] for i in range(1,len(old_data['Row ID']))],
         'ProductName':[old_data['Product Name'].loc[i] for i in range(1,len(old_data['Row ID']))],
         'Sales':[old_data['Sales'].loc[i] for i in range(1,len(old_data['Row ID']))],
-        # 'Month':[old_data['Order ID'].loc[i] for i in range(1,len(old_data['Row ID']))],
-        # 'Year':[old_data['Order ID'].loc[i] for i in range(1,len(old_data['Row ID']))]
     }
 
     df_newdata = pd.DataFrame(new_data)
@@ -73,7 +71,6 @@ if __name__ == "__main__":
     # 2. XOA DONG DU LIEU BI SAI (VALUE = NONE OR DUPLICATES)
     # remove row  have value = none
     df_newdata.dropna(inplace=True)
-
     df_newdata.drop_duplicates(inplace=True)
   
     # xuất file đã làm sạch

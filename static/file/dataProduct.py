@@ -18,8 +18,7 @@ if __name__ == '__main__':
             products[name].addrevenue(revenue)
         else:
             products.update({name:Product(name,category,sub_category,revenue)})
-    # for name in products.keys():
-    #     print(products[name].category)
+
     dataProduct = {
         'RowID' : [i for i in range(1,len(products)+1)],
         'ProductName': [products[name].name for name in products.keys()],
@@ -27,10 +26,10 @@ if __name__ == '__main__':
         'SubCategory': [products[name].sub_category for name in products.keys()],
         'Revenue' : [products[name].revenue for name in products.keys()],
         'Quantity' : [products[name].quantity for name in products.keys()],
-        # 'Revenue' : [products[id].revenue for id in products.keys()]
     }
+    
     df_dataProduct = pd.DataFrame(dataProduct)
     df_dataProduct.set_index('RowID',inplace=True)
     output_file = os.path.join(base_dir,'dataProduct.csv')
     df_dataProduct.to_csv(output_file)
-    #print(df_dataProduct.head())
+

@@ -1,5 +1,5 @@
 class Order:
-    """STT	Order ID	Order Date	Ship Date	Customer Name	Customer ID	Costs 	Frequency"""
+    """OrderID,	OrderDate, ShipDate, CustomerName, CustomerID, Costs, Frequency"""
     def __init__(self,order_id, order_date, ship_date,customer_name, customer_id,cost):
         self.__order_id = order_id
         self.__order_date = order_date

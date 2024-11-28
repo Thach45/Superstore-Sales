@@ -12,8 +12,8 @@ matplotlib.use('Agg')
 
 
 def home():
-    
-    mongo = current_app.config['MONGO'] ####
+    """Page home"""
+    mongo = current_app.config['MONGO']
     collection = mongo.db.orders
     # Dữ liệu mẫu
     orderDate = list(collection.find({},{"OrderDate":1,"TotalCost":1,"_id":0}))
@@ -27,7 +27,7 @@ def home():
 
     if not yearTotalCost.empty:
         plt.figure(figsize=(10, 5))
-        plt.bar(yearTotalCost['Year'], yearTotalCost['TotalCost'],color='#99C1A9',width=0.5,alpha=0.5,edgecolor='black',linewidth=1,)
+        plt.bar(yearTotalCost['Year'], yearTotalCost['TotalCost'],color='#99C1A9',width=0.5)
         plt.grid(linestyle ='--',alpha = 0.7)
         plt.xlabel('Year')
         plt.xticks(yearTotalCost['Year'].astype(int))
@@ -35,6 +35,7 @@ def home():
         plt.title('Total Cost by Year')
         plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'sales_year.png'))
         plt.close()
+
     plt.figure(figsize=(10, 5))
     for year in order_frequency['Year'].unique():
         yearly_data = order_frequency[order_frequency['Year'] == year]
