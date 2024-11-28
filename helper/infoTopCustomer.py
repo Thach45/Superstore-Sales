@@ -25,7 +25,7 @@ def userMax(collection):
     pipeline = [
         {
             "$group": {
-                "_id": "$IDCustomer",
+                "_id": "$Name",
                 "totalQuantity": {"$sum": "$Quantity"}
             }
         }
