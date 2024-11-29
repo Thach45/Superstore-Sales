@@ -33,7 +33,7 @@ def index():
     plt.title('Order Frequency by Year')
     plt.legend(title='Year')
     plt.tight_layout()
-    plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'order_frequency.png'))
+    plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'order_frequency.png')) 
     plt.close()
 
     # Bước 1: Lấy dữ liệu từ MongoDB
