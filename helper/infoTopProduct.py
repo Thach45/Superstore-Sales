@@ -38,7 +38,7 @@ def productMax(collection):
 
 def TopProduct(collection):
     """Lấy ra thông tin của 3 sản phẩm bán chạy nhất"""
-    orderDate = list(collection.find({}, {"ProductName": 1, "Revenue": 1, "Quantity": 1}).sort("Revenue", -1).limit(3))
+    orderDate = list(collection.find({}, {"ProductName": 1, "Revenue": 1, "Quantity": 1}).sort("Quantity", -1).limit(3))
     return orderDate
 
 
