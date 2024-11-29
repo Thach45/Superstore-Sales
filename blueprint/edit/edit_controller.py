@@ -1,7 +1,7 @@
 from flask import render_template, request, current_app, url_for, redirect
 import pandas as pd
 from bson.objectid import ObjectId
-
+from helper.Customer import CustomerState, CustomerCity
 def index_Customer(id):
     '''Lấy thông tin sản khách hàng từ cơ sở dữ liệu MongoDB và hiển thị trang chỉnh sửa khách hàng.
 
@@ -12,8 +12,10 @@ def index_Customer(id):
     #Kếi nối với cơ sở dữ liệu MongoDB để lấy dữ liệu
     mongo = current_app.config['MONGO']
     collection = mongo.db.users
-    data = (collection.find_one({'_id': ObjectId(id)})) # Tìm khách hàng theo _id
-    return render_template('editCustomer.html', customer=data)
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
+    data = (collection.find_one({'_id': ObjectId(id)}))
+    return render_template('editCustomer.html', customer=data, states=states, cities=cities)
 
 def edit_Customer(ids):
     ''' Cập nhật thông tin khách hàng trong cơ sở dữ liệu MongoDB.
@@ -79,6 +81,8 @@ def edit_Product(ids):
         "Revenue": float(request.form.get("Revenue")),
         "Quantity": int(request.form.get("Quantity"))
     }
+    if data['Category'] == "OfficeSupplies":
+        data['Category'] = "Office Supplies"
     # Cập nhật collection trên MongoDB dựa trên _id
     collection.update_one(
         {'_id': ObjectId(ids)},

@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 from helper.infoTopProduct import countProduct, countProductPurchases,productMax
 from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
+from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.Customer import CustomerState, CustomerCity
 from datetime import datetime
 
 def home_Customer():
@@ -20,7 +22,11 @@ def home_Customer():
     # Kếi nối với cơ sở dữ liệu MongoDB và lấy ra collection 'users'
     mongo = current_app.config['MONGO']
     collection = mongo.db.users  
-    
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
+    page = int(request.args.get('page', 1))
+    limit = 20
+    skip = (page - 1) * limit 
     query = {}
 
     # Lọc theo City
@@ -50,9 +56,15 @@ def home_Customer():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     data = list(collection.find(query).skip(skip).limit(limit))  
     
-    return render_template("customer.html", records=data, page=page, 
-                                            total_pages=total_pages, totalUser=countUser(collection), 
-                                            totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("customer.html",
+                        records=data,
+                        page=page,
+                        total_pages=total_pages, 
+                        totalUser=countUser(collection), 
+                        totalPurchases=countUserPurchases(collection), 
+                        user=userMax(collection),
+                        states=states,
+                        cities=cities)
 
 def filter_orders():
     
@@ -64,10 +76,11 @@ def filter_orders():
     # Lấy các bộ lọc từ URL query parameters
     filter_orderMonth = request.args.get('OrderMonth', '')
     filter_shipMonth = request.args.get('ShipMonth', '')
-    
-    #Kếi nối với cơ sở dữ liệu MongoDB và lấy ra collection 'orders'
+
     mongo = current_app.config['MONGO']
     collection = mongo.db.orders
+    monthYearOrder = MonthYearOrder(collection)
+    monthYearShip = MonthYearShip(collection)  
 
     query = {}
     and_conditions = []
@@ -112,9 +125,13 @@ def filter_orders():
     data = list(collection.find(query).skip(skip).limit(limit))
 
     return render_template("order.html", records=data, page=page, total_pages=total_pages, 
-                            totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), 
-                            order=orderMax(collection))
+                            totalOrder=countOrder(collection), 
+                            totalPurchases=countOrderPurchases(collection), 
+                            order=orderMax(collection),
+                            MonthYearOrder=monthYearOrder,
+                            MonthYearShip=monthYearShip)
                            
+
 
 def home_Product():
     ''' Lấy danh sách sản phẩm từ cơ sở dữ liệu MongoDB và hiển thị trang thông tin sản phẩm.

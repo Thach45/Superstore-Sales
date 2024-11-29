@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from helper.infoTopCustomer import countUser,countUserPurchases,userMax
 from helper.infoTopProduct import countProduct, countProductPurchases,productMax
 from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
+from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.Customer import CustomerState, CustomerCity
 def SearchCustomer():
     """Lấy ra tất cả các tên hoặc ID của người dùng có liên quan đến từ khoá"""
     search_IDCustomer= request.args.get('IDCustomer','').lower()
@@ -11,6 +13,8 @@ def SearchCustomer():
 
     mongo = current_app.config['MONGO']
     collection = mongo.db.users
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
     page = int(request.args.get('page', 1))
     limit = 20
     skip = (page - 1) * limit 
@@ -32,9 +36,15 @@ def SearchCustomer():
     # Bước 2: Render template 'customer.html' và truyền dữ liệu vào template
     total_records = collection.count_documents(query if search_name else {})  # Đếm số người dùng phù hợp với truy vấn tìm kiếm
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("customer.html", records=data, page=page, total_pages=total_pages,
-                           totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), 
-                           user=userMax(collection))
+    return render_template("customer.html", 
+                           records=data, 
+                           page=page, 
+                           total_pages=total_pages,
+                           totalUser=countUser(collection), 
+                           totalPurchases=countUserPurchases(collection), 
+                           user=userMax(collection),
+                           states=states,
+                           cities=cities)
 
 def SearchProduct():
     """Lấy ra tên tất cả sản phẩm có liên quan đến từ khoá"""
@@ -58,10 +68,11 @@ def SearchProduct():
 def SearchOrder():
     """Lấy ra tất cả order ID của đơn hàng có liên quan đến từ khoá"""
     search_OrderID = request.args.get('OrderID', '').lower()
-
     mongo = current_app.config['MONGO']
     collection = mongo.db.orders
     page = int(request.args.get('page', 1))
+    monthYearOrder = MonthYearOrder(collection)
+    monthYearShip = MonthYearShip(collection)
     limit = 20
     skip = (page - 1) * limit 
     if search_OrderID:
@@ -73,4 +84,8 @@ def SearchOrder():
     
     total_records = collection.count_documents(query if search_OrderID else {}) 
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-    return render_template("order.html", records=data, page=page, total_pages=total_pages,totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
+    return render_template("order.html", records=data, page=page, 
+                           total_pages=total_pages,totalOrder=countOrder(collection),
+                           totalPurchases=countOrderPurchases(collection), order=orderMax(collection),
+                           MonthYearOrder=monthYearOrder,
+                           MonthYearShip=monthYearShip)

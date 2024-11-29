@@ -3,6 +3,8 @@ from flask_pymongo import PyMongo as mongo
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 from helper.infoTopProduct import countProduct, countProductPurchases,productMax
 from helper.infoTopOrder import countOrder,countOrderPurchases,orderMax
+from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.Customer import CustomerState, CustomerCity
 def SortCustomer():
     """Sắp xếp khách hàng theo trường Quantity"""
 
@@ -25,15 +27,22 @@ def SortCustomer():
 
      # Truy vấn collection "users"
     collection = mongo.db.users
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
 
      # Thực hiện truy vấn MongoDB để lấy dữ liệu đã sắp xếp và phân trang
     sorted_quantity = list(collection.find().sort("Quantity", mongo_quantity).skip(skip).limit(limit))
-
-    # Trả về template HTML với dữ liệu đã xử lý
-    return render_template("customer.html",records=sorted_quantity, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
-
+    return render_template("customer.html",
+                           records=sorted_quantity, 
+                           page=page, 
+                           total_pages=total_pages, 
+                           totalUser=countUser(collection), 
+                           totalPurchases=countUserPurchases(collection), 
+                           user=userMax(collection), 
+                           states=states, 
+                           cities=cities)
     
 def SortProduct():
     """Sắp xếp sản phẩm theo trường Quantity hoặc Revenue"""
@@ -71,7 +80,8 @@ def SortOrder():
     # Lấy trường cần sắp xếp từ tham số URL, mặc định là 'Frequency'
     sort_field = request.args.get('field', 'Frequency')
     sort_order = request.args.get('sort') 
-
+    monthYearOrder = MonthYearOrder(mongo.db.orders)
+    monthYearShip = MonthYearShip(mongo.db.orders)
     if sort_order not in ['asc', 'desc']:
         return jsonify({"error": "Invalid sort order. Use 'asc' or 'desc'."}), 400
     
@@ -84,9 +94,13 @@ def SortOrder():
     collection = mongo.db.orders
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-
     Sorted_order = list(collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit))
 
-    return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages,
-                           totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), 
-                           order=orderMax(collection))
+    return render_template("order.html",records=Sorted_order, 
+                           page=page, 
+                           total_pages=total_pages,
+                           totalOrder=countOrder(collection), 
+                           totalPurchases=countOrderPurchases(collection), 
+                           order=orderMax(collection),
+                           MonthYearOrder=monthYearOrder,
+                           MonthYearShip=monthYearShip)

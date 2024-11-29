@@ -117,6 +117,7 @@ const categorySelect = document.getElementById('category');
 if (categorySelect) {
     categorySelect.addEventListener('change', function() {
         const selectedCategory = this.value;
+        console.log(selectedCategory);
         const subcategoryGroups = document.querySelectorAll(".subcategory-group");
         
         // Ẩn tất cả các subcategory groups
@@ -192,5 +193,49 @@ const addProductForm = document.querySelector('.add-product-form');
 if (addProduct) {
     addProduct.addEventListener('click', function () {
         addProductForm.classList.remove('d-none');
+    });
+}
+
+const subcategoryEdit = document.getElementById('SubCategory');
+const categoryEdit = document.getElementById('Category');
+if (categoryEdit && subcategoryEdit) {
+    categoryEdit.addEventListener('change', function () {
+        subcategoryEdit.innerHTML = '';
+        updateSubcategoryOptions(categoryEdit,subcategoryEdit);
+    });
+}
+const addCategory = document.getElementById('addCategory');
+const addSubCategory = document.getElementById('addSubCategory');
+if (addCategory && addSubCategory) {
+    addCategory.addEventListener('change', function () {
+        addSubCategory.innerHTML = '';
+        updateSubcategoryOptions(addCategory,addSubCategory);
+    });
+}
+
+function updateSubcategoryOptions(Category,subCategory) {
+    if (Category) {
+        if (Category.value === "Furniture") {
+        for (let i = 0; i < categoryData.Furniture.length; i++) {
+            subCategory.innerHTML += `<option value="${categoryData.Furniture[i]}">${categoryData.Furniture[i]}</option>`;
+        }
+    }
+    if (Category.value === "OfficeSupplies") {
+        for (let i = 0; i < categoryData.OfficeSupplies.length; i++) {
+            subCategory.innerHTML += `<option value="${categoryData.OfficeSupplies[i]}">${categoryData.OfficeSupplies[i]}</option>`;
+        }
+    }
+    if (Category.value === "Technology") {
+        for (let i = 0; i < categoryData.Technology.length; i++) {
+            subCategory.innerHTML += `<option value="${categoryData.Technology[i]}">${categoryData.Technology[i]}</option>`;
+            }
+        }
+    }
+}
+
+const closeForm = document.querySelector('.btn-close');
+if (closeForm) {
+    closeForm.addEventListener('click', function () {
+        addProductForm.classList.add('d-none');
     });
 }

@@ -10,10 +10,14 @@ from blueprint.delete import delete_bp
 from blueprint.product import product_bp
 from blueprint.order import order_bp
 from flask_pymongo import PyMongo
+from dotenv import load_dotenv
+import os
+load_dotenv()
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb+srv://nguyenhoangthach:Thach18012005@cluster0.hgcnpf3.mongodb.net/Superstore-Sales"
+app.config["MONGO_URI"] = os.getenv("URL_MONGO")
 mongo = PyMongo(app)
 app.config['MONGO'] = mongo
+
 
 app.register_blueprint(product_bp)
 app.register_blueprint(home_bp)

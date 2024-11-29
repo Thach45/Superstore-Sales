@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Khách hàng{% endblock %}
+{% block title %}Customer{% endblock %}
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -55,9 +55,9 @@
                 </select>
                 <select class="cityFilter form-select" >
                     <option value="">All City</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Fort Lauderdale">Fort Lauderdale</option>
-                    <option value="Henderson">Henderson</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
                 </select>
                 <select class="stateFilter form-select" >
                     <option value="">All State</option>
@@ -82,12 +82,12 @@
                     </button>
                 </div>
                 <div class="upload-customer border-radius-12">
-                    <a href="/create/customer" class="btn btn-primary">
+                    <a href="/create" class="btn btn-primary">
                         <i class="fas fa-file-upload"></i> Upload File Csv
                     </a>
                 </div>
                 <div class="download-customer border-radius-12">
-                    <a href="/create/customer" class="btn btn-primary">
+                    <a href="/customer/download" class="btn btn-primary">
                         <i class="fas fa-file-download"></i> Download File Csv
                     </a>
                 </div>
@@ -129,6 +129,7 @@
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary btn-close">Close</button>
                 <button type="submit" class="btn btn-primary btn-add-customer">Add Customer</button>
             </div>
         </form>
@@ -136,7 +137,7 @@
     <table>
         <thead>
             <tr>
-                <th>STT</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>ID Customer</th>
                 <th>Segment</th>

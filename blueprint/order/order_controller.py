@@ -2,13 +2,19 @@ from flask import render_template, request, current_app
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+from flask import send_file
+from collections import OrderedDict
 from helper.infoTopOrder import countOrder, countOrderPurchases, orderMax
-
+from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.downloadFile import downloadFile
 def index():
     mongo = current_app.config['MONGO']
-    collection = mongo.db.orders  # Sử dụng cú pháp dấu chấm để truy cập collection
+    collection = mongo.db.orders
+
     page = int(request.args.get('page', 1))
     limit = 20
+    monthYearOrder = MonthYearOrder(collection)
+    monthYearShip = MonthYearShip(collection)
     skip = (page - 1) * limit 
     orderDate = list(collection.find({},{"OrderDate":1,"Frequency":1,"_id":0}))
     orderDate = pd.DataFrame(orderDate)
@@ -21,14 +27,14 @@ def index():
     plt.figure(figsize=(10, 5))
     for year in order_frequency['Year'].unique():
         yearly_data = order_frequency[order_frequency['Year'] == year]
-        plt.plot(yearly_data['Month'], yearly_data['Frequency'], marker='o', linestyle='-',linewidth=4, label=str(year))
-
+        plt.plot(yearly_data['Month'], yearly_data['Frequency'], marker='o', linestyle='-',linewidth=2, label=str(year))
     plt.xticks(range(1, 13))
     plt.xlabel('Month')
     plt.ylabel('Frequency')
     plt.title('Order Frequency by Year')
     plt.legend(title='Year')
     plt.tight_layout()
+    plt.grid(linestyle='--',alpha = 0.7)
     plt.savefig(os.path.join(current_app.root_path, 'static', 'images', 'order_frequency.png')) 
     plt.close()
 
@@ -41,5 +47,18 @@ def index():
         item['_id'] = str(item['_id'])
 
 
-    return render_template('order.html', records=data, page=page, total_pages=total_pages, totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), order=orderMax(collection))
+    return render_template('order.html',
+                            records=data, 
+                            page=page, 
+                            total_pages=total_pages, 
+                            totalOrder=countOrder(collection), 
+                            totalPurchases=countOrderPurchases(collection), 
+                            order=orderMax(collection),
+                            MonthYearOrder=monthYearOrder,
+                            MonthYearShip=monthYearShip)
 
+def download():
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.orders
+    output_path = downloadFile(collection, "order")
+    return send_file(output_path, as_attachment=True)

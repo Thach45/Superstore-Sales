@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Đơn Hàng{% endblock %}
+{% block title %}Order{% endblock %}
 
 {% block content %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -43,19 +43,15 @@
             <div class="filter">
                 <select class="orderFilter form-select">
                     <option value="">All Order Date</option>
-                    {% for year in range(2016, 2019) %}
-                        {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
-                        {% endfor %}
+                    {% for monthYear in MonthYearOrder %}
+                        <option value="{{monthYear}}">{{monthYear}}</option>
                     {% endfor %}
                 </select>
                 
                 <select class="shipFilter form-select">
                     <option value="">All Ship Date</option>
-                    {% for year in range(2016, 2019) %}
-                        {% for month in range(1, 13) %}
-                            <option value="{{month}}/{{year}}">Month {{month}}/{{year}}</option>
-                        {% endfor %}
+                    {% for monthYear in MonthYearShip %}
+                        <option value="{{monthYear}}">{{monthYear}}</option>
                     {% endfor %}
                 </select>
                 
@@ -69,12 +65,12 @@
                     </btn>
                 </div>
                 <div class="upload-order border-radius-12">
-                    <a href="/create/order" class="btn btn-primary">
+                    <a href="/create" class="btn btn-primary">
                         <i class="fas fa-file-upload"></i> Upload File Csv
                     </a>
                 </div>
                 <div class="download-order border-radius-12">
-                    <a href="/create/order" class="btn btn-primary">
+                    <a href="/order/download" class="btn btn-primary">
                         <i class="fas fa-file-download"></i> Download File Csv
                     </a>
                 </div>
@@ -110,6 +106,7 @@
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary btn-close">Close</button>
                 <button type="submit" class="btn btn-primary btn-add-order">Add Order</button>
             </div>
         </form>
@@ -117,7 +114,7 @@
     <table>
         <thead>
             <tr>
-                <th>STT</th>
+                <th>#</th>
                 <th>Order ID</th>
                 <th>Order Date</th>
                 <th>Ship Date</th>
