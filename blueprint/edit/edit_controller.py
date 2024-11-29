@@ -81,6 +81,8 @@ def edit_Product(ids):
         "Revenue": float(request.form.get("Revenue")),
         "Quantity": int(request.form.get("Quantity"))
     }
+    if data['Category'] == "OfficeSupplies":
+        data['Category'] = "Office Supplies"
     # Cập nhật collection trên MongoDB dựa trên _id
     collection.update_one(
         {'_id': ObjectId(ids)},

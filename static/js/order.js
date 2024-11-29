@@ -126,3 +126,9 @@ if (addOrder) {
     });
 }
 
+const closeForm = document.querySelector('.btn-close');
+if (closeForm) {
+    closeForm.addEventListener('click', function () {
+        addOrderForm.classList.add('d-none');
+    });
+}

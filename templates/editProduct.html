@@ -11,13 +11,40 @@
         </div>
 
         <div class="form-group">
-            <b><label for="Category">Category:</label></b>
-            <input type="text" id="Category" name="Category" placeholder="Enter Category" value="{{product.Category}}">
+           <select id="Category" name="Category">
+            <option value="Furniture" {% if product.Category == "Furniture" %}selected{% endif %}>Furniture</option>
+            <option value="OfficeSupplies" {% if product.Category == "OfficeSupplies" %}selected{% endif %}>Office Supplies</option>
+            <option value="Technology" {% if product.Category == "Technology" %}selected{% endif %}>Technology</option>
+           </select>
         </div>
 
         <div class="form-group">
-            <b><label for="SubCategory">Sub-Category:</label></b>
-            <input type="text" id="SubCategory" name="SubCategory" placeholder="Enter Sub-Category"  value="{{product.SubCategory}}">
+           <select id="SubCategory" name="SubCategory">
+            <option value="{{product.SubCategory}}">{{product.SubCategory}}</option>
+            {% if product.Category == "Office Supplies" %}
+            <option value="Appliances">Appliances</option>
+            <option value="Art">Art</option>
+            <option value="Binders">Binders</option>
+            <option value="Envelopes">Envelopes</option>
+            <option value="Fasteners">Fasteners</option>
+            <option value="Labels">Labels</option>
+            <option value="Paper">Paper</option>
+            <option value="Supplies">Supplies</option>
+            <option value="Storage">Storage</option>
+            {% endif %}
+            {% if product.Category == "Technology" %}
+            <option value="Accessories">Accessories</option>
+            <option value="Copiers">Copiers</option>
+            <option value="Machines">Machines</option>
+            <option value="Phones">Phones</option>
+            {% endif %}
+            {% if product.Category == "Furniture" %}
+            <option value="Bookcases">Bookcases</option>
+            <option value="Chairs">Chairs</option>
+            <option value="Furnishings">Furnishings</option>
+            <option value="Tables">Tables</option>
+            {% endif %}
+           </select>
         </div>
         <div class="form-group">
             <b><label for="Revenue">Revenue:</label></b>
@@ -31,4 +58,5 @@
         <button type="submit" class="submit-btn">Save Changes</button>
     </form>
 </div>
+<script src="{{url_for('static', filename='js/product.js')}}"></script>
 {% endblock %}

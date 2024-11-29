@@ -2,7 +2,10 @@ from flask import render_template, request, current_app
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+from flask import send_file
 from helper.infoTopProduct import countProduct,countProductPurchases,productMax
+from helper.downloadFile import downloadFile
+
 
 def index():
     mongo = current_app.config['MONGO']
@@ -60,4 +63,8 @@ def index():
                             product=productMax(collection)
                             )
     
-    
+def download():
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.products
+    output_path = downloadFile(collection, "product")
+    return send_file(output_path, as_attachment=True)

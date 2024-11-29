@@ -1,9 +1,10 @@
-from flask import render_template, request, current_app
+from flask import render_template, request, current_app, send_file
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
 from helper.infoTopCustomer import countUser, countUserPurchases, userMax
 from helper.Customer import CustomerState, CustomerCity
+from helper.downloadFile import downloadFile
 def index():
     mongo = current_app.config['MONGO']
     collection = mongo.db.users  
@@ -65,6 +66,7 @@ def index():
         plt.savefig(image_path)
         plt.close()
     cities = CustomerCity(collection)
+    states = CustomerState(collection)
     return render_template('customer.html',
                         records=data,
                         page=page, 
@@ -75,4 +77,10 @@ def index():
                         states=set(states),
                         cities=set(cities)
                         )
-
+def download():
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.users
+    output_path = downloadFile(collection, "customer")
+    return send_file(output_path, as_attachment=True)
+    
+    

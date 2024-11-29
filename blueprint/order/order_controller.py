@@ -2,9 +2,11 @@ from flask import render_template, request, current_app
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+from flask import send_file
 from collections import OrderedDict
 from helper.infoTopOrder import countOrder, countOrderPurchases, orderMax
 from helper.DateOrder import MonthYearOrder, MonthYearShip
+from helper.downloadFile import downloadFile
 def index():
     mongo = current_app.config['MONGO']
     collection = mongo.db.orders
@@ -55,3 +57,8 @@ def index():
                             MonthYearOrder=monthYearOrder,
                             MonthYearShip=monthYearShip)
 
+def download():
+    mongo = current_app.config['MONGO']
+    collection = mongo.db.orders
+    output_path = downloadFile(collection, "order")
+    return send_file(output_path, as_attachment=True)

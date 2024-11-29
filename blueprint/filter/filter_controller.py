@@ -22,7 +22,8 @@ def home_Customer():
     # Kếi nối với cơ sở dữ liệu MongoDB và lấy ra collection 'users'
     mongo = current_app.config['MONGO']
     collection = mongo.db.users  
-    
+    states = CustomerState(collection)
+    cities = CustomerCity(collection)
     page = int(request.args.get('page', 1))
     limit = 20
     skip = (page - 1) * limit 
@@ -55,7 +56,15 @@ def home_Customer():
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
     data = list(collection.find(query).skip(skip).limit(limit))  
     
-    return render_template("customer.html", records=data, page=page, total_pages=total_pages, totalUser=countUser(collection), totalPurchases=countUserPurchases(collection), user=userMax(collection))
+    return render_template("customer.html",
+                        records=data,
+                        page=page,
+                        total_pages=total_pages, 
+                        totalUser=countUser(collection), 
+                        totalPurchases=countUserPurchases(collection), 
+                        user=userMax(collection),
+                        states=states,
+                        cities=cities)
 
 def filter_orders():
     
@@ -118,7 +127,9 @@ def filter_orders():
     return render_template("order.html", records=data, page=page, total_pages=total_pages, 
                             totalOrder=countOrder(collection), 
                             totalPurchases=countOrderPurchases(collection), 
-                            order=orderMax(collection))
+                            order=orderMax(collection),
+                            MonthYearOrder=monthYearOrder,
+                            MonthYearShip=monthYearShip)
                            
 
 

@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="download-product border-radius-12">
-                    <a href="{{url_for('static', filename='images/pie.png')}}" class="btn btn-primary">
+                    <a href="/product/download" class="btn btn-primary">
                         <i class="fas fa-file-download"></i> Download File Csv
                     </a>
                 </div>
@@ -119,15 +119,23 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" name="ProductName" placeholder="Product Name"></td>
-                        <td><input type="text" name="Category" placeholder="Category"></td>
-                        <td><input type="text" name="SubCategory" placeholder="Sub-Category"></td>
-                        <td><input type="text" name="Revenue" placeholder="Revenue"></td>
-                        <td><input type="number" name="Quantity" placeholder="Quantity"></td>                   
+                        <td><input type="text" id="addProductName" name="ProductName" placeholder="Product Name"></td>
+                        <td>
+                            <select id="addCategory" name="Category">
+                                <option value="Furniture">Furniture</option>
+                                <option value="OfficeSupplies">Office Supplies</option>
+                                <option value="Technology">Technology</option>
+                            </select>
+                        </td>
+
+                        <td><select id="addSubCategory" name="SubCategory"></select></td>
+                        <td><input type="text" id="addRevenue" name="Revenue" placeholder="Revenue"></td>
+                        <td><input type="number" id="addQuantity" name="Quantity" placeholder="Quantity"></td>                   
                     </tr>
                 </tbody>
             </table>
             <div class="button-container d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary btn-close">Close</button>
                 <button type="submit" class="btn btn-primary btn-add-product">Add Product</button>
             </div>
         </form>

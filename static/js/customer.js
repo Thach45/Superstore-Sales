@@ -136,3 +136,10 @@ if (addCustomer) {
         addCustomerForm.classList.remove('d-none');
     });
 }
+
+const closeForm = document.querySelector('.btn-close');
+if (closeForm) {
+    closeForm.addEventListener('click', function () {
+        addCustomerForm.classList.add('d-none');
+    });
+}

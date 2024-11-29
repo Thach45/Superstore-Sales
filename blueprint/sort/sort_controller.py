@@ -94,11 +94,13 @@ def SortOrder():
     collection = mongo.db.orders
     total_records = collection.count_documents({})
     total_pages = (total_records // limit) + (1 if total_records % limit > 0 else 0)
-
     Sorted_order = list(collection.find().sort(sort_field, mongo_order).skip(skip).limit(limit))
 
-    return render_template("order.html",records=Sorted_order, page=page, total_pages=total_pages,
-                           totalOrder=countOrder(collection), totalPurchases=countOrderPurchases(collection), 
+    return render_template("order.html",records=Sorted_order, 
+                           page=page, 
+                           total_pages=total_pages,
+                           totalOrder=countOrder(collection), 
+                           totalPurchases=countOrderPurchases(collection), 
                            order=orderMax(collection),
                            MonthYearOrder=monthYearOrder,
                            MonthYearShip=monthYearShip)
