@@ -32,8 +32,8 @@ if __name__ == '__main__':
         'TotalCost' : [orders[order_id].cost for order_id in orders.keys()],
         'Frequency' : [orders[order_id].frequency for order_id in orders.keys()],
     }
-    
     df_dataCustomer = pd.DataFrame(dataCustomer)
     df_dataCustomer.set_index('RowID',inplace=True)
     output_file = os.path.join(base_dir,'dataOrder.csv')
     df_dataCustomer.to_csv(output_file)
+
