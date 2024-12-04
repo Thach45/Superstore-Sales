@@ -1,4 +1,4 @@
-from flask import render_template, request, current_app, url_for, redirect
+from flask import render_template, request, current_app, url_for, redirect, flash
 import pandas as pd
 from bson.objectid import ObjectId
 from helper.Customer import CustomerState, CustomerCity
@@ -46,6 +46,8 @@ def edit_Customer(ids):
         {'$set': data}  
     )
 
+    flash('Khách hàng đã được cập nhật thành công!', 'success')
+
     return redirect(url_for('customer.home_route'))
 
 def index_Product(id):
@@ -88,6 +90,8 @@ def edit_Product(ids):
         {'_id': ObjectId(ids)},
         {'$set': data}  
     )
+
+    flash('Sản phẩm đã được cập nhật thành công!', 'success')
 
     return redirect(url_for('product.home_route'))
 
@@ -132,5 +136,6 @@ def edit_Order(ids):
     {'_id': ObjectId(ids)},
     {'$set': data}  
     )
+    flash('Đơn hàng đã được cập nhật thành công!', 'success')
 
     return redirect(url_for('order.home_route'))

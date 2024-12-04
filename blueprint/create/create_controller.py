@@ -1,4 +1,4 @@
-from flask import render_template, request, current_app, url_for, redirect
+from flask import render_template, request, current_app, url_for, redirect, flash
 from flask import jsonify
 import pandas  as pd
 from datetime import datetime
@@ -50,6 +50,8 @@ def add_product():
             {'$set': data},  # Cập nhật với dữ liệu mới
             upsert=True  # Chèn nếu không tồn tại
         )
+        flash('Sản phẩm đã được thêm thành công!', 'success')
+
         return redirect(url_for('product.home_route'))
     except :
         return render_template('404.html')
@@ -63,6 +65,7 @@ def add_customer():
         if data == "CustomerID already exists":
             return render_template('404.html', message="CustomerID already exists")
         mongo.db.users.insert_one(data)
+        flash('Khách hàng đã được thêm thành công!', 'success')
         return redirect(url_for('customer.home_route'))
     except :
         return render_template('404.html')
@@ -79,6 +82,7 @@ def add_order():
             return render_template('404.html', message="CustomerID already exists")
         mongo = current_app.config['MONGO']
         mongo.db.orders.insert_one(data)
+        flash('Đơn hàng đã được thêm thành công!', 'success')
         return redirect(url_for('order.home_route'))
     except Exception as e:
         print(f"Error: {str(e)}")  # Thêm log để debug

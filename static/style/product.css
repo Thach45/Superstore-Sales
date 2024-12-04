@@ -372,3 +372,20 @@ td:last-child, th:last-child {
     padding: 8px 20px;
     font-size: 14px;
 }
+
+.time-alert {
+    animation: fadeIn 7s ease forwards;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

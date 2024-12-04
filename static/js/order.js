@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (nextPage) {
         nextPage.addEventListener('click', function (e) {
             e.preventDefault();
-            if (currentPage < totalPages) {
+            if (currentPage) {
                 urlParams.set('page', currentPage + 1);
                 window.location.search = urlParams.toString();
             }
